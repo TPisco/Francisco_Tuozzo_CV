@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink antialiased;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  ::selection {
+    @apply bg-clay/20;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+  }
+
+  a {
+    text-underline-offset: 4px;
+  }
+
+  :focus-visible {
+    outline: 2px solid #c2603f;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-6xl px-6 sm:px-8 lg:px-12;
+  }
+
+  /* Calm, generous section rhythm. */
+  .section {
+    @apply scroll-mt-24 py-24 sm:py-32;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-clay;
+  }
+
+  /* Premium pill buttons. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-cream hover:bg-clay;
+  }
+  .btn-ghost {
+    @apply btn border border-ink/15 text-ink hover:border-ink/40 hover:bg-ink/[0.03];
+  }
+
+  .link-underline {
+    @apply font-medium text-ink underline decoration-ink/25 decoration-1 underline-offset-4 transition-colors hover:text-clay hover:decoration-clay;
+  }
+
+  .card-soft {
+    @apply rounded-4xl bg-shell shadow-soft;
+  }
+
+  /* Underline field for the dark contact panel. */
+  .field-dark {
+    @apply w-full border-0 border-b border-cream/20 bg-transparent px-0 py-2.5 text-base text-cream outline-none transition-colors placeholder:text-cream/35 focus:border-clay-soft;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

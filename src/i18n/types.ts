@@ -52,11 +52,35 @@ export interface Dictionary {
     lead: string;
     featured: string;
     whyTitle: string;
-    viewCode: string;
+    viewDetails: string;
     moreTitle: string;
+    detail: {
+      back: string;
+      overview: string;
+      description: string;
+      technologies: string;
+      features: string;
+      role: string;
+      screenshots: string;
+      screenshotPlaceholder: string;
+      video: string;
+      videoPlaceholder: string;
+      viewCode: string;
+    };
     items: Record<
       ProjectId,
-      { tagline: string; what: string; why: string; built: string[] }
+      {
+        tagline: string;
+        what: string;
+        why: string;
+        built: string[];
+        detail: {
+          overview: string;
+          description: string;
+          features: string[];
+          role: string[];
+        };
+      }
     >;
   };
 

@@ -89,8 +89,21 @@ export const es: Dictionary = {
     lead: "Algunos de los que estoy orgulloso — qué hace cada uno y qué aprendí al construirlo.",
     featured: "Proyecto destacado",
     whyTitle: "Por qué importa",
-    viewCode: "Ver el código",
+    viewDetails: "Ver detalles",
     moreTitle: "Algunos más, en breve",
+    detail: {
+      back: "Volver a proyectos",
+      overview: "Resumen",
+      description: "Sobre el proyecto",
+      technologies: "Tecnologías",
+      features: "Funciones clave",
+      role: "Lo que construí",
+      screenshots: "Capturas",
+      screenshotPlaceholder: "Captura próximamente",
+      video: "Recorrido del proyecto",
+      videoPlaceholder: "Video próximamente",
+      viewCode: "Ver el código en GitHub",
+    },
     items: {
       scentory: {
         tagline: "Panel de escritorio sin conexión para pequeños negocios",
@@ -102,6 +115,27 @@ export const es: Dictionary = {
           "Añadí campos personalizados, gastos recurrentes, créditos y un sistema de archivo",
           "Lo empaqueté como app nativa ligera con Tauri en vez de un pesado build de Electron",
         ],
+        detail: {
+          overview:
+            "Un panel nativo de Windows que da a los pequeños negocios un lugar fiable para seguir ventas, gastos, inventario y clientes — totalmente sin conexión.",
+          description:
+            "Insight Dashboard nació de una observación simple: muchos pequeños comercios gestionan su administración con hojas de cálculo, notas en papel y herramientas que no se comunican entre sí. Construí una app de escritorio que centraliza todo en una base SQLite en la máquina del dueño, para que el negocio siga funcionando aunque no haya Internet.\n\nLa aplicación cubre todo el ciclo operativo — registrar ventas y compras, seguir gastos (incluidos los recurrentes), gestionar clientes y proveedores, manejar créditos y controlar inventario. Un panel resume los números importantes del día a día. Los campos personalizados adaptan la herramienta a cómo trabaja cada negocio, y un sistema de archivo conserva el historial en lugar de perderlo.",
+          features: [
+            "Hub administrativo unificado para ventas, compras, gastos e inventario",
+            "Almacenamiento SQLite sin conexión con capa de datos local",
+            "Analíticas del panel para ventas, compras y tendencias de gasto",
+            "Campos personalizados adaptados al flujo de cada negocio",
+            "Gastos recurrentes, créditos y gestión de clientes/proveedores",
+            "Sistema de archivo para conservar registros históricos",
+            "Empaquetado nativo ligero con Tauri",
+          ],
+          role: [
+            "Diseñé el esquema de base de datos y la capa de persistencia sin conexión",
+            "Construí la interfaz React + TypeScript y las vistas del panel",
+            "Implementé los módulos de negocio de principio a fin (ventas, inventario, créditos, etc.)",
+            "Estructuré y empaqueté la app como un producto de escritorio Tauri mantenible",
+          ],
+        },
       },
       vert: {
         tagline: "Sitio de organización comunitaria con un panel de administración real",
@@ -113,6 +147,27 @@ export const es: Dictionary = {
           "Implementé eventos, donaciones y una vista de estadísticas",
           "Lo estructuré pensando en contenido bilingüe desde el inicio",
         ],
+        detail: {
+          overview:
+            "Un sitio comunitario full-stack con páginas públicas para visitantes y un área de administración segura para gestionar eventos, donaciones, miembros y estadísticas.",
+          description:
+            "Vert l'avenir es una aplicación web real construida para una organización comunitaria que necesitaba más que un sitio informativo. Los visitantes consultan contenido público, mientras el equipo usa una sección de administración dedicada para mantener la información al día sin tocar código.\n\nEl proyecto sigue una arquitectura ASP.NET Core MVC clásica: vistas Razor renderizadas en el servidor, Entity Framework Core para acceso a datos en SQL Server, y una separación clara entre el sitio público y los flujos de administración autenticados. Cuidé la estructura desde el inicio — enrutamiento, modelos, controladores y vistas organizados para que nuevas funciones (eventos, donaciones, gestión de miembros) se añadan sin reescribir la base. El contenido bilingüe formó parte del diseño desde el principio.",
+          features: [
+            "Páginas públicas para visitantes y visibilidad de la organización",
+            "Panel de administración autenticado para personal no técnico",
+            "Gestión de eventos y seguimiento de donaciones",
+            "Gestión de miembros con acceso por roles",
+            "Panel de estadísticas para la organización",
+            "Arquitectura MVC renderizada en servidor con EF Core y SQL Server",
+            "Estructura de contenido bilingüe",
+          ],
+          role: [
+            "Modelé la base de datos y la capa de datos EF Core",
+            "Construí las vistas Razor públicas y los flujos de administración",
+            "Implementé autenticación, gestión de usuarios y autorización",
+            "Desarrollé los módulos de eventos, donaciones y estadísticas",
+          ],
+        },
       },
       knightrpg: {
         tagline: "RPG de acción 3D con mundos procedurales",
@@ -123,6 +178,25 @@ export const es: Dictionary = {
           "Sistemas de combate, progresión e inventario",
           "Peleas contra jefes y lógica de juego en GDScript",
         ],
+        detail: {
+          overview:
+            "Un RPG de acción 3D en Godot donde combate, progresión y generación procedural de mundo funcionan juntos en una experiencia jugable.",
+          description:
+            "KnightRPG: Fractured Worlds es mi proyecto de juego más ambicioso — un RPG de acción 3D donde el mundo mismo es parte del desafío. En lugar de un mapa fijo, el juego genera terreno y contenido de forma procedural para que la exploración siga siendo fresca y el descubrimiento no se agote tras la primera hora.\n\nBajo el capó, varios sistemas de juego deben cooperar: combate en tiempo real, progresión del personaje, gestión de inventario, encuentros con jefes y el pipeline de generación que alimenta nuevas zonas. Los videojuegos son donde pruebo mi capacidad de diseñar sistemas que sigan siendo legibles al crecer — cada función se conecta con las demás sin convertir el código en un enredo.",
+          features: [
+            "Generación procedural de mundo para exploración continua",
+            "Combate 3D en tiempo real con encuentros de enemigos",
+            "Sistemas de progresión e inventario",
+            "Peleas contra jefes con lógica de encuentro dedicada",
+            "Sistemas de juego orquestados en GDScript sobre Godot",
+          ],
+          role: [
+            "Diseñé e implementé la generación procedural de mundo",
+            "Construí los sistemas de combate, progresión e inventario",
+            "Programé encuentros con jefes y la lógica central en GDScript",
+            "Integré los sistemas de juego en un proyecto Godot coherente",
+          ],
+        },
       },
       cardgame: {
         tagline: "Juego de cartas en tiempo real sobre una conexión full-duplex",
@@ -133,6 +207,25 @@ export const es: Dictionary = {
           "Front-end Angular conectado a un back-end C# / MVC",
           "Estado de juego sincronizado en tiempo real",
         ],
+        detail: {
+          overview:
+            "Un juego de cartas en línea para dos jugadores donde un cliente Angular y un back-end C# se mantienen sincronizados mediante comunicación en tiempo real orientada a eventos.",
+          description:
+            "Este proyecto explora lo que hace falta para mantener a dos jugadores sincronizados durante una partida de cartas en vivo. Las jugadas pueden llegar de cualquier lado en cualquier momento, así que la arquitectura debe manejar actualizaciones concurrentes sin corromper el estado compartido del juego.\n\nEl front-end es una aplicación Angular que reacciona a los eventos del servidor al llegar. El back-end es un servicio C# MVC que posee el estado de juego autoritativo y difunde los cambios a los clientes conectados. El reto de ingeniería no fue solo conectar una línea — fue diseñar el flujo de mensajes para que ambos jugadores vean siempre un tablero coherente, incluso cuando los eventos compiten.",
+          features: [
+            "Juego de cartas en tiempo real para dos jugadores",
+            "Comunicación cliente–servidor full-duplex y orientada a eventos",
+            "Estado de juego autoritativo en el back-end C# MVC",
+            "Interfaz Angular que reacciona a actualizaciones en vivo",
+            "Estado del tablero sincronizado entre ambos clientes",
+          ],
+          role: [
+            "Construí el front-end Angular y la interfaz de juego",
+            "Implementé el back-end C# MVC y la lógica de estado de juego",
+            "Diseñé el flujo de mensajería en tiempo real entre clientes",
+            "Aseguré un estado compartido coherente bajo actualizaciones concurrentes",
+          ],
+        },
       },
       qprojects: {
         tagline: "Experimentos prácticos de computación cuántica",
@@ -142,6 +235,23 @@ export const es: Dictionary = {
           "Conceptos cuánticos implementados y simulados en Python",
           "Experimentos numéricos con NumPy",
         ],
+        detail: {
+          overview:
+            "Un espacio personal en Python para aprender computación cuántica implementando y simulando conceptos de forma práctica.",
+          description:
+            "qprojects-hub es mi espacio para ir más allá de los cursos hacia temas que me interesan profundamente. La computación cuántica es abstracta en papel, así que construí pequeños experimentos en Python para hacer las ideas concretas — implementar circuitos, ejecutar simulaciones y explorar resultados con NumPy en lugar de solo leer la teoría.\n\nCada experimento es un módulo autocontenido que puedo revisitar y ampliar. El objetivo no es una biblioteca de producción, sino un aprendizaje disciplinado: elegir un concepto difícil, implementarlo, observar el resultado y afinar mi comprensión mediante código.",
+          features: [
+            "Implementaciones prácticas de conceptos cuánticos en Python",
+            "Simulaciones numéricas con NumPy",
+            "Experimentos modulares para aprendizaje iterativo",
+            "Exploración autodirigida más allá del plan de estudios formal",
+          ],
+          role: [
+            "Investigué e implementé conceptos de computación cuántica en Python",
+            "Construí simulaciones numéricas y experimentos con NumPy",
+            "Organicé los experimentos en un hub personal mantenible",
+          ],
+        },
       },
     },
   },
@@ -158,6 +268,14 @@ export const es: Dictionary = {
         description:
           "Ayudé a otros estudiantes a destrabarse en programación y en conceptos de software, encontrando la explicación que por fin hacía encajar la idea para cada persona.",
         takeaways: ["Explicar ideas técnicas", "Paciencia", "Depurar el código de otros"],
+      },
+      tennis: {
+        role: "Capitán / recogepelotas",
+        org: "Campeonato de tenis Omnium Banque Nationale",
+        period: "direction",
+        description:
+          "Dirigí un equipo de recogepelotas en un torneo de tenis profesional — coordinando rotaciones en cancha, horarios y descansos para mantener la cobertura equilibrada en un entorno de ritmo intenso.",
+        takeaways: ["Liderazgo de equipo", "Coordinación", "Operaciones dinámicas"],
       },
       clerk: {
         role: "Empleado de oficina",

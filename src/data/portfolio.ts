@@ -91,17 +91,19 @@ export type ProjectMeta = {
   tech: string[];
   github?: string;
   demo?: string;
+  /** Optional YouTube watch or embed URL — shown on the project detail page when set. */
+  videoUrl?: string;
 };
 
 export const projectMeta: ProjectMeta[] = [
   {
     id: "scentory",
-    name: "Scentory Desk",
+    name: "Insight Dashboard",
     icon: faChartColumn,
     featured: true,
     tint: "#efe3d4",
     tech: ["Tauri", "React", "TypeScript", "SQLite"],
-    github: "https://github.com/TPisco/scentory-desk",
+    videoUrl: "https://youtu.be/TRFo4u2JtcM?si=R_PUnw9no61y9mDk",
   },
   {
     id: "vert",
@@ -110,7 +112,7 @@ export const projectMeta: ProjectMeta[] = [
     featured: true,
     tint: "#e6e8dc",
     tech: ["C#", "ASP.NET Core MVC", "EF Core", "Razor", "SQL Server", "Bootstrap"],
-    github: "https://github.com/TPisco/vert-lavenir",
+    github: "https://github.com/TPisco/Communication_Site_OrganismeCommunautaireVertLavenir",
   },
   {
     id: "knightrpg",
@@ -119,7 +121,6 @@ export const projectMeta: ProjectMeta[] = [
     featured: false,
     tint: "#f0e2d2",
     tech: ["Godot", "GDScript"],
-    github: "https://github.com/TPisco/knightrpg",
   },
   {
     id: "cardgame",
@@ -128,7 +129,6 @@ export const projectMeta: ProjectMeta[] = [
     featured: false,
     tint: "#ece4d6",
     tech: ["Angular", "TypeScript", "C#", "MVC"],
-    github: "https://github.com/TPisco/card-game",
   },
   {
     id: "qprojects",
@@ -137,14 +137,15 @@ export const projectMeta: ProjectMeta[] = [
     featured: false,
     tint: "#e8e6dd",
     tech: ["Python", "NumPy"],
-    github: "https://github.com/TPisco/qprojects-hub",
+    github: "https://github.com/TPisco/QProjects-Hub",
   },
 ];
 
-export type ExperienceId = "tutor" | "clerk" | "packer" | "sales";
+export type ExperienceId = "tutor" | "tennis" | "clerk" | "packer" | "sales";
 
 export const experienceOrder: ExperienceId[] = [
   "tutor",
+  "tennis",
   "clerk",
   "packer",
   "sales",

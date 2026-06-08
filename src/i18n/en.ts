@@ -89,8 +89,21 @@ export const en: Dictionary = {
     lead: "A few I'm proud of — what each one does, and what I learned building it.",
     featured: "Featured project",
     whyTitle: "Why it matters",
-    viewCode: "View code",
+    viewDetails: "View details",
     moreTitle: "A few more, in brief",
+    detail: {
+      back: "Back to projects",
+      overview: "Overview",
+      description: "About the project",
+      technologies: "Technologies",
+      features: "Key features",
+      role: "What I built",
+      screenshots: "Screenshots",
+      screenshotPlaceholder: "Screenshot coming soon",
+      video: "Project walkthrough",
+      videoPlaceholder: "Video coming soon",
+      viewCode: "View code on GitHub",
+    },
     items: {
       scentory: {
         tagline: "Offline-first desktop dashboard for small businesses",
@@ -102,6 +115,27 @@ export const en: Dictionary = {
           "Added custom fields, recurring expenses, credits and an archive system",
           "Packaged it as a lightweight native app with Tauri instead of a heavy Electron build",
         ],
+        detail: {
+          overview:
+            "A native Windows dashboard that gives small business owners one reliable place to track sales, spending, inventory, and clients — entirely offline.",
+          description:
+            "Insight Dashboard started from a simple observation: many small shops run their back office across spreadsheets, paper notes, and tools that do not talk to each other. I built a desktop app that keeps everything in one SQLite database on the owner's machine, so the business keeps working even without internet.\n\nThe app covers the full operational loop — recording sales and purchases, tracking expenses (including recurring ones), managing clients and suppliers, handling credits, and monitoring inventory. A summary dashboard surfaces the numbers that matter day to day. Custom fields let each business adapt the tool to how they actually work, and an archive system makes sure historical records stay accessible instead of disappearing when something is retired.",
+          features: [
+            "Unified back-office hub for sales, purchases, expenses, and inventory",
+            "Offline-first SQLite storage with a local data layer",
+            "Dashboard analytics for sales, purchases, and spending trends",
+            "Custom fields tailored to each business workflow",
+            "Recurring expenses, credits, and supplier/client management",
+            "Archive system to preserve historical records",
+            "Lightweight native packaging with Tauri",
+          ],
+          role: [
+            "Designed the database schema and offline persistence layer",
+            "Built the React + TypeScript UI and dashboard views",
+            "Implemented business modules end to end (sales, inventory, credits, etc.)",
+            "Packaged and structured the app as a maintainable Tauri desktop product",
+          ],
+        },
       },
       vert: {
         tagline: "Community organization website with a real admin panel",
@@ -113,6 +147,27 @@ export const en: Dictionary = {
           "Implemented events, donations, and a statistics view",
           "Structured it with bilingual content in mind from the start",
         ],
+        detail: {
+          overview:
+            "A full-stack community website with public pages for visitors and a secure admin area to manage events, donations, members, and statistics.",
+          description:
+            "Vert l'avenir is a real-world web application built for a community organization that needed more than a brochure site. Visitors can browse public content, while staff use a dedicated admin section to keep the organization's information current without touching code.\n\nThe project follows a classic ASP.NET Core MVC architecture: Razor views for server-rendered pages, Entity Framework Core for data access against SQL Server, and a clear split between the public site and authenticated admin workflows. I paid attention to structure early — routing, models, controllers, and views organized so new features (events, donations, member management) could be added without rewriting the foundation. Bilingual content support was part of the design from the start.",
+          features: [
+            "Public-facing pages for visitors and community outreach",
+            "Authenticated admin panel for non-technical staff",
+            "Event management and donation tracking",
+            "Member management with role-based access",
+            "Statistics dashboard for organizational insights",
+            "Server-rendered MVC architecture with EF Core and SQL Server",
+            "Bilingual content structure",
+          ],
+          role: [
+            "Modeled the database and EF Core data layer",
+            "Built public Razor views and admin workflows",
+            "Implemented authentication, user management, and authorization",
+            "Developed events, donations, and statistics modules",
+          ],
+        },
       },
       knightrpg: {
         tagline: "3D action RPG with procedural worlds",
@@ -123,6 +178,25 @@ export const en: Dictionary = {
           "Combat, progression, and inventory systems",
           "Boss encounters and game logic in GDScript",
         ],
+        detail: {
+          overview:
+            "A 3D action RPG built in Godot where combat, progression, and procedural world generation work together in one playable experience.",
+          description:
+            "KnightRPG: Fractured Worlds is my most ambitious game project — a 3D action RPG where the world itself is part of the challenge. Instead of a fixed map, the game generates terrain and content procedurally so exploration stays fresh and the sense of discovery does not run out after the first hour.\n\nUnder the hood, multiple gameplay systems have to cooperate: real-time combat, character progression, inventory management, boss encounters, and the generation pipeline that feeds new areas into the world. Games are where I test my ability to design systems that stay readable as they grow — each feature connects to the others without turning the codebase into spaghetti.",
+          features: [
+            "Procedural world generation for ongoing exploration",
+            "Real-time 3D combat with enemy encounters",
+            "Character progression and inventory systems",
+            "Boss battles with dedicated encounter logic",
+            "Game systems orchestrated in GDScript on Godot",
+          ],
+          role: [
+            "Designed and implemented procedural world generation",
+            "Built combat, progression, and inventory systems",
+            "Scripted boss encounters and core game logic in GDScript",
+            "Integrated gameplay systems into a cohesive Godot project",
+          ],
+        },
       },
       cardgame: {
         tagline: "Real-time card game over a full-duplex connection",
@@ -133,6 +207,25 @@ export const en: Dictionary = {
           "Angular front-end talking to a C# / MVC backend",
           "Game state kept in sync in real time",
         ],
+        detail: {
+          overview:
+            "A two-player online card game where an Angular client and C# backend stay in sync through real-time, event-driven communication.",
+          description:
+            "This project explores what it takes to keep two players in sync during a live card game. Moves can come from either side at any moment, so the architecture has to handle concurrent updates without corrupting shared game state.\n\nThe front end is an Angular application that reacts to server events as they arrive. The back end is a C# MVC service that owns the authoritative game state and broadcasts changes to connected clients. The interesting engineering challenge was not just wiring up a connection — it was designing message flow so both players always see a consistent board, even when events race.",
+          features: [
+            "Two-player real-time card gameplay",
+            "Event-driven, full-duplex client–server communication",
+            "Authoritative game state on the C# MVC backend",
+            "Responsive Angular UI that reacts to live updates",
+            "Synchronized board state across both clients",
+          ],
+          role: [
+            "Built the Angular front-end and game UI",
+            "Implemented the C# MVC backend and game state logic",
+            "Designed the real-time messaging flow between clients",
+            "Ensured consistent shared state under concurrent updates",
+          ],
+        },
       },
       qprojects: {
         tagline: "Hands-on quantum computing experiments",
@@ -142,6 +235,23 @@ export const en: Dictionary = {
           "Quantum concepts implemented and simulated in Python",
           "Numerical experiments with NumPy",
         ],
+        detail: {
+          overview:
+            "A personal Python sandbox for learning quantum computing by implementing and simulating concepts hands-on.",
+          description:
+            "qprojects-hub is my space for going beyond coursework into topics that interest me deeply. Quantum computing is abstract on paper, so I built small Python experiments to make the ideas concrete — implementing circuits, running simulations, and exploring results with NumPy instead of only reading about the theory.\n\nEach experiment is a self-contained module I can revisit and extend. The goal is not a production library but disciplined learning: pick a hard concept, implement it, observe the output, and refine my understanding through code.",
+          features: [
+            "Hands-on quantum concept implementations in Python",
+            "Numerical simulations powered by NumPy",
+            "Modular experiments for iterative learning",
+            "Self-directed exploration beyond the formal curriculum",
+          ],
+          role: [
+            "Researched and implemented quantum computing concepts in Python",
+            "Built numerical simulations and experiments with NumPy",
+            "Organized experiments into a maintainable personal hub",
+          ],
+        },
       },
     },
   },
@@ -158,6 +268,14 @@ export const en: Dictionary = {
         description:
           "Helped fellow students get unstuck on programming and software concepts, finding the explanation that finally made an idea click for each person.",
         takeaways: ["Explaining technical ideas", "Patience", "Debugging others' code"],
+      },
+      tennis: {
+        role: "Captain / Ball Boy",
+        org: "Omnium Banque Nationale Tennis Championship",
+        period: "LeaderShip",
+        description:
+          "Led a team of ball boys at a professional tennis tournament — coordinating court rotations, schedules, and breaks to keep coverage balanced and the crew ready in a fast-paced environment.",
+        takeaways: ["Team leadership", "Coordination", "Fast-paced operations"],
       },
       clerk: {
         role: "Office clerk",

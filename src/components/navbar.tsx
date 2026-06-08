@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { navOrder, profile } from "@/data/portfolio";
@@ -26,27 +27,27 @@ export function Navbar() {
       }`}
     >
       <nav className="wrap flex h-20 items-center justify-between">
-        <a
-          href="#top"
-          className="font-display text-xl font-semibold tracking-tight"
+        <Link
+          href="/#top"
+          className="font-display text-xl font-semibold tracking-tight no-underline"
         >
           {profile.name}
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {primaryLinks.map((link) => (
-            <a
+            <Link
               key={link.id}
-              href={link.href}
-              className="text-sm font-medium text-ink-soft transition-colors hover:text-ink"
+              href={`/${link.href}`}
+              className="text-sm font-medium text-ink-soft no-underline transition-colors hover:text-ink"
             >
               {t.nav[link.id]}
-            </a>
+            </Link>
           ))}
           <LanguageSwitcher />
-          <a href="#contact" className="btn-primary">
+          <Link href="/#contact" className="btn-primary no-underline">
             {t.nav.contact}
-          </a>
+          </Link>
         </div>
 
         <div className="flex items-center gap-3 md:hidden">
@@ -67,14 +68,14 @@ export function Navbar() {
         <div className="border-t border-ink/10 bg-cream md:hidden">
           <div className="wrap flex flex-col py-3">
             {navOrder.map((link) => (
-              <a
+              <Link
                 key={link.id}
-                href={link.href}
+                href={`/${link.href}`}
                 onClick={() => setOpen(false)}
-                className="py-3 font-display text-lg"
+                className="py-3 font-display text-lg no-underline"
               >
                 {t.nav[link.id]}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

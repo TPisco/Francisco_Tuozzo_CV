@@ -9,7 +9,6 @@ A modern, responsive personal portfolio website built to present Francisco Tuozz
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Framer Motion](https://www.framer.com/motion/) for subtle animations
 - [Lucide](https://lucide.dev/) icons
-- [next-themes](https://github.com/pacocoursey/next-themes) for dark mode
 
 ## Features
 

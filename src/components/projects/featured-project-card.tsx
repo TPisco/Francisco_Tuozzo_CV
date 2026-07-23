@@ -24,6 +24,10 @@ export function FeaturedProjectCard({
 
   return (
     <Reveal>
+      <Link
+        href={getProjectPath(meta.id)}
+        className="no-underline transition-colors hover:text-clay"
+        >
       <article className="card-soft grid overflow-hidden lg:grid-cols-2">
         <div
           className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden p-10 sm:min-h-[340px] ${
@@ -40,12 +44,9 @@ export function FeaturedProjectCard({
           </span>
           <div>
             <h3 className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-              <Link
-                href={getProjectPath(meta.id)}
-                className="no-underline transition-colors hover:text-clay"
-              >
+              
                 {meta.name}
-              </Link>
+              
             </h3>
             <p className="mt-3 max-w-sm text-base text-ink-soft">
               {item.tagline}
@@ -81,6 +82,7 @@ export function FeaturedProjectCard({
           </div>
         </div>
       </article>
+      </Link>
     </Reveal>
   );
 }

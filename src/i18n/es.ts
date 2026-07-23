@@ -306,28 +306,49 @@ export const es: Dictionary = {
 
   education: {
     eyebrow: "Formación",
-    program: "Informática — Techniques de l'informatique",
-    school: "Quebec, Canadá",
-    summary:
-      "Un programa práctico que cubre el software de arriba abajo — y los cursos detrás de los proyectos de esta página.",
-    groups: [
-      {
-        label: "Programación y diseño",
-        items: ["Programación", "Programación orientada a objetos", "Análisis de software", "Metodología de proyectos"],
+    title: "Construyendo una base en informática, un título a la vez.",
+    lead: "Un programa DEC-BAC entre el Cégep Édouard-Montpetit y la Université de Sherbrooke, construido sobre un programa de bachillerato internacional.",
+    present: "Presente",
+    statusOngoing: "En curso",
+    statusCompleted: "Completado",
+    items: {
+      bac: {
+        program: "Licenciatura en Informática",
+        school: "Université de Sherbrooke",
+        campus: "Campus de Longueuil",
+        description:
+          "La mitad universitaria de mi programa DEC-BAC — un plan de estudios completo que profundiza la teoría y el diseño detrás del software: algoritmos, sistemas operativos, bases de datos y análisis de software, con la posibilidad de especializarme más adelante en áreas como ingeniería de software, redes o inteligencia artificial.",
+        highlights: [
+          "Programación orientada a objetos",
+          "Bases de datos y SQL",
+          "Algoritmos y estructuras de datos",
+          "Sistemas operativos",
+          "Diseño y análisis de software",
+          "Aprendizaje basado en proyectos",
+        ],
       },
-      {
-        label: "Web y móvil",
-        items: ["Programación web de servidor", "Sistemas transaccionales web", "Desarrollo móvil", "Diseño de interfaces"],
+      dec: {
+        program: "Técnico en Informática — DEC",
+        school: "Cégep Édouard-Montpetit",
+        description:
+          "Un programa práctico que cubre el software de arriba abajo — la base detrás de los proyectos de esta página, y la primera mitad del programa DEC-BAC con la Université de Sherbrooke.",
+        highlights: [
+          "Programación y POO",
+          "Análisis de software",
+          "Desarrollo web y móvil",
+          "Bases de datos",
+          "Sistemas operativos y redes",
+          "Ciberseguridad",
+        ],
       },
-      {
-        label: "Sistemas y datos",
-        items: ["Bases de datos", "Sistemas operativos", "Redes", "Ciberseguridad"],
+      secondary: {
+        program: "Diploma de bachillerato — Programa de estudios internacionales",
+        school: "École secondaire Jacques-Rousseau",
+        description:
+          "Un programa de currículo internacional centrado en idiomas y rigor académico — donde empezó la base trilingüe que todavía uso hoy.",
+        highlights: ["Currículo internacional", "Base trilingüe", "Rigor académico"],
       },
-      {
-        label: "Profesional",
-        items: ["Comunicación profesional"],
-      },
-    ],
+    },
   },
 
   contact: {

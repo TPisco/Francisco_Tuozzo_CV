@@ -306,28 +306,49 @@ export const en: Dictionary = {
 
   education: {
     eyebrow: "Education",
-    program: "Computer Science — Techniques de l'informatique",
-    school: "Quebec, Canada",
-    summary:
-      "A hands-on program that covers software from the ground up — and the coursework behind the projects on this page.",
-    groups: [
-      {
-        label: "Programming & design",
-        items: ["Programming", "Object-oriented programming", "Software analysis", "Project methodology"],
+    title: "Building a computer science foundation, credential by credential.",
+    lead: "A joint DEC-BAC pathway between Cégep Édouard-Montpetit and Université de Sherbrooke, built on an international high school program.",
+    present: "Present",
+    statusOngoing: "Ongoing",
+    statusCompleted: "Completed",
+    items: {
+      bac: {
+        program: "Computer Science — Bachelor's degree",
+        school: "Université de Sherbrooke",
+        campus: "Longueuil Campus",
+        description:
+          "The university half of my DEC-BAC pathway — a full computer science curriculum that builds on the technical diploma with deeper theory and design: algorithms, operating systems, databases, and software analysis, with room to specialize later in areas like software engineering, networks, or AI.",
+        highlights: [
+          "Object-oriented programming",
+          "Databases & SQL",
+          "Algorithms & data structures",
+          "Operating systems",
+          "Software design & analysis",
+          "Project-based learning",
+        ],
       },
-      {
-        label: "Web & mobile",
-        items: ["Web server programming", "Web transaction systems", "Mobile development", "Interface design"],
+      dec: {
+        program: "Computer Science — Technical diploma",
+        school: "Cégep Édouard-Montpetit",
+        description:
+          "A hands-on program covering software from the ground up — the foundation behind the projects on this page, and the first half of the joint DEC-BAC pathway with Université de Sherbrooke.",
+        highlights: [
+          "Programming & OOP",
+          "Software analysis",
+          "Web & mobile development",
+          "Databases",
+          "Operating systems & networks",
+          "Cybersecurity",
+        ],
       },
-      {
-        label: "Systems & data",
-        items: ["Databases", "Operating systems", "Networks", "Cybersecurity"],
+      secondary: {
+        program: "International Studies — High school diploma",
+        school: "École secondaire Jacques-Rousseau",
+        description:
+          "An international-curriculum program with an emphasis on languages and academic rigor — where the trilingual foundation I still rely on today started.",
+        highlights: ["International curriculum", "Trilingual foundation", "Academic rigor"],
       },
-      {
-        label: "Professional",
-        items: ["Professional communication"],
-      },
-    ],
+    },
   },
 
   contact: {

@@ -3,6 +3,7 @@ import type {
   SkillId,
   ProjectId,
   ExperienceId,
+  EducationId,
 } from "@/data/portfolio";
 
 export type Locale = "en" | "fr" | "es";
@@ -102,10 +103,22 @@ export interface Dictionary {
 
   education: {
     eyebrow: string;
-    program: string;
-    school: string;
-    summary: string;
-    groups: { label: string; items: string[] }[];
+    title: string;
+    lead: string;
+    /** Label for an ongoing entry's end year, e.g. "Present". */
+    present: string;
+    statusOngoing: string;
+    statusCompleted: string;
+    items: Record<
+      EducationId,
+      {
+        program: string;
+        school: string;
+        campus?: string;
+        description: string;
+        highlights: string[];
+      }
+    >;
   };
 
   contact: {

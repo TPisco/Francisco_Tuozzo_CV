@@ -150,3 +150,29 @@ export const experienceOrder: ExperienceId[] = [
   "packer",
   "sales",
 ];
+
+export type EducationId = "bac" | "dec" | "secondary";
+
+export type EducationStatus = "ongoing" | "completed";
+
+export type EducationMeta = {
+  id: EducationId;
+  status: EducationStatus;
+  /** Locale-agnostic year the entry started. */
+  startDate: string;
+  /** Year the entry finished — omit for entries still in progress. */
+  endDate?: string;
+  /** Expected graduation year, if known, for entries still in progress. */
+  expectedEndDate?: string;
+};
+
+// Note: startDate for "bac"/"dec" is inferred from the DEC-BAC being a
+// continuous joint program that began right after secondary school (2023) —
+// confirm against the real enrollment date if this needs to be exact.
+export const educationOrder: EducationId[] = ["bac", "dec", "secondary"];
+
+export const educationMeta: EducationMeta[] = [
+  { id: "bac", status: "ongoing", startDate: "2026" },
+  { id: "dec", status: "ongoing", startDate: "2023" },
+  { id: "secondary", status: "completed", startDate: "2018", endDate: "2023" },
+];

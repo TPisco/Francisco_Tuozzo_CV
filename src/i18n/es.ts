@@ -10,6 +10,7 @@ export const es: Dictionary = {
     projects: "Proyectos",
     experience: "Experiencia",
     education: "Formación",
+    events: "Eventos",
     contact: "Contacto",
   },
 
@@ -49,6 +50,7 @@ export const es: Dictionary = {
     eyebrow: "Habilidades",
     title: "Las herramientas que uso.",
     lead: "Agrupadas según su lugar en un proyecto — con lo que realmente he entregado, no una lista de palabras clave.",
+    marqueeLabel: "Las tecnologías que uso",
     groups: {
       frontend: {
         category: "Frontend",
@@ -306,28 +308,72 @@ export const es: Dictionary = {
 
   education: {
     eyebrow: "Formación",
-    program: "Informática — Techniques de l'informatique",
-    school: "Quebec, Canadá",
-    summary:
-      "Un programa práctico que cubre el software de arriba abajo — y los cursos detrás de los proyectos de esta página.",
-    groups: [
-      {
-        label: "Programación y diseño",
-        items: ["Programación", "Programación orientada a objetos", "Análisis de software", "Metodología de proyectos"],
+    title: "Donde aprendí las bases.",
+    lead: "Los cursos detrás de los proyectos de esta página — y lo que estudio ahora.",
+    items: {
+      bacc: {
+        program: "Licenciatura en informática",
+        school: "Université de Sherbrooke — Faculté des sciences",
+        period: "En curso",
+        description:
+          "Una licenciatura de 90 créditos en régimen cooperativo, que alterna sesiones de estudio con prácticas remuneradas en empresas. Profundiza lo que empezó el DEC — algoritmia, sistemas operativos, sistemas distribuidos — y cubre el proceso de ingeniería de software de principio a fin.",
+        highlights: [
+          "Ingeniería de software",
+          "Algoritmos y estructuras de datos",
+          "Bases de datos",
+          "Sistemas operativos",
+          "Redes",
+          "Seguridad y criptografía",
+          "Concurrencia y paralelismo",
+          "Inteligencia artificial",
+          "Prácticas cooperativas",
+        ],
       },
-      {
-        label: "Web y móvil",
-        items: ["Programación web de servidor", "Sistemas transaccionales web", "Desarrollo móvil", "Diseño de interfaces"],
+      dec: {
+        program: "Informática — Techniques de l'informatique",
+        school: "Quebec, Canadá",
+        period: "En curso",
+        description:
+          "Un programa técnico práctico que cubre el software de arriba abajo. La mayoría de los proyectos de esta página empezaron como trabajos de clase aquí y siguieron mucho después de la nota final.",
+        highlights: [
+          "Programación",
+          "Programación orientada a objetos",
+          "Análisis de software",
+          "Metodología de proyectos",
+          "Programación web de servidor",
+          "Sistemas transaccionales web",
+          "Desarrollo móvil",
+          "Diseño de interfaces",
+          "Bases de datos",
+          "Sistemas operativos",
+          "Redes",
+          "Ciberseguridad",
+          "Comunicación profesional",
+        ],
       },
-      {
-        label: "Sistemas y datos",
-        items: ["Bases de datos", "Sistemas operativos", "Redes", "Ciberseguridad"],
+    },
+  },
+
+  events: {
+    eyebrow: "Eventos y concursos",
+    title: "Programar contra el reloj.",
+    lead: "Donde he puesto mi trabajo frente a otras personas y lo han evaluado.",
+    items: {
+      cursorHackathon: {
+        name: "Hackathon Cursor Community",
+        org: "Sede de Botpress, Montreal",
+        period: "Hackathon",
+        result: "4.º de 10 equipos",
+        description:
+          "El primer hackathon de la comunidad Cursor, celebrado en la sede de Botpress en Montreal. Mi equipo diseñó y entregó un proyecto funcional en tres horas y lo presentó ante un jurado de cinco personas — quedamos 4.º de diez equipos.",
+        highlights: [
+          "Tres horas de desarrollo",
+          "Proyecto en equipo",
+          "Jurado de cinco personas",
+          "4.º de 10 equipos",
+        ],
       },
-      {
-        label: "Profesional",
-        items: ["Comunicación profesional"],
-      },
-    ],
+    },
   },
 
   contact: {

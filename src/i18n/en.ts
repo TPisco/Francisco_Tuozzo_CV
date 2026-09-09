@@ -10,6 +10,7 @@ export const en: Dictionary = {
     projects: "Projects",
     experience: "Experience",
     education: "Education",
+    events: "Events",
     contact: "Contact",
   },
 
@@ -49,6 +50,7 @@ export const en: Dictionary = {
     eyebrow: "Skills",
     title: "The tools I reach for.",
     lead: "Grouped by where they sit in a build — the things I've actually shipped with, not a keyword list.",
+    marqueeLabel: "Technologies I work with",
     groups: {
       frontend: {
         category: "Frontend",
@@ -306,28 +308,72 @@ export const en: Dictionary = {
 
   education: {
     eyebrow: "Education",
-    program: "Computer Science — Techniques de l'informatique",
-    school: "Quebec, Canada",
-    summary:
-      "A hands-on program that covers software from the ground up — and the coursework behind the projects on this page.",
-    groups: [
-      {
-        label: "Programming & design",
-        items: ["Programming", "Object-oriented programming", "Software analysis", "Project methodology"],
+    title: "Where I learned the fundamentals.",
+    lead: "The coursework behind the projects on this page — and what I'm studying next.",
+    items: {
+      bacc: {
+        program: "Bachelor of Computer Science",
+        school: "Université de Sherbrooke — Faculté des sciences",
+        period: "In progress",
+        description:
+          "A 90-credit undergraduate degree on the co-op track, alternating study terms with paid work terms in industry. It builds on the technical diploma with deeper theory — algorithms, operating systems, distributed systems — and the software engineering process end to end.",
+        highlights: [
+          "Software engineering",
+          "Algorithms & data structures",
+          "Databases",
+          "Operating systems",
+          "Networks",
+          "Security & cryptography",
+          "Concurrency & parallelism",
+          "Artificial intelligence",
+          "Co-op work terms",
+        ],
       },
-      {
-        label: "Web & mobile",
-        items: ["Web server programming", "Web transaction systems", "Mobile development", "Interface design"],
+      dec: {
+        program: "Computer Science — Techniques de l'informatique",
+        school: "Quebec, Canada",
+        period: "In progress",
+        description:
+          "A hands-on technical program that covers software from the ground up. Most of what's in my projects section started as coursework here and kept going after the grade was in.",
+        highlights: [
+          "Programming",
+          "Object-oriented programming",
+          "Software analysis",
+          "Project methodology",
+          "Web server programming",
+          "Web transaction systems",
+          "Mobile development",
+          "Interface design",
+          "Databases",
+          "Operating systems",
+          "Networks",
+          "Cybersecurity",
+          "Professional communication",
+        ],
       },
-      {
-        label: "Systems & data",
-        items: ["Databases", "Operating systems", "Networks", "Cybersecurity"],
+    },
+  },
+
+  events: {
+    eyebrow: "Events & competitions",
+    title: "Building under a clock.",
+    lead: "Where I've put the work in front of other people and had it judged.",
+    items: {
+      cursorHackathon: {
+        name: "Cursor Community Hackathon",
+        org: "Botpress HQ, Montreal",
+        period: "Hackathon",
+        result: "4th of 10 teams",
+        description:
+          "The first hackathon run by the Cursor community, hosted at Botpress headquarters in Montreal. My team designed and shipped a working project in three hours, then presented it to a five-person jury — we placed 4th out of ten teams.",
+        highlights: [
+          "Three-hour build",
+          "Team project",
+          "Judged by a five-person jury",
+          "4th of 10 teams",
+        ],
       },
-      {
-        label: "Professional",
-        items: ["Professional communication"],
-      },
-    ],
+    },
   },
 
   contact: {

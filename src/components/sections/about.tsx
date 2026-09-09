@@ -7,7 +7,7 @@ export function About() {
   const { t } = useI18n();
 
   return (
-    <section id="about" className="section">
+    <section id="about" className="section bg-gradient-to-b from-cream-deep to-cream">
       <div className="wrap grid gap-y-12 lg:grid-cols-12 lg:gap-x-16">
         <div className="lg:col-span-4">
           <Reveal>

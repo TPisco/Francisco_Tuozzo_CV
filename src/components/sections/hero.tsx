@@ -3,11 +3,11 @@
 import { Icon } from "@/components/icon";
 import { faArrowDown, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { profile } from "@/data/portfolio";
+import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 
 export function Hero() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   return (
     <section id="top" className="relative overflow-hidden">
@@ -66,7 +66,7 @@ export function Hero() {
 
             {/* Small, subtle résumé download — smaller than the main CTA. */}
             <a
-              href={profile.resume}
+              href={resumeByLocale[locale]}
               download
               aria-label={t.hero.resumeAria}
               className="inline-flex items-center gap-2 rounded-full border border-ink/15 px-4 py-2 text-sm font-medium text-ink-soft transition-colors hover:border-ink/40 hover:text-ink"

@@ -10,6 +10,7 @@ export const fr: Dictionary = {
     projects: "Projets",
     experience: "Expérience",
     education: "Formation",
+    events: "Événements",
     contact: "Contact",
   },
 
@@ -49,6 +50,7 @@ export const fr: Dictionary = {
     eyebrow: "Compétences",
     title: "Les outils que j'utilise.",
     lead: "Regroupés selon leur place dans un projet — ce avec quoi j'ai vraiment livré, pas une liste de mots-clés.",
+    marqueeLabel: "Les technologies que j'utilise",
     groups: {
       frontend: {
         category: "Frontend",
@@ -306,28 +308,72 @@ export const fr: Dictionary = {
 
   education: {
     eyebrow: "Formation",
-    program: "Informatique — Techniques de l'informatique",
-    school: "Québec, Canada",
-    summary:
-      "Un programme concret qui couvre le logiciel de fond en comble — et les cours derrière les projets de cette page.",
-    groups: [
-      {
-        label: "Programmation et conception",
-        items: ["Programmation", "Programmation orientée objet", "Analyse logicielle", "Méthodologie de projet"],
+    title: "Là où j'ai appris les bases.",
+    lead: "Les cours derrière les projets de cette page — et ce que j'étudie en ce moment.",
+    items: {
+      bacc: {
+        program: "Baccalauréat en informatique",
+        school: "Université de Sherbrooke — Faculté des sciences",
+        period: "En cours",
+        description:
+          "Un baccalauréat de 90 crédits en régime coopératif, qui alterne sessions d'études et stages rémunérés en entreprise. Il approfondit ce que le DEC a commencé — algorithmique, systèmes d'exploitation, systèmes répartis — et couvre le processus d'ingénierie du logiciel au complet.",
+        highlights: [
+          "Génie logiciel",
+          "Algorithmes et structures de données",
+          "Bases de données",
+          "Systèmes d'exploitation",
+          "Réseaux",
+          "Sécurité et cryptographie",
+          "Concurrence et parallélisme",
+          "Intelligence artificielle",
+          "Stages coopératifs",
+        ],
       },
-      {
-        label: "Web et mobile",
-        items: ["Programmation web côté serveur", "Systèmes transactionnels web", "Développement mobile", "Conception d'interfaces"],
+      dec: {
+        program: "Informatique — Techniques de l'informatique",
+        school: "Québec, Canada",
+        period: "En cours",
+        description:
+          "Un programme technique concret qui couvre le logiciel de fond en comble. La plupart des projets de cette page ont commencé comme des travaux de cours ici, puis ont continué bien après la note finale.",
+        highlights: [
+          "Programmation",
+          "Programmation orientée objet",
+          "Analyse logicielle",
+          "Méthodologie de projet",
+          "Programmation web côté serveur",
+          "Systèmes transactionnels web",
+          "Développement mobile",
+          "Conception d'interfaces",
+          "Bases de données",
+          "Systèmes d'exploitation",
+          "Réseaux",
+          "Cybersécurité",
+          "Communication professionnelle",
+        ],
       },
-      {
-        label: "Systèmes et données",
-        items: ["Bases de données", "Systèmes d'exploitation", "Réseaux", "Cybersécurité"],
+    },
+  },
+
+  events: {
+    eyebrow: "Événements et concours",
+    title: "Développer contre la montre.",
+    lead: "Là où j'ai présenté mon travail devant d'autres personnes et où il a été jugé.",
+    items: {
+      cursorHackathon: {
+        name: "Hackathon Cursor Community",
+        org: "Siège de Botpress, Montréal",
+        period: "Hackathon",
+        result: "4e sur 10 équipes",
+        description:
+          "Le premier hackathon de la communauté Cursor, tenu au siège de Botpress à Montréal. Mon équipe a conçu et livré un projet fonctionnel en trois heures, puis l'a présenté devant un jury de cinq personnes — nous avons terminé 4e sur dix équipes.",
+        highlights: [
+          "Trois heures de développement",
+          "Projet d'équipe",
+          "Jury de cinq personnes",
+          "4e sur 10 équipes",
+        ],
       },
-      {
-        label: "Professionnel",
-        items: ["Communication professionnelle"],
-      },
-    ],
+    },
   },
 
   contact: {

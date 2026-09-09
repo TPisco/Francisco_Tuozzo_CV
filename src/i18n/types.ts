@@ -3,6 +3,8 @@ import type {
   SkillId,
   ProjectId,
   ExperienceId,
+  EducationId,
+  EventId,
 } from "@/data/portfolio";
 
 export type Locale = "en" | "fr" | "es";
@@ -43,6 +45,8 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     lead: string;
+    /** Accessible name for the scrolling logo strip. */
+    marqueeLabel: string;
     groups: Record<SkillId, { category: string; note: string; skills: string[] }>;
   };
 
@@ -102,10 +106,36 @@ export interface Dictionary {
 
   education: {
     eyebrow: string;
-    program: string;
-    school: string;
-    summary: string;
-    groups: { label: string; items: string[] }[];
+    title: string;
+    lead: string;
+    items: Record<
+      EducationId,
+      {
+        program: string;
+        school: string;
+        period: string;
+        description: string;
+        highlights: string[];
+      }
+    >;
+  };
+
+  events: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    items: Record<
+      EventId,
+      {
+        name: string;
+        org: string;
+        period: string;
+        /** Placement or distinction, shown as an accent badge. */
+        result: string;
+        description: string;
+        highlights: string[];
+      }
+    >;
   };
 
   contact: {

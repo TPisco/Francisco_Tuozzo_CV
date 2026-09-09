@@ -10,6 +10,7 @@ export const en: Dictionary = {
     projects: "Projects",
     experience: "Experience",
     education: "Education",
+    events: "Events",
     contact: "Contact",
   },
 
@@ -49,6 +50,7 @@ export const en: Dictionary = {
     eyebrow: "Skills",
     title: "The tools I reach for.",
     lead: "Grouped by where they sit in a build — the things I've actually shipped with, not a keyword list.",
+    marqueeLabel: "Technologies I work with",
     groups: {
       frontend: {
         category: "Frontend",
@@ -306,47 +308,70 @@ export const en: Dictionary = {
 
   education: {
     eyebrow: "Education",
-    title: "Building a computer science foundation, credential by credential.",
-    lead: "A joint DEC-BAC pathway between Cégep Édouard-Montpetit and Université de Sherbrooke, built on an international high school program.",
-    present: "Present",
-    statusOngoing: "Ongoing",
-    statusCompleted: "Completed",
+    title: "Where I learned the fundamentals.",
+    lead: "The coursework behind the projects on this page — and what I'm studying next.",
     items: {
-      bac: {
-        program: "Computer Science — Bachelor's degree",
-        school: "Université de Sherbrooke",
-        campus: "Longueuil Campus",
+      bacc: {
+        program: "Bachelor of Computer Science",
+        school: "Université de Sherbrooke — Faculté des sciences",
+        period: "In progress",
         description:
-          "The university half of my DEC-BAC pathway — a full computer science curriculum that builds on the technical diploma with deeper theory and design: algorithms, operating systems, databases, and software analysis, with room to specialize later in areas like software engineering, networks, or AI.",
+          "A 90-credit undergraduate degree on the co-op track, alternating study terms with paid work terms in industry. It builds on the technical diploma with deeper theory — algorithms, operating systems, distributed systems — and the software engineering process end to end.",
         highlights: [
-          "Object-oriented programming",
-          "Databases & SQL",
+          "Software engineering",
           "Algorithms & data structures",
+          "Databases",
           "Operating systems",
-          "Software design & analysis",
-          "Project-based learning",
+          "Networks",
+          "Security & cryptography",
+          "Concurrency & parallelism",
+          "Artificial intelligence",
+          "Co-op work terms",
         ],
       },
       dec: {
-        program: "Computer Science — Technical diploma",
-        school: "Cégep Édouard-Montpetit",
+        program: "Computer Science — Techniques de l'informatique",
+        school: "Quebec, Canada",
+        period: "In progress",
         description:
-          "A hands-on program covering software from the ground up — the foundation behind the projects on this page, and the first half of the joint DEC-BAC pathway with Université de Sherbrooke.",
+          "A hands-on technical program that covers software from the ground up. Most of what's in my projects section started as coursework here and kept going after the grade was in.",
         highlights: [
-          "Programming & OOP",
+          "Programming",
+          "Object-oriented programming",
           "Software analysis",
-          "Web & mobile development",
+          "Project methodology",
+          "Web server programming",
+          "Web transaction systems",
+          "Mobile development",
+          "Interface design",
           "Databases",
-          "Operating systems & networks",
+          "Operating systems",
+          "Networks",
           "Cybersecurity",
+          "Professional communication",
         ],
       },
-      secondary: {
-        program: "International Studies — High school diploma",
-        school: "École secondaire Jacques-Rousseau",
+    },
+  },
+
+  events: {
+    eyebrow: "Events & competitions",
+    title: "Building under a clock.",
+    lead: "Where I've put the work in front of other people and had it judged.",
+    items: {
+      cursorHackathon: {
+        name: "Cursor Community Hackathon",
+        org: "Botpress HQ, Montreal",
+        period: "Hackathon",
+        result: "4th of 10 teams",
         description:
-          "An international-curriculum program with an emphasis on languages and academic rigor — where the trilingual foundation I still rely on today started.",
-        highlights: ["International curriculum", "Trilingual foundation", "Academic rigor"],
+          "The first hackathon run by the Cursor community, hosted at Botpress headquarters in Montreal. My team designed and shipped a working project in three hours, then presented it to a five-person jury — we placed 4th out of ten teams.",
+        highlights: [
+          "Three-hour build",
+          "Team project",
+          "Judged by a five-person jury",
+          "4th of 10 teams",
+        ],
       },
     },
   },

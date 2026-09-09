@@ -10,6 +10,7 @@ export const es: Dictionary = {
     projects: "Proyectos",
     experience: "Experiencia",
     education: "Formación",
+    events: "Eventos",
     contact: "Contacto",
   },
 
@@ -49,6 +50,7 @@ export const es: Dictionary = {
     eyebrow: "Habilidades",
     title: "Las herramientas que uso.",
     lead: "Agrupadas según su lugar en un proyecto — con lo que realmente he entregado, no una lista de palabras clave.",
+    marqueeLabel: "Las tecnologías que uso",
     groups: {
       frontend: {
         category: "Frontend",
@@ -306,47 +308,70 @@ export const es: Dictionary = {
 
   education: {
     eyebrow: "Formación",
-    title: "Construyendo una base en informática, un título a la vez.",
-    lead: "Un programa DEC-BAC entre el Cégep Édouard-Montpetit y la Université de Sherbrooke, construido sobre un programa de bachillerato internacional.",
-    present: "Presente",
-    statusOngoing: "En curso",
-    statusCompleted: "Completado",
+    title: "Donde aprendí las bases.",
+    lead: "Los cursos detrás de los proyectos de esta página — y lo que estudio ahora.",
     items: {
-      bac: {
-        program: "Licenciatura en Informática",
-        school: "Université de Sherbrooke",
-        campus: "Campus de Longueuil",
+      bacc: {
+        program: "Licenciatura en informática",
+        school: "Université de Sherbrooke — Faculté des sciences",
+        period: "En curso",
         description:
-          "La mitad universitaria de mi programa DEC-BAC — un plan de estudios completo que profundiza la teoría y el diseño detrás del software: algoritmos, sistemas operativos, bases de datos y análisis de software, con la posibilidad de especializarme más adelante en áreas como ingeniería de software, redes o inteligencia artificial.",
+          "Una licenciatura de 90 créditos en régimen cooperativo, que alterna sesiones de estudio con prácticas remuneradas en empresas. Profundiza lo que empezó el DEC — algoritmia, sistemas operativos, sistemas distribuidos — y cubre el proceso de ingeniería de software de principio a fin.",
         highlights: [
-          "Programación orientada a objetos",
-          "Bases de datos y SQL",
+          "Ingeniería de software",
           "Algoritmos y estructuras de datos",
+          "Bases de datos",
           "Sistemas operativos",
-          "Diseño y análisis de software",
-          "Aprendizaje basado en proyectos",
+          "Redes",
+          "Seguridad y criptografía",
+          "Concurrencia y paralelismo",
+          "Inteligencia artificial",
+          "Prácticas cooperativas",
         ],
       },
       dec: {
-        program: "Técnico en Informática — DEC",
-        school: "Cégep Édouard-Montpetit",
+        program: "Informática — Techniques de l'informatique",
+        school: "Quebec, Canadá",
+        period: "En curso",
         description:
-          "Un programa práctico que cubre el software de arriba abajo — la base detrás de los proyectos de esta página, y la primera mitad del programa DEC-BAC con la Université de Sherbrooke.",
+          "Un programa técnico práctico que cubre el software de arriba abajo. La mayoría de los proyectos de esta página empezaron como trabajos de clase aquí y siguieron mucho después de la nota final.",
         highlights: [
-          "Programación y POO",
+          "Programación",
+          "Programación orientada a objetos",
           "Análisis de software",
-          "Desarrollo web y móvil",
+          "Metodología de proyectos",
+          "Programación web de servidor",
+          "Sistemas transaccionales web",
+          "Desarrollo móvil",
+          "Diseño de interfaces",
           "Bases de datos",
-          "Sistemas operativos y redes",
+          "Sistemas operativos",
+          "Redes",
           "Ciberseguridad",
+          "Comunicación profesional",
         ],
       },
-      secondary: {
-        program: "Diploma de bachillerato — Programa de estudios internacionales",
-        school: "École secondaire Jacques-Rousseau",
+    },
+  },
+
+  events: {
+    eyebrow: "Eventos y concursos",
+    title: "Programar contra el reloj.",
+    lead: "Donde he puesto mi trabajo frente a otras personas y lo han evaluado.",
+    items: {
+      cursorHackathon: {
+        name: "Hackathon Cursor Community",
+        org: "Sede de Botpress, Montreal",
+        period: "Hackathon",
+        result: "4.º de 10 equipos",
         description:
-          "Un programa de currículo internacional centrado en idiomas y rigor académico — donde empezó la base trilingüe que todavía uso hoy.",
-        highlights: ["Currículo internacional", "Base trilingüe", "Rigor académico"],
+          "El primer hackathon de la comunidad Cursor, celebrado en la sede de Botpress en Montreal. Mi equipo diseñó y entregó un proyecto funcional en tres horas y lo presentó ante un jurado de cinco personas — quedamos 4.º de diez equipos.",
+        highlights: [
+          "Tres horas de desarrollo",
+          "Proyecto en equipo",
+          "Jurado de cinco personas",
+          "4.º de 10 equipos",
+        ],
       },
     },
   },

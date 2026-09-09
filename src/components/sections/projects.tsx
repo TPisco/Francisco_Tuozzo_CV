@@ -12,7 +12,7 @@ export function Projects() {
   const rest = projectMeta.filter((p) => !p.featured);
 
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section bg-gradient-to-b from-cream to-sand">
       <div className="wrap">
         <SectionHeading
           eyebrow={t.projects.eyebrow}

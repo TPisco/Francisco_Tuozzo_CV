@@ -10,6 +10,7 @@ export const fr: Dictionary = {
     projects: "Projets",
     experience: "Expérience",
     education: "Formation",
+    events: "Événements",
     contact: "Contact",
   },
 
@@ -49,6 +50,7 @@ export const fr: Dictionary = {
     eyebrow: "Compétences",
     title: "Les outils que j'utilise.",
     lead: "Regroupés selon leur place dans un projet — ce avec quoi j'ai vraiment livré, pas une liste de mots-clés.",
+    marqueeLabel: "Les technologies que j'utilise",
     groups: {
       frontend: {
         category: "Frontend",
@@ -306,47 +308,70 @@ export const fr: Dictionary = {
 
   education: {
     eyebrow: "Formation",
-    title: "Une formation en informatique, un diplôme à la fois.",
-    lead: "Un parcours DEC-BAC entre le Cégep Édouard-Montpetit et l'Université de Sherbrooke, construit sur un programme d'études secondaires internationales.",
-    present: "Présent",
-    statusOngoing: "En cours",
-    statusCompleted: "Terminé",
+    title: "Là où j'ai appris les bases.",
+    lead: "Les cours derrière les projets de cette page — et ce que j'étudie en ce moment.",
     items: {
-      bac: {
+      bacc: {
         program: "Baccalauréat en informatique",
-        school: "Université de Sherbrooke",
-        campus: "Campus de Longueuil",
+        school: "Université de Sherbrooke — Faculté des sciences",
+        period: "En cours",
         description:
-          "Le volet universitaire de mon parcours DEC-BAC — un programme complet qui approfondit la théorie et la conception derrière le logiciel : algorithmes, systèmes d'exploitation, bases de données et analyse logicielle, avec la possibilité de se spécialiser plus tard en génie logiciel, réseaux ou intelligence artificielle.",
+          "Un baccalauréat de 90 crédits en régime coopératif, qui alterne sessions d'études et stages rémunérés en entreprise. Il approfondit ce que le DEC a commencé — algorithmique, systèmes d'exploitation, systèmes répartis — et couvre le processus d'ingénierie du logiciel au complet.",
         highlights: [
-          "Programmation orientée objet",
-          "Bases de données et SQL",
+          "Génie logiciel",
           "Algorithmes et structures de données",
+          "Bases de données",
           "Systèmes d'exploitation",
-          "Analyse et conception logicielle",
-          "Apprentissage par projets",
+          "Réseaux",
+          "Sécurité et cryptographie",
+          "Concurrence et parallélisme",
+          "Intelligence artificielle",
+          "Stages coopératifs",
         ],
       },
       dec: {
-        program: "Techniques de l'informatique — DEC",
-        school: "Cégep Édouard-Montpetit",
+        program: "Informatique — Techniques de l'informatique",
+        school: "Québec, Canada",
+        period: "En cours",
         description:
-          "Un programme concret qui couvre le logiciel de fond en comble — la base derrière les projets de cette page, et le premier volet du parcours DEC-BAC avec l'Université de Sherbrooke.",
+          "Un programme technique concret qui couvre le logiciel de fond en comble. La plupart des projets de cette page ont commencé comme des travaux de cours ici, puis ont continué bien après la note finale.",
         highlights: [
-          "Programmation et POO",
+          "Programmation",
+          "Programmation orientée objet",
           "Analyse logicielle",
-          "Développement web et mobile",
+          "Méthodologie de projet",
+          "Programmation web côté serveur",
+          "Systèmes transactionnels web",
+          "Développement mobile",
+          "Conception d'interfaces",
           "Bases de données",
-          "Systèmes d'exploitation et réseaux",
+          "Systèmes d'exploitation",
+          "Réseaux",
           "Cybersécurité",
+          "Communication professionnelle",
         ],
       },
-      secondary: {
-        program: "Diplôme d'études secondaires — Programme d'études internationales",
-        school: "École secondaire Jacques-Rousseau",
+    },
+  },
+
+  events: {
+    eyebrow: "Événements et concours",
+    title: "Développer contre la montre.",
+    lead: "Là où j'ai présenté mon travail devant d'autres personnes et où il a été jugé.",
+    items: {
+      cursorHackathon: {
+        name: "Hackathon Cursor Community",
+        org: "Siège de Botpress, Montréal",
+        period: "Hackathon",
+        result: "4e sur 10 équipes",
         description:
-          "Un programme à curriculum international misant sur les langues et la rigueur académique — les débuts de la base trilingue que j'utilise encore aujourd'hui.",
-        highlights: ["Curriculum international", "Base trilingue", "Rigueur académique"],
+          "Le premier hackathon de la communauté Cursor, tenu au siège de Botpress à Montréal. Mon équipe a conçu et livré un projet fonctionnel en trois heures, puis l'a présenté devant un jury de cinq personnes — nous avons terminé 4e sur dix équipes.",
+        highlights: [
+          "Trois heures de développement",
+          "Projet d'équipe",
+          "Jury de cinq personnes",
+          "4e sur 10 équipes",
+        ],
       },
     },
   },

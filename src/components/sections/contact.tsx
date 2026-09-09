@@ -5,11 +5,11 @@ import { Icon } from "@/components/icon";
 import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { Reveal } from "@/components/reveal";
-import { profile } from "@/data/portfolio";
+import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 
 export function Contact() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -67,7 +67,7 @@ export function Contact() {
                 </ul>
 
                 <a
-                  href={profile.resume}
+                  href={resumeByLocale[locale]}
                   download
                   className="mt-8 inline-flex items-center gap-2 rounded-full bg-cream/10 px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-cream/20"
                 >

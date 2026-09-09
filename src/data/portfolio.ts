@@ -14,6 +14,8 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+// Type-only, so this does not create a runtime cycle with the dictionaries.
+import type { Locale } from "@/i18n/types";
 
 /**
  * Non-translatable metadata only — names, links, icons, tints and tech stacks.
@@ -25,8 +27,17 @@ export const profile = {
   email: "franciscotuozzo@gmail.com",
   github: "https://github.com/TPisco",
   linkedin: "https://www.linkedin.com/in/francisco-tuozzo-0b47943b2/",
-  resume: "/Francisco-Tuozzo-Resume.pdf",
   languages: ["Français", "English", "Español"],
+};
+
+/**
+ * One résumé per language, served from /public. Typed against Locale so adding
+ * a language fails to compile until its CV is wired up here.
+ */
+export const resumeByLocale: Record<Locale, string> = {
+  en: "/CV_Francisco_Tuozzo_EN.pdf",
+  fr: "/CV_Francisco_Tuozzo_FR.pdf",
+  es: "/CV_Francisco_Tuozzo_ES.pdf",
 };
 
 export type SocialLink = {
@@ -47,6 +58,7 @@ export type NavId =
   | "projects"
   | "experience"
   | "education"
+  | "events"
   | "contact";
 
 export const navOrder: { id: NavId; href: string }[] = [
@@ -55,6 +67,7 @@ export const navOrder: { id: NavId; href: string }[] = [
   { id: "projects", href: "#projects" },
   { id: "experience", href: "#experience" },
   { id: "education", href: "#education" },
+  { id: "events", href: "#events" },
   { id: "contact", href: "#contact" },
 ];
 
@@ -89,7 +102,7 @@ export type ProjectMeta = {
   featured: boolean;
   tint: string;
   tech: string[];
-  github?: string;
+  github?: string[];
   demo?: string;
   /** Optional YouTube watch or embed URL — shown on the project detail page when set. */
   videoUrl?: string;
@@ -112,7 +125,8 @@ export const projectMeta: ProjectMeta[] = [
     featured: true,
     tint: "#e6e8dc",
     tech: ["C#", "ASP.NET Core MVC", "EF Core", "Razor", "SQL Server", "Bootstrap"],
-    github: "https://github.com/TPisco/Communication_Site_OrganismeCommunautaireVertLavenir",
+    github: ["https://github.com/TPisco/Communication_Site_OrganismeCommunautaireVertLavenir"],
+    videoUrl: "https://youtu.be/CYHIV0WOGr8" 
   },
   {
     id: "knightrpg",
@@ -121,6 +135,8 @@ export const projectMeta: ProjectMeta[] = [
     featured: false,
     tint: "#f0e2d2",
     tech: ["Godot", "GDScript"],
+    github:["https://github.com/TPisco/Game_KnightRPG_world"],
+    videoUrl: "https://youtu.be/oGJPH3d_j6Y"
   },
   {
     id: "cardgame",
@@ -129,15 +145,8 @@ export const projectMeta: ProjectMeta[] = [
     featured: false,
     tint: "#ece4d6",
     tech: ["Angular", "TypeScript", "C#", "MVC"],
-  },
-  {
-    id: "qprojects",
-    name: "qprojects-hub",
-    icon: faAtom,
-    featured: false,
-    tint: "#e8e6dd",
-    tech: ["Python", "NumPy"],
-    github: "https://github.com/TPisco/QProjects-Hub",
+    github:["https://github.com/TPisco/5w5_ProjetCartes_SERVEUR", "https://github.com/TPisco/5w5_ProjetCartes_CLIENT" ],
+    videoUrl: "https://youtu.be/syJdqsed4AY"
   },
 ];
 
@@ -151,28 +160,40 @@ export const experienceOrder: ExperienceId[] = [
   "sales",
 ];
 
-export type EducationId = "bac" | "dec" | "secondary";
+/**
+ * Logos for the scrolling skills strip. `file` is the basename of an SVG in
+ * /public/logos (vendored from the MIT-licensed devicon set).
+ */
+export type TechLogo = { name: string; file: string };
 
-export type EducationStatus = "ongoing" | "completed";
-
-export type EducationMeta = {
-  id: EducationId;
-  status: EducationStatus;
-  /** Locale-agnostic year the entry started. */
-  startDate: string;
-  /** Year the entry finished — omit for entries still in progress. */
-  endDate?: string;
-  /** Expected graduation year, if known, for entries still in progress. */
-  expectedEndDate?: string;
-};
-
-// Note: startDate for "bac"/"dec" is inferred from the DEC-BAC being a
-// continuous joint program that began right after secondary school (2023) —
-// confirm against the real enrollment date if this needs to be exact.
-export const educationOrder: EducationId[] = ["bac", "dec", "secondary"];
-
-export const educationMeta: EducationMeta[] = [
-  { id: "bac", status: "ongoing", startDate: "2026" },
-  { id: "dec", status: "ongoing", startDate: "2023" },
-  { id: "secondary", status: "completed", startDate: "2018", endDate: "2023" },
+export const techLogos: TechLogo[] = [
+  { name: "C#", file: "csharp" },
+  { name: "ASP.NET Core", file: "dotnetcore" },
+  { name: "Angular", file: "angular" },
+  { name: "TypeScript", file: "typescript" },
+  { name: "JavaScript", file: "javascript" },
+  { name: "React", file: "react" },
+  { name: "HTML5", file: "html5" },
+  { name: "CSS3", file: "css3" },
+  { name: "Java", file: "java" },
+  { name: "Kotlin", file: "kotlin" },
+  { name: "SQL Server", file: "sqlserver" },
+  { name: "SQLite", file: "sqlite" },
+  { name: "Tauri", file: "tauri" },
+  { name: "Godot", file: "godot" },
+  { name: "Git", file: "git" },
+  { name: "GitHub", file: "github" },
+  { name: "Azure", file: "azure" },
+  { name: "Azure DevOps", file: "azuredevops" },
+  { name: "Visual Studio", file: "visualstudio" },
+  { name: "VS Code", file: "vscode" },
+  { name: "PowerShell", file: "powershell" },
 ];
+
+export type EducationId = "bacc" | "dec";
+
+export const educationOrder: EducationId[] = ["bacc", "dec"];
+
+export type EventId = "cursorHackathon";
+
+export const eventOrder: EventId[] = ["cursorHackathon"];

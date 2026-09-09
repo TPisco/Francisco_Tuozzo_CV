@@ -14,6 +14,15 @@ type ProjectDetailContentProps = {
   meta: ProjectMeta;
 };
 
+function repoName(url: string) {
+  try {
+    const segments = new URL(url).pathname.split("/").filter(Boolean);
+    return segments[segments.length - 1] ?? url;
+  } catch {
+    return url;
+  }
+}
+
 export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
   const { t } = useI18n();
   const item = t.projects.items[meta.id];
@@ -150,18 +159,26 @@ export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
               </section>
             </Reveal>
 
-            {meta.github ? (
-              <Reveal delay={0.1}>
-                <a
-                  href={meta.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost w-full"
-                >
-                  <Icon icon={faGithub} className="h-4 w-4" />
-                  {labels.viewCode}
-                </a>
-              </Reveal>
+            {meta.github?.length ? (
+              <div className="flex w-full flex-col gap-2">
+                {meta.github.map((url, index) => (
+                  <Reveal key={url} delay={0.1 + index * 0.05}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-ghost w-full"
+                    >
+                      <Icon icon={faGithub} className="h-4 w-4 shrink-0" />
+                      <span className="truncate">
+                        {meta.github!.length > 1
+                          ? `${labels.viewCode} — ${repoName(url)}`
+                          : labels.viewCode}
+                      </span>
+                    </a>
+                  </Reveal>
+                ))}
+              </div>
             ) : null}
           </aside>
         </div>

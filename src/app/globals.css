@@ -70,6 +70,41 @@
     @apply rounded-4xl bg-shell shadow-soft;
   }
 
+  /* Edge-faded logo strip. It is a real scroll container — the drift is driven
+     by script (see tech-marquee.tsx) so wheel, touch and drag all share one
+     scroll position. */
+  .marquee {
+    @apply relative overflow-x-auto overflow-y-hidden;
+    cursor: grab;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 6%,
+      #000 94%,
+      transparent
+    );
+  }
+  .marquee::-webkit-scrollbar {
+    display: none;
+  }
+  .marquee[data-dragging] {
+    cursor: grabbing;
+    user-select: none;
+  }
+  .marquee-track {
+    @apply flex w-max;
+  }
+
   /* Underline field for the dark contact panel. */
   .field-dark {
     @apply w-full border-0 border-b border-cream/20 bg-transparent px-0 py-2.5 text-base text-cream outline-none transition-colors placeholder:text-cream/35 focus:border-clay-soft;

@@ -34,7 +34,8 @@ export function Navbar() {
           {profile.name}
         </Link>
 
-        <div className="hidden items-center gap-8 md:flex">
+        {/* Tighter gap at md: seven items plus the CTA is a lot for 768px. */}
+        <div className="hidden items-center gap-5 md:flex lg:gap-8">
           {primaryLinks.map((link) => (
             <Link
               key={link.id}

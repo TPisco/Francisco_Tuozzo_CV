@@ -1,12 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Icon } from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { ProjectTechPills } from "@/components/projects/project-tech-pills";
 import { ViewDetailsLink } from "@/components/projects/view-details-link";
 import type { ProjectMeta } from "@/data/portfolio";
-import { getProjectPath } from "@/lib/projects";
 import type { Dictionary } from "@/i18n";
 
 type FeaturedProjectCardProps = {
@@ -24,11 +22,13 @@ export function FeaturedProjectCard({
 
   return (
     <Reveal>
-      <Link
-        href={getProjectPath(meta.id)}
-        className="no-underline transition-colors hover:text-clay"
-        >
-      <article className="card-soft grid overflow-hidden lg:grid-cols-2">
+      {/*
+        The whole card is clickable, but only "View details" is an actual <a>:
+        it stretches an ::after overlay across the card. Wrapping the card in a
+        link instead would nest that anchor inside another one — invalid HTML —
+        and would turn every paragraph and bullet into link text.
+      */}
+      <article className="card-soft group relative grid overflow-hidden transition-shadow duration-300 hover:shadow-lift lg:grid-cols-2">
         <div
           className={`relative flex min-h-[280px] flex-col justify-between overflow-hidden p-10 sm:min-h-[340px] ${
             flip ? "lg:order-2" : ""
@@ -43,10 +43,8 @@ export function FeaturedProjectCard({
             {t.projects.featured}
           </span>
           <div>
-            <h3 className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-              
-                {meta.name}
-              
+            <h3 className="font-display text-4xl font-semibold leading-tight tracking-tight transition-colors group-hover:text-clay sm:text-5xl">
+              {meta.name}
             </h3>
             <p className="mt-3 max-w-sm text-base text-ink-soft">
               {item.tagline}
@@ -78,11 +76,12 @@ export function FeaturedProjectCard({
             <ViewDetailsLink
               projectId={meta.id}
               label={t.projects.viewDetails}
+              ariaLabel={`${t.projects.viewDetails} — ${meta.name}`}
+              className="ml-auto inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-clay"
             />
           </div>
         </div>
       </article>
-      </Link>
     </Reveal>
   );
 }

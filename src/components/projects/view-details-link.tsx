@@ -8,15 +8,22 @@ type ViewDetailsLinkProps = {
   projectId: ProjectId;
   label: string;
   className?: string;
+  /** Distinguishes otherwise identical "View details" links for screen readers. */
+  ariaLabel?: string;
 };
 
 export function ViewDetailsLink({
   projectId,
   label,
   className = "ml-auto inline-flex items-center gap-2 text-sm font-semibold text-ink transition-colors hover:text-clay",
+  ariaLabel,
 }: ViewDetailsLinkProps) {
   return (
-    <Link href={getProjectPath(projectId)} className={className}>
+    <Link
+      href={getProjectPath(projectId)}
+      className={className}
+      aria-label={ariaLabel}
+    >
       {label}
       <Icon icon={faArrowUpRightFromSquare} className="h-3.5 w-3.5" />
     </Link>

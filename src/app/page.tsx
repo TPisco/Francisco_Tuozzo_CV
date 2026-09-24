@@ -18,7 +18,7 @@ const personJsonLd = {
   name: profile.name,
   jobTitle: "Software developer",
   description: en.about.paragraphs[0],
-  url: "https://franciscotuozzo.dev",
+  url: "https://francisco-tuozzo.com",
   email: profile.email,
   sameAs: [profile.github, profile.linkedin],
   address: {

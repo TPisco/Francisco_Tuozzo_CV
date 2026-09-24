@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://franciscotuozzo.dev/sitemap.xml",
+    sitemap: "https://francisco-tuozzo.com/sitemap.xml",
   };
 }

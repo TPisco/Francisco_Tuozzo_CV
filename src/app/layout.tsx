@@ -18,7 +18,7 @@ const fraunces = Fraunces({
   axes: ["opsz", "SOFT"],
 });
 
-const siteUrl = "https://franciscotuozzo.dev";
+const siteUrl = "https://francisco-tuozzo.com";
 const description =
   "Francisco Tuozzo — a bilingual computer science student and software developer in Quebec. I build offline-first desktop tools, ASP.NET Core MVC web apps, Angular front-ends, and games in Godot.";
 

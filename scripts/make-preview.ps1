@@ -4,9 +4,9 @@
 
 .DESCRIPTION
   Reads scripts/previews.json and writes, for each entry:
-    public/previews/<slug>.mp4        4-6 s, H.264, 720x404, no audio, under -MaxMegabytes
-    public/previews/<slug>-720.webp   poster (first frame of the clip), used by the hover card
-    public/previews/<slug>-1440.webp  same poster, used on the detail page
+    public/previews/<slug>.mp4        4-6 s, H.264, 1280x720, no audio, under -MaxMegabytes
+    public/previews/<slug>-720.webp   poster (first frame of the clip), for small screens
+    public/previews/<slug>-1440.webp  same poster, for the project cards and detail pages
   Image entries (no video) only get the two posters. An optional "crop"
   (ffmpeg crop "w:h:x:y", in source pixels) is applied before framing to 16:9.
 
@@ -45,7 +45,10 @@ param(
   [Parameter(ParameterSetName = 'One')]
   [switch] $ContactSheet,
 
-  [double] $MaxMegabytes = 1.5
+  [double] $MaxMegabytes = 1.5,
+
+  # The project cards show clips up to ~980 CSS px wide.
+  [int] $ClipWidth = 1280
 )
 
 $ErrorActionPreference = 'Stop'
@@ -168,7 +171,7 @@ function Build-Preview($Entry) {
   do {
     Invoke-Tool 'ffmpeg' @('-hide_banner', '-loglevel', 'error', '-y',
       '-ss', (Format-Seconds $start), '-t', (Format-Seconds $duration), '-i', $source,
-      '-an', '-vf', ((Get-FrameFilter 720 $Entry.crop) + ',fps=30'),
+      '-an', '-vf', ((Get-FrameFilter $ClipWidth $Entry.crop) + ',fps=30'),
       '-c:v', 'libx264', '-profile:v', 'high', '-preset', 'slow', '-crf', "$crf",
       '-pix_fmt', 'yuv420p', '-movflags', '+faststart', $clip)
     $megabytes = (Get-Item $clip).Length / 1MB

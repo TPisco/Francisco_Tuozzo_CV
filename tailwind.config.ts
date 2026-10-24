@@ -7,6 +7,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        // A mouse or trackpad. Gates hover-only UI so touch devices never see it.
+        "hover-fine": { raw: "(hover: hover) and (pointer: fine)" },
+      },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
         display: ["var(--font-display)", "Georgia", "serif"],

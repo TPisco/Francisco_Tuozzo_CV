@@ -54,14 +54,11 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     lead: string;
-    featured: string;
-    whyTitle: string;
-    viewDetails: string;
-    moreTitle: string;
     detail: {
       back: string;
       overview: string;
       description: string;
+      why: string;
       technologies: string;
       features: string;
       role: string;
@@ -74,10 +71,10 @@ export interface Dictionary {
     items: Record<
       ProjectId,
       {
+        /** One line, shown in the project list. */
         tagline: string;
-        what: string;
+        /** "Why it matters" on the detail page. */
         why: string;
-        built: string[];
         detail: {
           overview: string;
           description: string;

@@ -45,9 +45,7 @@ export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
 
         <Reveal delay={0.05}>
           <header className="mt-10 max-w-3xl">
-            <p className="eyebrow">
-              {meta.featured ? t.projects.featured : t.projects.eyebrow}
-            </p>
+            <p className="eyebrow">{t.projects.eyebrow}</p>
             <h1 className="mt-4 font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
               {meta.name}
             </h1>
@@ -80,6 +78,17 @@ export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
                     <p key={paragraph.slice(0, 48)}>{paragraph}</p>
                   ))}
                 </div>
+              </section>
+            </Reveal>
+
+            <Reveal delay={0.05}>
+              <section>
+                <h2 className="font-display text-2xl font-semibold">
+                  {labels.why}
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-ink-soft sm:text-lg">
+                  {item.why}
+                </p>
               </section>
             </Reveal>
 

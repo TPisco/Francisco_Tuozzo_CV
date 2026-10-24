@@ -89,14 +89,11 @@ export const en: Dictionary = {
     eyebrow: "Selected work",
     title: "Projects I've taken from idea to working software.",
     lead: "A few I'm proud of — what each one does, and what I learned building it.",
-    featured: "Featured project",
-    whyTitle: "Why it matters",
-    viewDetails: "View details",
-    moreTitle: "A few more, in brief",
     detail: {
       back: "Back to projects",
       overview: "Overview",
       description: "About the project",
+      why: "Why it matters",
       technologies: "Technologies",
       features: "Key features",
       role: "What I built",
@@ -109,14 +106,7 @@ export const en: Dictionary = {
     items: {
       scentory: {
         tagline: "Offline-first desktop dashboard for small businesses",
-        what: "A Windows desktop app that lets a small business run its whole back office in one place — sales, purchases, expenses, clients, suppliers, credits, recurring expenses, and inventory — without needing an internet connection.",
         why: "Small shops usually stitch this together across spreadsheets and disconnected tools. I wanted one fast, local app the owner actually controls, with their own custom fields and an archive so nothing gets lost.",
-        built: [
-          "Designed the SQLite schema and the offline data layer that keeps everything local",
-          "Built the dashboard analytics that summarize sales, purchases and expenses",
-          "Added custom fields, recurring expenses, credits and an archive system",
-          "Packaged it as a lightweight native app with Tauri instead of a heavy Electron build",
-        ],
         detail: {
           overview:
             "A native Windows dashboard that gives small business owners one reliable place to track sales, spending, inventory, and clients — entirely offline.",
@@ -141,14 +131,7 @@ export const en: Dictionary = {
       },
       vert: {
         tagline: "Community organization website with a real admin panel",
-        what: "A full ASP.NET Core MVC site for a community organization: public pages for visitors, plus an admin section to manage events, donations, members, and view statistics.",
         why: "It's the project where I learned how a real server-rendered web app fits together end to end — routing, data access, authentication, and an admin area that non-technical people can use.",
-        built: [
-          "Modeled the data with Entity Framework Core against SQL Server",
-          "Built public pages and a separate admin section with user management",
-          "Implemented events, donations, and a statistics view",
-          "Structured it with bilingual content in mind from the start",
-        ],
         detail: {
           overview:
             "A full-stack community website with public pages for visitors and a secure admin area to manage events, donations, members, and statistics.",
@@ -173,13 +156,7 @@ export const en: Dictionary = {
       },
       knightrpg: {
         tagline: "3D action RPG with procedural worlds",
-        what: "A 3D action RPG in Godot with combat, progression, inventory, boss battles, and a world that generates itself so exploration never runs out.",
         why: "Games are where I push system design hardest — keeping combat, progression and generation working together without turning into spaghetti.",
-        built: [
-          "Procedural / infinite world generation",
-          "Combat, progression, and inventory systems",
-          "Boss encounters and game logic in GDScript",
-        ],
         detail: {
           overview:
             "A 3D action RPG built in Godot where combat, progression, and procedural world generation work together in one playable experience.",
@@ -202,13 +179,7 @@ export const en: Dictionary = {
       },
       cardgame: {
         tagline: "Real-time card game over a full-duplex connection",
-        what: "An online card game where two players stay in sync in real time through an event-driven, full-duplex connection between an Angular client and a C# MVC backend.",
         why: "It taught me how to keep shared game state consistent across clients when messages can arrive at any time from either side.",
-        built: [
-          "Event-driven, full-duplex communication between players",
-          "Angular front-end talking to a C# / MVC backend",
-          "Game state kept in sync in real time",
-        ],
         detail: {
           overview:
             "A two-player online card game where an Angular client and C# backend stay in sync through real-time, event-driven communication.",
@@ -231,12 +202,7 @@ export const en: Dictionary = {
       },
       qprojects: {
         tagline: "Hands-on quantum computing experiments",
-        what: "A personal sandbox for learning quantum computing by implementing and simulating the concepts in Python rather than only reading about them.",
         why: "It's where I keep stretching past the curriculum — picking a hard topic and forcing myself to build something with it.",
-        built: [
-          "Quantum concepts implemented and simulated in Python",
-          "Numerical experiments with NumPy",
-        ],
         detail: {
           overview:
             "A personal Python sandbox for learning quantum computing by implementing and simulating concepts hands-on.",

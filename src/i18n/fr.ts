@@ -89,14 +89,11 @@ export const fr: Dictionary = {
     eyebrow: "Projets choisis",
     title: "Des projets menés de l'idée jusqu'au logiciel fonctionnel.",
     lead: "Quelques-uns dont je suis fier — ce que chacun fait et ce qu'il m'a appris.",
-    featured: "Projet en vedette",
-    whyTitle: "Pourquoi c'est important",
-    viewDetails: "Voir les détails",
-    moreTitle: "Quelques autres, en bref",
     detail: {
       back: "Retour aux projets",
       overview: "Aperçu",
       description: "À propos du projet",
+      why: "Pourquoi c'est important",
       technologies: "Technologies",
       features: "Fonctionnalités clés",
       role: "Ce que j'ai construit",
@@ -109,14 +106,7 @@ export const fr: Dictionary = {
     items: {
       scentory: {
         tagline: "Tableau de bord de bureau hors ligne pour petites entreprises",
-        what: "Une application de bureau Windows qui permet à une petite entreprise de gérer toute son administration au même endroit — ventes, achats, dépenses, clients, fournisseurs, crédits, dépenses récurrentes et inventaire — sans connexion Internet.",
         why: "Les petits commerces jonglent souvent avec des feuilles de calcul et des outils déconnectés. Je voulais une seule application locale et rapide que le propriétaire contrôle vraiment, avec ses propres champs personnalisés et un archivage pour que rien ne se perde.",
-        built: [
-          "Conçu le schéma SQLite et la couche de données hors ligne qui garde tout en local",
-          "Développé le tableau de bord qui résume ventes, achats et dépenses",
-          "Ajouté des champs personnalisés, des dépenses récurrentes, des crédits et un système d'archivage",
-          "Empaqueté en application native légère avec Tauri plutôt qu'un lourd build Electron",
-        ],
         detail: {
           overview:
             "Un tableau de bord Windows natif qui donne aux petites entreprises un seul endroit fiable pour suivre ventes, dépenses, inventaire et clients — entièrement hors ligne.",
@@ -141,14 +131,7 @@ export const fr: Dictionary = {
       },
       vert: {
         tagline: "Site d'organisme communautaire avec une vraie section d'administration",
-        what: "Un site complet en ASP.NET Core MVC pour un organisme communautaire : des pages publiques pour les visiteurs et une section d'administration pour gérer les événements, les dons, les membres et consulter des statistiques.",
         why: "C'est le projet où j'ai compris comment une vraie application web rendue côté serveur s'assemble de bout en bout — routage, accès aux données, authentification et une zone d'administration utilisable par des personnes non techniques.",
-        built: [
-          "Modélisé les données avec Entity Framework Core sur SQL Server",
-          "Construit les pages publiques et une section d'administration distincte avec gestion des utilisateurs",
-          "Implémenté les événements, les dons et une vue de statistiques",
-          "Pensé dès le départ pour du contenu bilingue",
-        ],
         detail: {
           overview:
             "Un site communautaire full-stack avec des pages publiques pour les visiteurs et une zone d'administration sécurisée pour gérer événements, dons, membres et statistiques.",
@@ -173,13 +156,7 @@ export const fr: Dictionary = {
       },
       knightrpg: {
         tagline: "Jeu de rôle d'action 3D avec mondes procéduraux",
-        what: "Un jeu de rôle d'action 3D dans Godot avec combat, progression, inventaire, combats de boss et un monde qui se génère lui-même pour que l'exploration ne s'épuise jamais.",
         why: "Les jeux, c'est là que je pousse le plus la conception de systèmes — faire cohabiter combat, progression et génération sans que ça devienne un plat de spaghetti.",
-        built: [
-          "Génération de monde procédurale / infinie",
-          "Systèmes de combat, de progression et d'inventaire",
-          "Combats de boss et logique de jeu en GDScript",
-        ],
         detail: {
           overview:
             "Un jeu de rôle d'action 3D dans Godot où combat, progression et génération procédurale de monde fonctionnent ensemble dans une expérience jouable.",
@@ -202,13 +179,7 @@ export const fr: Dictionary = {
       },
       cardgame: {
         tagline: "Jeu de cartes en temps réel sur une connexion bidirectionnelle",
-        what: "Un jeu de cartes en ligne où deux joueurs restent synchronisés en temps réel grâce à une connexion full-duplex et événementielle entre un client Angular et un back-end C# MVC.",
         why: "Ça m'a appris à garder un état de jeu partagé cohérent entre les clients quand les messages peuvent arriver à tout moment des deux côtés.",
-        built: [
-          "Communication événementielle et full-duplex entre les joueurs",
-          "Front-end Angular relié à un back-end C# / MVC",
-          "État de jeu synchronisé en temps réel",
-        ],
         detail: {
           overview:
             "Un jeu de cartes en ligne à deux joueurs où un client Angular et un back-end C# restent synchronisés grâce à une communication événementielle en temps réel.",
@@ -231,12 +202,7 @@ export const fr: Dictionary = {
       },
       qprojects: {
         tagline: "Expériences concrètes en informatique quantique",
-        what: "Un bac à sable personnel pour apprendre l'informatique quantique en implémentant et en simulant les concepts en Python, plutôt qu'en me contentant de les lire.",
         why: "C'est là que je continue d'aller plus loin que le programme — choisir un sujet difficile et m'obliger à construire quelque chose avec.",
-        built: [
-          "Concepts quantiques implémentés et simulés en Python",
-          "Expériences numériques avec NumPy",
-        ],
         detail: {
           overview:
             "Un bac à sable Python personnel pour apprendre l'informatique quantique en implémentant et simulant les concepts de façon concrète.",

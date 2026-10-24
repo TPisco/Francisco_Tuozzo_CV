@@ -43,7 +43,8 @@ export function InfoIntro() {
               ))}
             </div>
           </Reveal>
-          <motion.div style={reduceMotion ? undefined : { y: drift }} className="w-4/5 self-end">
+          {/* Always pass y: dropping it would freeze the last applied offset. */}
+          <motion.div style={{ y: reduceMotion ? 0 : drift }} className="w-4/5 self-end">
             <PhotoSlot photo={infoPhotos[1]} placeholderLabel={t.about.photoPlaceholder} />
           </motion.div>
         </div>

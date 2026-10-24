@@ -36,7 +36,9 @@ export function ProjectCard({ meta, item, award, priority }: ProjectCardProps) {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.35"] });
   const scale = useTransform(scrollYProgress, [0, 1], [START_SCALE, 1]);
 
-  const style = { "--card-radius": "2.25rem", ...(reduceMotion ? {} : { scale }) } as CSSProperties;
+  // Always pass scale: dropping it would leave whatever value framer last applied
+  // (useReducedMotion is null on the first render, before the setting is known).
+  const style = { "--card-radius": "2.25rem", scale: reduceMotion ? 1 : scale } as CSSProperties;
 
   return (
     <motion.article

@@ -4,23 +4,19 @@ export function SectionHeading({
   eyebrow,
   title,
   lead,
-  align = "left",
 }: {
   eyebrow: string;
   title: string;
   lead?: string;
-  align?: "left" | "center";
 }) {
   return (
     <Reveal>
-      <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-3xl"}>
+      <div className="max-w-3xl">
         <p className="eyebrow">{eyebrow}</p>
-        <h2 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+        <h2 className="mt-4 text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.06] tracking-[-0.035em] [text-wrap:balance]">
           {title}
         </h2>
-        {lead ? (
-          <p className="mt-5 text-lg leading-relaxed text-ink-soft">{lead}</p>
-        ) : null}
+        {lead ? <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">{lead}</p> : null}
       </div>
     </Reveal>
   );

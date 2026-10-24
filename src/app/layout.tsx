@@ -1,21 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { Albert_Sans, Gloock } from "next/font/google";
 import "@/lib/fontawesome";
 import "./globals.css";
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 import { LanguageProvider } from "@/i18n/provider";
 import { profile } from "@/data/portfolio";
 
-const inter = Inter({
+// One grotesk for everything; one serif, only for the italic accent word in a headline.
+const albertSans = Albert_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const gloock = Gloock({
   subsets: ["latin"],
-  variable: "--font-display",
+  weight: "400",
+  variable: "--font-serif",
   display: "swap",
-  axes: ["opsz", "SOFT"],
 });
 
 const siteUrl = "https://francisco-tuozzo.com";
@@ -68,8 +71,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${fraunces.variable} font-sans`}>
-        <LanguageProvider>{children}</LanguageProvider>
+      <body className={`${albertSans.variable} ${gloock.variable} font-sans`}>
+        <LanguageProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

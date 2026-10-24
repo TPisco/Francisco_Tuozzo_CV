@@ -5,34 +5,28 @@ export const es: Dictionary = {
   localeShort: "ES",
 
   nav: {
-    about: "Perfil",
-    skills: "Habilidades",
-    projects: "Proyectos",
-    experience: "Experiencia",
-    education: "Formación",
-    events: "Eventos",
-    contact: "Contacto",
+    label: "Principal",
+    work: "Proyectos",
+    info: "Perfil",
+    links: "Enlaces",
   },
 
   hero: {
-    supporting:
-      "Desarrollador de software trilingüe en Quebec — creo herramientas de escritorio, aplicaciones web y videojuegos, y me gusta llevar cada proyecto hasta algo que la gente pueda usar de verdad.",
+    role: "Desarrollador de software",
+    headlineLead: "Creo software que la gente puede",
+    headlineAccent: "usar de verdad.",
+    intro: "Estudiante de informática en Quebec.",
+    introMuted: "Busco una pasantía para el invierno de 2027.",
     seeWork: "Ver mis proyectos",
-    getInTouch: "Hablemos",
     resume: "CV",
     resumeAria: "Descargar mi CV (PDF)",
-    currently: "Ahora mismo",
-    facts: {
-      location: { label: "Ubicación", value: "Quebec, Canadá" },
-      languages: { label: "Idiomas", value: "Français · English · Español" },
-      stack: { label: "Stack principal", value: "C# · ASP.NET · Angular · SQL" },
-      also: { label: "También uso", value: "Tauri · Godot · EF Core · Azure" },
-    },
   },
 
   about: {
     eyebrow: "Perfil",
-    heading: "Un desarrollador al que le gusta terminar lo que empieza.",
+    headingLead: "Un desarrollador al que le gusta",
+    headingAccent: "terminar lo que empieza.",
+    photoPlaceholder: "Foto próximamente",
     paragraphs: [
       "Soy estudiante de informática en Quebec y estoy terminando mi formación técnica. La mayor parte de lo que sé lo aprendí construyendo cosas que tenían que funcionar de verdad: una herramienta de escritorio que un pequeño negocio puede usar sin Internet, el sitio de una organización comunitaria con una sección de administración real y un RPG 3D que genera su propio mundo.",
       "Trabajo en francés, inglés y español. Eso me ha servido tanto para ayudar a compañeros atascados como para explicar decisiones técnicas a personas que no programan.",
@@ -87,8 +81,6 @@ export const es: Dictionary = {
 
   projects: {
     eyebrow: "Trabajo seleccionado",
-    title: "Proyectos que llevé de la idea al software funcional.",
-    lead: "Algunos de los que estoy orgulloso — qué hace cada uno y qué aprendí al construirlo.",
     detail: {
       back: "Volver a proyectos",
       overview: "Resumen",
@@ -104,6 +96,8 @@ export const es: Dictionary = {
       playVideo: "Reproducir el video de presentación",
       imageAlt: "Vista previa del proyecto",
       viewCode: "Ver el código en GitHub",
+      contents: "Contenido",
+      links: "Enlaces",
       openLive: "Probarlo en línea",
     },
     items: {
@@ -431,7 +425,9 @@ export const es: Dictionary = {
 
   footer: {
     role: "Desarrollador de software · Quebec, Canadá",
-    tagline: "Desarrollador de software · Quebec, Canadá",
+    pages: "Páginas",
+    contact: "Contacto",
+    rights: "Todos los derechos reservados.",
     built: "Diseñado y construido desde cero con Next.js, TypeScript y Tailwind CSS.",
   },
 

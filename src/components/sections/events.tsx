@@ -19,7 +19,7 @@ export function Events() {
   return (
     <section
       id="events"
-      className="section bg-gradient-to-b from-sand to-cream"
+      className="section"
     >
       <div className="wrap">
         <SectionHeading
@@ -37,13 +37,13 @@ export function Events() {
                 {/* The id is the target of the award badge in the project list. */}
                 <div
                   id={`event-${id}`}
-                  className="grid gap-3 rounded-2xl px-2 py-7 transition-colors hover:bg-cream/70 md:grid-cols-12 md:gap-8 md:px-6"
+                  className="grid gap-3 rounded-2xl px-2 py-7 transition-colors hover:bg-shell/80 md:grid-cols-12 md:gap-8 md:px-6"
                 >
                   <div className="md:col-span-4">
                     <p className="text-xs font-semibold uppercase tracking-wider text-clay">
                       {item.period}
                     </p>
-                    <h3 className="mt-2 font-display text-xl font-semibold">
+                    <h3 className="mt-2 text-xl font-medium tracking-tight">
                       {item.name}
                     </h3>
                     <p className="text-sm text-ink-faint">{item.org}</p>

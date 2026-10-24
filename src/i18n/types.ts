@@ -1,5 +1,4 @@
 import type {
-  NavId,
   SkillId,
   ProjectId,
   ExperienceId,
@@ -17,26 +16,36 @@ export interface Dictionary {
   /** Short code shown in the compact switcher (e.g. "FR"). */
   localeShort: string;
 
-  nav: Record<NavId, string>;
+  nav: {
+    /** Accessible name of the main navigation. */
+    label: string;
+    /** The two pages in the navbar's pill switch. */
+    work: string;
+    info: string;
+    /** Accessible name of the phone menu holding the external links. */
+    links: string;
+  };
 
   hero: {
-    supporting: string;
+    /** Shown under the name in the navbar. */
+    role: string;
+    /** The headline is lead + accent; the accent is set in the serif italic. */
+    headlineLead: string;
+    headlineAccent: string;
+    intro: string;
+    introMuted: string;
     seeWork: string;
-    getInTouch: string;
     resume: string;
     resumeAria: string;
-    currently: string;
-    facts: {
-      location: Labelled;
-      languages: Labelled;
-      stack: Labelled;
-      also: Labelled;
-    };
   };
 
   about: {
     eyebrow: string;
-    heading: string;
+    /** The Info page title is lead + accent; the accent is set in the serif italic. */
+    headingLead: string;
+    headingAccent: string;
+    /** Shown in a photo slot until a real photo is added. */
+    photoPlaceholder: string;
     paragraphs: string[];
     facts: Labelled[];
   };
@@ -51,9 +60,8 @@ export interface Dictionary {
   };
 
   projects: {
+    /** Label of the project list on the home page ("Selected work"). */
     eyebrow: string;
-    title: string;
-    lead: string;
     detail: {
       back: string;
       overview: string;
@@ -71,6 +79,10 @@ export interface Dictionary {
       /** Alt text for the project image when there is no video; the project name is appended. */
       imageAlt: string;
       viewCode: string;
+      /** Title of the case study's table of contents. */
+      contents: string;
+      /** Heading over the case study's GitHub and live links. */
+      links: string;
       /** Button to the live, playable version of a project. */
       openLive: string;
     };
@@ -167,8 +179,11 @@ export interface Dictionary {
 
   footer: {
     role: string;
-    tagline: string;
     built: string;
+    /** Column headings: links to the site's pages, and ways to reach me. */
+    pages: string;
+    contact: string;
+    rights: string;
   };
 
   switcher: {

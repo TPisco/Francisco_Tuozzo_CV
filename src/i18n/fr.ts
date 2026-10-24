@@ -5,34 +5,28 @@ export const fr: Dictionary = {
   localeShort: "FR",
 
   nav: {
-    about: "À propos",
-    skills: "Compétences",
-    projects: "Projets",
-    experience: "Expérience",
-    education: "Formation",
-    events: "Événements",
-    contact: "Contact",
+    label: "Principale",
+    work: "Projets",
+    info: "À propos",
+    links: "Liens",
   },
 
   hero: {
-    supporting:
-      "Développeur logiciel trilingue au Québec — je conçois des outils de bureau, des applications web et des jeux, et j'aime mener chaque projet jusqu'à un résultat réellement utilisable.",
+    role: "Développeur logiciel",
+    headlineLead: "Je crée des logiciels que les gens peuvent",
+    headlineAccent: "vraiment utiliser.",
+    intro: "Étudiant en informatique au Québec.",
+    introMuted: "À la recherche d'un stage pour l'hiver 2027.",
     seeWork: "Voir mes projets",
-    getInTouch: "Me contacter",
     resume: "CV",
     resumeAria: "Télécharger mon CV (PDF)",
-    currently: "En ce moment",
-    facts: {
-      location: { label: "Lieu", value: "Québec, Canada" },
-      languages: { label: "Langues", value: "Français · English · Español" },
-      stack: { label: "Stack principale", value: "C# · ASP.NET · Angular · SQL" },
-      also: { label: "Aussi à l'aise avec", value: "Tauri · Godot · EF Core · Azure" },
-    },
   },
 
   about: {
     eyebrow: "À propos",
-    heading: "Un développeur qui aime mener ses projets à terme.",
+    headingLead: "Un développeur qui aime",
+    headingAccent: "mener ses projets à terme.",
+    photoPlaceholder: "Photo à venir",
     paragraphs: [
       "Je suis étudiant en informatique au Québec et je termine mon DEC technique. L'essentiel de ce que je sais, je l'ai appris en construisant des choses qui devaient vraiment fonctionner : un outil de bureau qu'une petite entreprise peut utiliser sans Internet, le site d'un organisme communautaire avec une vraie section d'administration, un jeu de rôle 3D qui génère son propre monde.",
       "Je travaille en français, en anglais et en espagnol. Ça m'a beaucoup servi, autant pour aider des camarades coincés sur un problème que pour expliquer des choix techniques à des gens qui ne codent pas.",
@@ -87,8 +81,6 @@ export const fr: Dictionary = {
 
   projects: {
     eyebrow: "Projets choisis",
-    title: "Des projets menés de l'idée jusqu'au logiciel fonctionnel.",
-    lead: "Quelques-uns dont je suis fier — ce que chacun fait et ce qu'il m'a appris.",
     detail: {
       back: "Retour aux projets",
       overview: "Aperçu",
@@ -104,6 +96,8 @@ export const fr: Dictionary = {
       playVideo: "Lire la vidéo de présentation",
       imageAlt: "Aperçu du projet",
       viewCode: "Voir le code sur GitHub",
+      contents: "Sommaire",
+      links: "Liens",
       openLive: "L'essayer en ligne",
     },
     items: {
@@ -431,7 +425,9 @@ export const fr: Dictionary = {
 
   footer: {
     role: "Développeur logiciel · Québec, Canada",
-    tagline: "Développeur logiciel · Québec, Canada",
+    pages: "Pages",
+    contact: "Contact",
+    rights: "Tous droits réservés.",
     built: "Conçu et développé à partir de zéro avec Next.js, TypeScript et Tailwind CSS.",
   },
 

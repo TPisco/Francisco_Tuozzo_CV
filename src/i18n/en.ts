@@ -5,34 +5,28 @@ export const en: Dictionary = {
   localeShort: "EN",
 
   nav: {
-    about: "About",
-    skills: "Skills",
-    projects: "Projects",
-    experience: "Experience",
-    education: "Education",
-    events: "Events",
-    contact: "Contact",
+    label: "Main",
+    work: "Work",
+    info: "Info",
+    links: "Links",
   },
 
   hero: {
-    supporting:
-      "Trilingual software developer in Quebec — I build desktop tools, web apps, and games, and I like seeing each one through to something people can actually use.",
+    role: "Software developer",
+    headlineLead: "I build software people can",
+    headlineAccent: "actually use.",
+    intro: "Computer science student in Quebec.",
+    introMuted: "Looking for a winter 2027 internship.",
     seeWork: "See my work",
-    getInTouch: "Get in touch",
     resume: "Resume",
     resumeAria: "Download my résumé (PDF)",
-    currently: "Currently",
-    facts: {
-      location: { label: "Location", value: "Quebec, Canada" },
-      languages: { label: "Languages", value: "Français · English · Español" },
-      stack: { label: "Main stack", value: "C# · ASP.NET · Angular · SQL" },
-      also: { label: "Also enjoys", value: "Tauri · Godot · EF Core · Azure" },
-    },
   },
 
   about: {
     eyebrow: "About",
-    heading: "A developer who likes finishing things.",
+    headingLead: "A developer who likes",
+    headingAccent: "finishing things.",
+    photoPlaceholder: "Photo coming soon",
     paragraphs: [
       "I'm a computer science student in Quebec, finishing my technical degree. Most of what I know I learned by building things that had to actually work — a desktop tool a small business could run with no internet, a community website with a working admin section, a 3D RPG that generates its own world.",
       "I work in French, English, and Spanish. That's been useful both for tutoring classmates who were stuck and for explaining technical decisions to people who don't write code.",
@@ -87,8 +81,6 @@ export const en: Dictionary = {
 
   projects: {
     eyebrow: "Selected work",
-    title: "Projects I've taken from idea to working software.",
-    lead: "A few I'm proud of — what each one does, and what I learned building it.",
     detail: {
       back: "Back to projects",
       overview: "Overview",
@@ -104,6 +96,8 @@ export const en: Dictionary = {
       playVideo: "Play the walkthrough video",
       imageAlt: "Preview of the project",
       viewCode: "View code on GitHub",
+      contents: "Contents",
+      links: "Links",
       openLive: "Try it live",
     },
     items: {
@@ -431,7 +425,9 @@ export const en: Dictionary = {
 
   footer: {
     role: "Software developer · Quebec, Canada",
-    tagline: "Software developer · Quebec, Canada",
+    pages: "Pages",
+    contact: "Contact",
+    rights: "All rights reserved.",
     built: "Designed and built from scratch with Next.js, TypeScript & Tailwind CSS.",
   },
 

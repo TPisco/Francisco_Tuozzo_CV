@@ -13,7 +13,10 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "serif"],
+        // Headings use the same grotesk as the body; contrast comes from size and weight.
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        // Only for the italic accent word in a headline.
+        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       colors: {
         // Warm, premium light palette — cream paper, soft sand, earth accents.
@@ -44,6 +47,10 @@ const config: Config = {
       },
       borderRadius: {
         "4xl": "2rem",
+        // The only two radii besides full pills: big surfaces (hero, project
+        // cards, panels) and the frames or photos that sit inside them.
+        surface: "2.25rem",
+        frame: "1.25rem",
       },
       boxShadow: {
         soft: "0 1px 2px rgba(35,31,26,0.04), 0 18px 40px -24px rgba(70,50,30,0.22)",

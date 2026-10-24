@@ -1,39 +1,79 @@
 "use client";
 
+import Link from "next/link";
+import type { ReactNode } from "react";
 import { Icon } from "@/components/icon";
-import { socials, profile } from "@/data/portfolio";
+import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
+import { tabPaths } from "@/lib/navigation";
+import { faArrowDown, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export function Footer() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
 
   return (
-    <footer className="bg-cream">
-      <div className="wrap flex flex-col gap-8 border-t border-ink/10 py-12 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="font-display text-2xl font-semibold">{profile.name}</p>
+    <footer className="mt-12 border-t border-ink/10">
+      <div className="wrap grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+        <div className="lg:col-span-6">
+          <p className="text-lg font-semibold tracking-tight">{profile.name}</p>
           <p className="mt-1 text-sm text-ink-soft">{t.footer.role}</p>
         </div>
-        <div className="flex items-center gap-6">
-          {socials.map((social) => (
-            <a
-              key={social.label}
-              href={social.href}
-              target={social.href.startsWith("http") ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-clay"
-            >
-              <Icon icon={social.icon} className="h-4 w-4" />
-              {social.label}
+
+        <FooterColumn title={t.footer.pages} className="lg:col-span-2">
+          <li>
+            <Link href={tabPaths.work} className="footer-link">{t.nav.work}</Link>
+          </li>
+          <li>
+            <Link href={tabPaths.info} className="footer-link">{t.nav.info}</Link>
+          </li>
+        </FooterColumn>
+
+        <FooterColumn title={t.footer.contact} className="lg:col-span-4">
+          <li>
+            <a href={`mailto:${profile.email}`} className="footer-link">{profile.email}</a>
+          </li>
+          <li>
+            <ExternalLink href={profile.linkedin}>LinkedIn</ExternalLink>
+          </li>
+          <li>
+            <ExternalLink href={profile.github}>GitHub</ExternalLink>
+          </li>
+          <li>
+            <a href={resumeByLocale[locale]} download aria-label={t.hero.resumeAria} className="footer-link group">
+              {t.hero.resume}
+              <Icon icon={faArrowDown} className="h-3 w-3 transition-transform duration-200 ease-out group-hover:translate-y-0.5" />
             </a>
-          ))}
-        </div>
+          </li>
+        </FooterColumn>
       </div>
-      <div className="wrap pb-10">
-        <p className="text-xs text-ink-faint">
-          © {new Date().getFullYear()} {profile.name}. {t.footer.built}
+
+      <div className="wrap flex flex-col gap-2 border-t border-ink/10 py-8 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+        <p>
+          © {new Date().getFullYear()} {profile.name}. {t.footer.rights}
         </p>
+        <p>{t.footer.built}</p>
       </div>
     </footer>
+  );
+}
+
+function FooterColumn({ title, className, children }: { title: string; className: string; children: ReactNode }) {
+  return (
+    <div className={className}>
+      <p className="text-xs font-medium uppercase tracking-[0.18em] text-ink-faint">{title}</p>
+      <ul className="mt-4 space-y-2.5">{children}</ul>
+    </div>
+  );
+}
+
+function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className="footer-link group">
+      {children}
+      <Icon
+        icon={faArrowRight}
+        className="h-3 w-3 -rotate-45 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+      />
+    </a>
   );
 }

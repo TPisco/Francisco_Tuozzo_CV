@@ -33,7 +33,7 @@ export function ProjectVideo({
   const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-3xl bg-sand shadow-soft">
+    <div className="relative aspect-video w-full overflow-hidden bg-sand">
       {embedUrl && playing ? (
         <iframe
           src={`${embedUrl}?autoplay=1&rel=0`}

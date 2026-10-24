@@ -22,8 +22,7 @@
   h2,
   h3 {
     @apply font-display;
-    letter-spacing: -0.02em;
-    font-optical-sizing: auto;
+    letter-spacing: -0.025em;
   }
 
   a {
@@ -48,7 +47,16 @@
   }
 
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.2em] text-clay;
+    @apply text-xs font-medium uppercase tracking-[0.18em] text-clay;
+  }
+
+  /* The one serif word in a headline ("actually use."). Gloock has no italic
+     cut, so the browser slants it, as the reference site does. */
+  .accent-serif {
+    font-family: var(--font-serif), Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.015em;
   }
 
   /* Premium pill buttons. */
@@ -66,8 +74,8 @@
     @apply font-medium text-ink underline decoration-ink/25 decoration-1 underline-offset-4 transition-colors hover:text-clay hover:decoration-clay;
   }
 
-  .card-soft {
-    @apply rounded-4xl bg-shell shadow-soft;
+  .footer-link {
+    @apply inline-flex items-center gap-1.5 text-[15px] font-medium text-ink no-underline transition-colors hover:text-clay;
   }
 
   /* Edge-faded logo strip. It is a real scroll container — the drift is driven
@@ -105,25 +113,21 @@
     @apply flex w-max;
   }
 
-  /* Project list: with a mouse, the row being pointed at stays sharp while the
-     others recede, so the eye stays on the row the preview card belongs to. */
-  .project-row {
-    transition: opacity 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  /* A link whose ::after covers its whole card (see project-card.tsx): the
+     focus ring follows the card's shape instead of hugging the link text. The
+     card sets --card-radius so the ring matches its corners. */
+  .stretched-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--card-radius, 0);
   }
-  @media (hover: hover) and (pointer: fine) {
-    .project-list:hover > .project-row:not(:hover) {
-      opacity: 0.45;
-    }
-  }
-
-  /* The row's link stretches over the whole row, so its focus ring does too. */
-  .row-link:focus-visible {
+  .stretched-link:focus-visible {
     outline: none;
   }
-  .row-link:focus-visible::after {
+  .stretched-link:focus-visible::after {
     outline: 2px solid #c2603f;
-    outline-offset: -2px;
-    border-radius: 1rem;
+    outline-offset: 3px;
   }
 
   /* Underline field for the dark contact panel. */

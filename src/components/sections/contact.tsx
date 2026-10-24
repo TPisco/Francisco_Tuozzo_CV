@@ -32,16 +32,16 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="section pt-8">
+    <section id="contact" className="section pt-4">
       <div className="wrap">
         <Reveal>
-          <div className="overflow-hidden rounded-4xl bg-ink px-7 py-14 text-cream shadow-lift sm:px-14 sm:py-20">
+          <div className="overflow-hidden rounded-surface bg-ink px-7 py-14 text-cream shadow-lift sm:px-14 sm:py-20">
             <div className="grid gap-y-12 lg:grid-cols-12 lg:gap-x-16">
               <div className="lg:col-span-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay-soft">
                   {t.contact.eyebrow}
                 </p>
-                <h2 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+                <h2 className="mt-4 text-[clamp(2rem,4vw,3.25rem)] font-medium leading-[1.06] tracking-[-0.035em]">
                   {t.contact.title}
                 </h2>
                 <p className="mt-5 max-w-md text-lg leading-relaxed text-cream/70">

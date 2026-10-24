@@ -9,49 +9,30 @@ export function Education() {
   const { t } = useI18n();
 
   return (
-    <section id="education" className="section">
-      <div className="wrap">
-        <SectionHeading
-          eyebrow={t.education.eyebrow}
-          title={t.education.title}
-          lead={t.education.lead}
-        />
+    <section id="education" className="wrap section">
+      <SectionHeading eyebrow={t.education.eyebrow} title={t.education.title} lead={t.education.lead} />
 
-        <div className="mt-14 space-y-px">
-          {educationOrder.map((id, i) => {
-            const edu = t.education.items[id];
-            return (
-              <Reveal key={id} delay={(i % 2) * 0.05}>
-                <div className="grid gap-3 rounded-2xl px-2 py-7 transition-colors hover:bg-sand/70 md:grid-cols-12 md:gap-8 md:px-6">
-                  <div className="md:col-span-4">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-clay">
-                      {edu.period}
-                    </p>
-                    <h3 className="mt-2 font-display text-xl font-semibold">
-                      {edu.program}
-                    </h3>
-                    <p className="text-sm text-ink-faint">{edu.school}</p>
-                  </div>
-                  <div className="md:col-span-8">
-                    <p className="max-w-prose text-lg leading-relaxed text-ink-soft">
-                      {edu.description}
-                    </p>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {edu.highlights.map((highlight) => (
-                        <li
-                          key={highlight}
-                          className="rounded-full border border-ink/10 px-3 py-1 text-xs font-medium text-ink-soft"
-                        >
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
+      <div className="mt-14 grid gap-6 md:grid-cols-2">
+        {educationOrder.map((id, i) => {
+          const edu = t.education.items[id];
+          return (
+            <Reveal key={id} delay={i * 0.06}>
+              <article className="h-full rounded-surface border border-ink/10 bg-shell p-8 shadow-soft sm:p-10">
+                <p className="text-sm font-medium text-clay">{edu.period}</p>
+                <h3 className="mt-3 text-2xl font-medium leading-tight tracking-tight">{edu.program}</h3>
+                <p className="mt-1 text-sm text-ink-soft">{edu.school}</p>
+                <p className="mt-6 leading-relaxed text-ink-soft">{edu.description}</p>
+                <ul className="mt-6 flex flex-wrap gap-2">
+                  {edu.highlights.map((highlight) => (
+                    <li key={highlight} className="rounded-full bg-cream px-3 py-1 text-xs font-medium text-ink-soft">
+                      {highlight}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            </Reveal>
+          );
+        })}
       </div>
     </section>
   );

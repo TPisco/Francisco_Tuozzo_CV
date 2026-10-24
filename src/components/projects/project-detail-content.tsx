@@ -58,7 +58,7 @@ export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
 
         <Reveal delay={0.1}>
           <div className="mt-12 lg:mt-16">
-            <h2 className="sr-only">{labels.video}</h2>
+            <h2 className="sr-only">{meta.videoUrl ? labels.video : labels.screenshots}</h2>
             <ProjectVideo
               videoUrl={meta.videoUrl}
               media={getPreviewMedia(meta)}

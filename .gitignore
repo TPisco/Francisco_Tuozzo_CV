@@ -15,6 +15,9 @@
 
 # misc
 .DS_Store
+
+# source videos downloaded by scripts/make-preview.ps1
+/.cache/
 *.pem
 
 # debug

@@ -1,0 +1,11 @@
+{
+  "about": "Hover-card media per project, built by scripts/make-preview.ps1. start and duration are in seconds into the source video. kind 'image' makes posters only. crop is an ffmpeg crop (w:h:x:y, source pixels) applied first; it frames out browser bars, taskbars and page margins. Orbital's image is a Playwright screenshot (1440x810 at 2x) of its asteroid page running locally.",
+  "previews": [
+    { "slug": "scentory", "source": "https://youtu.be/TRFo4u2JtcM", "start": 436.4, "duration": 5.5 },
+    { "slug": "phaseshift", "source": "https://d2ol7oe51mr4n9.cloudfront.net/user_3HP5aHvMkn2ykh0zkqgQ1Jb9kuf/6df5bebe-f6e6-46fd-ac90-d8eab94cb544.mp4", "start": 50.5, "duration": 5, "crop": "1320:742:300:20" },
+    { "slug": "orbital", "kind": "image", "source": ".cache/previews/orbital.png", "crop": "2214:1245:318:285" },
+    { "slug": "vert", "source": "https://youtu.be/CYHIV0WOGr8", "start": 1, "duration": 5 },
+    { "slug": "cardgame", "source": "https://youtu.be/syJdqsed4AY", "start": 194.5, "duration": 5, "crop": "1300:731:265:225" },
+    { "slug": "knightrpg", "source": "https://youtu.be/oGJPH3d_j6Y", "start": 60, "duration": 5 }
+  ]
+}

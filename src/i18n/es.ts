@@ -101,7 +101,10 @@ export const es: Dictionary = {
       screenshotPlaceholder: "Captura próximamente",
       video: "Recorrido del proyecto",
       videoPlaceholder: "Video próximamente",
+      playVideo: "Reproducir el video de presentación",
+      imageAlt: "Vista previa del proyecto",
       viewCode: "Ver el código en GitHub",
+      openLive: "Probarlo en línea",
     },
     items: {
       scentory: {
@@ -126,6 +129,55 @@ export const es: Dictionary = {
             "Construí la interfaz React + TypeScript y las vistas del panel",
             "Implementé los módulos de negocio de principio a fin (ventas, inventario, créditos, etc.)",
             "Estructuré y empaqueté la app como un producto de escritorio Tauri mantenible",
+          ],
+        },
+      },
+      phaseshift: {
+        tagline: "Rompecabezas de interferencia cuántica, verificado en el simulador de IonQ",
+        why: "La mayoría de los juegos cuánticos tratan la medición como lanzar una moneda. En Phase Shift, el azar por sí solo no alcanza ningún objetivo: la única forma de ganar es hacer que las amplitudes se sumen o se cancelen, el efecto que hace útiles a las computadoras cuánticas.",
+        detail: {
+          overview:
+            "Un juego de rompecabezas en el que orientas una fase cuántica oculta hasta que los dos caminos de un qubit se refuercen o se cancelen, y luego confirmas tu respuesta enviando un circuito Qiskit real al simulador de IonQ. Hecho en 48 horas con un compañero de equipo para el Qollab × IonQ Global Quantum Hackathon.",
+          description:
+            "Phase Shift convierte la interferencia en un rompecabezas. Cada nivel es un pequeño circuito Qiskit con algunas compuertas que tú controlas: un dial de fase, un segundo Hadamard que recombina los caminos y, en los niveles siguientes, un borrador de camino. Ejecutas el circuito, lees un histograma con barras de error honestas y ajustas hasta alcanzar la probabilidad objetivo.\n\nDespués de cada ejecución, la vista “Follow the arrows” dibuja cada camino de tu propio circuito como una flecha de amplitud y muestra la predicción clásica, el resultado cuántico y el término de interferencia entre ambos. Las pruebas usan el simulador de Qiskit dentro del navegador. Cuando resuelves un rompecabezas, “Confirm on IonQ” envía exactamente el mismo circuito al simulador de IonQ en una sola tarea. El proyecto quedó en 2.º lugar de 14 en el nodo de la Université de Sherbrooke.",
+          features: [
+            "Rompecabezas construidos sobre circuitos Qiskit reales",
+            "Pruebas instantáneas con el simulador de Qiskit en el navegador",
+            "Confirmación en un clic del circuito resuelto en el simulador de IonQ",
+            "“Follow the arrows”: una suma de caminos exacta calculada a partir del circuito del jugador",
+            "Histograma con barras de error del 95 % junto al valor teórico exacto",
+            "Controles operables con teclado y un equivalente en texto para cada gráfico",
+            "207 pruebas automatizadas de la física, las sumas de caminos y la serialización para IonQ",
+          ],
+          role: [
+            "Gestor del proyecto durante las 48 horas de desarrollo",
+            "Responsable de la visión: un juego donde la interferencia, no la suerte, decide cada rompecabezas",
+            "Responsable del desarrollo full-stack: la interfaz web y el motor en Python y Qiskit detrás de ella",
+            "Hecho con un compañero de equipo",
+          ],
+        },
+      },
+      orbital: {
+        tagline: "Cinco análisis de datos astronómicos reales y abiertos",
+        why: "Cada número de la página proviene de una respuesta real de una API o de un conjunto de datos descargado. Nada es simulado ni está fijo en el código, y cuando una fuente no responde, la página lo dice en lugar de mostrar un valor ficticio.",
+        detail: {
+          overview:
+            "Una aplicación web con cinco análisis de datos astronómicos abiertos: el censo de exoplanetas, los acercamientos de asteroides cercanos a la Tierra, lo que está en órbita ahora mismo, la traza terrestre de la ISS y el catálogo de ondas gravitacionales. Un backend FastAPI sirve los datos a una interfaz en React.",
+          description:
+            "Orbital es ante todo un proyecto de datos. Los catálogos pesados pasan por una ruta en caché: una tarea programada descarga, limpia y analiza los datos, y luego escribe un artefacto JSON compacto que sirve FastAPI. Los datos que cambian rápido, como los acercamientos de asteroides de la semana y la posición de la ISS, pasan por una ruta en vivo con una caché corta. El navegador nunca llama directamente a una API externa, así que las claves se quedan en el servidor.\n\nUna figura, la transformada Q de la onda gravitacional GW150914, es demasiado pesada para calcularla al momento: se genera sin conexión a partir de archivos de unos 130 MB y se guarda en el repositorio. Las pruebas validan cada artefacto contra un esquema estricto y comprueban que la conclusión escrita en cada página esté respaldada por los datos.",
+          features: [
+            "Cinco análisis: exoplanetas, acercamientos de asteroides, satélites, traza de la ISS, ondas gravitacionales",
+            "Datos del NASA Exoplanet Archive, JPL SBDB/CNEOS, NASA NeoWs, CelesTrak y GWOSC",
+            "Rutas de datos en caché y en vivo detrás de un solo backend FastAPI",
+            "Datos iniciales guardados, para que un despliegue nuevo muestre números reales desde el principio",
+            "Vistas 3D y gráficos con three.js y D3",
+            "Estados de error honestos cuando una fuente no está disponible",
+          ],
+          role: [
+            "Investigué y verifiqué cada fuente de datos antes de programar",
+            "Desarrollé el backend FastAPI, las tareas programadas y el nivel sin conexión",
+            "Desarrollé la interfaz React con visualizaciones en three.js y D3",
+            "Escribí pruebas que verifican los datos y las afirmaciones de cada página",
           ],
         },
       },

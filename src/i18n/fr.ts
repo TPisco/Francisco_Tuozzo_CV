@@ -101,7 +101,10 @@ export const fr: Dictionary = {
       screenshotPlaceholder: "Capture à venir",
       video: "Présentation du projet",
       videoPlaceholder: "Vidéo à venir",
+      playVideo: "Lire la vidéo de présentation",
+      imageAlt: "Aperçu du projet",
       viewCode: "Voir le code sur GitHub",
+      openLive: "L'essayer en ligne",
     },
     items: {
       scentory: {
@@ -126,6 +129,55 @@ export const fr: Dictionary = {
             "Développé l'interface React + TypeScript et les vues du tableau de bord",
             "Implémenté les modules métier de bout en bout (ventes, inventaire, crédits, etc.)",
             "Structuré et empaqueté l'application comme un produit de bureau Tauri maintenable",
+          ],
+        },
+      },
+      phaseshift: {
+        tagline: "Casse-tête d'interférence quantique, vérifié sur le simulateur d'IonQ",
+        why: "La plupart des jeux quantiques traitent la mesure comme un tirage à pile ou face. Dans Phase Shift, le hasard seul n'atteint aucune cible : la seule façon de gagner est de faire s'additionner ou s'annuler les amplitudes, l'effet qui rend les ordinateurs quantiques utiles.",
+        detail: {
+          overview:
+            "Un jeu de casse-tête où l'on oriente une phase quantique cachée jusqu'à ce que les deux chemins d'un qubit se renforcent ou s'annulent, puis où l'on confirme sa réponse en envoyant un vrai circuit Qiskit au simulateur d'IonQ. Réalisé en 48 heures avec un coéquipier pour le Qollab × IonQ Global Quantum Hackathon.",
+          description:
+            "Phase Shift transforme l'interférence en casse-tête. Chaque niveau est un petit circuit Qiskit dont on contrôle quelques portes : un cadran de phase, un second Hadamard qui recombine les chemins et, dans les niveaux suivants, un effaceur de chemin. On exécute le circuit, on lit un histogramme avec de vraies barres d'erreur, puis on ajuste jusqu'à atteindre la probabilité visée.\n\nAprès chaque exécution, la vue « Follow the arrows » dessine chaque chemin de votre propre circuit sous forme de flèche d'amplitude, avec la prédiction classique, le résultat quantique et le terme d'interférence entre les deux. Les essais tournent avec le simulateur de Qiskit directement dans le navigateur. Une fois le casse-tête résolu, « Confirm on IonQ » envoie exactement le même circuit au simulateur d'IonQ, en une seule tâche. Le projet a terminé 2e sur 14 au nœud de l'Université de Sherbrooke.",
+          features: [
+            "Casse-têtes bâtis sur de vrais circuits Qiskit",
+            "Essais instantanés avec le simulateur de Qiskit dans le navigateur",
+            "Confirmation en un clic du circuit résolu sur le simulateur d'IonQ",
+            "« Follow the arrows » : une somme de chemins exacte, calculée à partir du circuit du joueur",
+            "Histogramme avec barres d'erreur à 95 % à côté de la valeur théorique exacte",
+            "Commandes utilisables au clavier et équivalent texte pour chaque graphique",
+            "207 tests automatisés pour la physique, les sommes de chemins et la sérialisation IonQ",
+          ],
+          role: [
+            "Gestionnaire de projet pour les 48 heures de développement",
+            "Responsable de la vision : un jeu où l'interférence, et non la chance, décide de chaque casse-tête",
+            "Responsable du développement full-stack : l'interface web et le moteur Python et Qiskit derrière",
+            "Réalisé avec un coéquipier",
+          ],
+        },
+      },
+      orbital: {
+        tagline: "Cinq analyses de vraies données astronomiques ouvertes",
+        why: "Chaque chiffre affiché provient d'une vraie réponse d'API ou d'un jeu de données téléchargé. Rien n'est simulé ni codé en dur, et quand une source est indisponible, la page le dit au lieu d'afficher une valeur fictive.",
+        detail: {
+          overview:
+            "Une application web avec cinq analyses de données astronomiques ouvertes : le recensement des exoplanètes, les passages rapprochés d'astéroïdes, ce qui est en orbite en ce moment, la trace au sol de l'ISS et le catalogue des ondes gravitationnelles. Un backend FastAPI sert les données à une interface React.",
+          description:
+            "Orbital est d'abord un projet de données. Les gros catalogues passent par un chemin mis en cache : une tâche planifiée récupère, nettoie et analyse les données, puis écrit un artefact JSON compact que FastAPI sert. Les données qui changent vite, comme les passages d'astéroïdes de la semaine et la position de l'ISS, passent par un chemin en direct avec un court cache. Le navigateur n'appelle jamais une API externe directement, ce qui garde les clés côté serveur.\n\nUne figure, la transformée Q de l'onde gravitationnelle GW150914, est trop lourde à calculer à la demande : elle est produite hors ligne à partir de fichiers d'environ 130 Mo, puis versionnée. Les tests valident chaque artefact contre un schéma strict et vérifient que la conclusion écrite sur chaque page est bien appuyée par les données.",
+          features: [
+            "Cinq analyses : exoplanètes, passages d'astéroïdes, satellites, trace au sol de l'ISS, ondes gravitationnelles",
+            "Données du NASA Exoplanet Archive, de JPL SBDB/CNEOS, de NASA NeoWs, de CelesTrak et de GWOSC",
+            "Chemins de données en cache et en direct derrière un seul backend FastAPI",
+            "Données de départ versionnées : un nouveau déploiement affiche de vrais chiffres dès le départ",
+            "Vues 3D et graphiques avec three.js et D3",
+            "États d'erreur honnêtes quand une source est inaccessible",
+          ],
+          role: [
+            "Recherché et vérifié chaque source de données avant de coder",
+            "Développé le backend FastAPI, les tâches planifiées et le volet hors ligne",
+            "Développé l'interface React avec les visualisations three.js et D3",
+            "Écrit des tests qui vérifient les données et les affirmations de chaque page",
           ],
         },
       },

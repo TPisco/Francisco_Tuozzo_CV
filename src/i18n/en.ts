@@ -101,7 +101,10 @@ export const en: Dictionary = {
       screenshotPlaceholder: "Screenshot coming soon",
       video: "Project walkthrough",
       videoPlaceholder: "Video coming soon",
+      playVideo: "Play the walkthrough video",
+      imageAlt: "Preview of the project",
       viewCode: "View code on GitHub",
+      openLive: "Try it live",
     },
     items: {
       scentory: {
@@ -126,6 +129,55 @@ export const en: Dictionary = {
             "Built the React + TypeScript UI and dashboard views",
             "Implemented business modules end to end (sales, inventory, credits, etc.)",
             "Packaged and structured the app as a maintainable Tauri desktop product",
+          ],
+        },
+      },
+      phaseshift: {
+        tagline: "Quantum interference puzzle, verified on IonQ's simulator",
+        why: "Most quantum games treat measurement as a coin flip. In Phase Shift, randomness alone can't reach any target: the only way to win is to make amplitudes add up or cancel out, the effect that makes quantum computers useful.",
+        detail: {
+          overview:
+            "A puzzle game where you steer a hidden quantum phase until a qubit's two paths reinforce or cancel out, then confirm your answer as a real Qiskit job on IonQ's simulator. Built in 48 hours with one teammate for the Qollab × IonQ Global Quantum Hackathon.",
+          description:
+            "Phase Shift turns interference into a puzzle. Each level is a small Qiskit circuit with a few gates you control: a phase dial, a second Hadamard that recombines the paths and, in later levels, a which-path eraser. You run the circuit, read a histogram with honest error bars, and adjust until you reach the target probability.\n\nAfter every run, a “Follow the arrows” view draws each path through your own circuit as an amplitude arrow and shows the classical prediction, the quantum result and the interference term between them. Practice runs use Qiskit's simulator inside the browser. Once a puzzle is solved, “Confirm on IonQ” sends the exact same circuit to IonQ's simulator as a single job. The project placed 2nd of 14 at the Université de Sherbrooke node.",
+          features: [
+            "Puzzles built on real Qiskit circuits",
+            "Instant practice runs with Qiskit's simulator in the browser",
+            "One-click confirmation of the solved circuit on IonQ's simulator",
+            "“Follow the arrows”: an exact path sum computed from the player's own circuit",
+            "Histogram with 95% error bars beside the exact theory value",
+            "Keyboard-operable controls and a text equivalent for every chart",
+            "207 automated tests for the physics, path sums and IonQ serialization",
+          ],
+          role: [
+            "Project manager for the 48-hour build",
+            "Vision lead: defined a game where interference, not luck, decides every puzzle",
+            "Full-stack development lead: the browser interface and the Python and Qiskit engine behind it",
+            "Built with one teammate",
+          ],
+        },
+      },
+      orbital: {
+        tagline: "Five analyses of real, open astronomy data",
+        why: "Every number on the page comes from a real API response or a downloaded dataset. Nothing is mocked or hardcoded, and when a source is down the page says so instead of showing a placeholder.",
+        detail: {
+          overview:
+            "A web app with five analyses of open astronomical data: the exoplanet census, near-Earth asteroid close approaches, what is in orbit right now, the ISS ground track and the gravitational-wave catalogue. A FastAPI backend serves the data to a React front end.",
+          description:
+            "Orbital is a data project first. Heavy catalogues go through a cached path: a scheduled job fetches, cleans and analyses the data, then writes a compact JSON artifact that FastAPI serves. Fast-moving data, such as this week's asteroid approaches and the ISS position, goes through a live path behind a short cache. The browser never calls an upstream API directly, so keys stay on the server.\n\nOne figure, the GW150914 gravitational-wave Q-transform, is too heavy to compute on demand, so it is built offline from roughly 130 MB strain files and committed. The test suite checks every artifact against a strict schema and verifies that the conclusion written on each page is actually supported by the data.",
+          features: [
+            "Five analyses: exoplanets, asteroid close approaches, satellites, the ISS ground track, gravitational waves",
+            "Data from the NASA Exoplanet Archive, JPL SBDB/CNEOS, NASA NeoWs, CelesTrak and GWOSC",
+            "Cached and live data paths behind one FastAPI backend",
+            "Committed seed data, so a fresh deploy shows real numbers before the first refresh",
+            "3D and chart views with three.js and D3",
+            "Honest error states when a data source is unreachable",
+          ],
+          role: [
+            "Researched and verified every data source before building",
+            "Built the FastAPI backend, the scheduled jobs and the offline tier",
+            "Built the React front end with three.js and D3 visualizations",
+            "Wrote tests that check both the data and the claims each page makes",
           ],
         },
       },

@@ -66,7 +66,13 @@ export interface Dictionary {
       screenshotPlaceholder: string;
       video: string;
       videoPlaceholder: string;
+      /** Accessible name of the play button; the project name is appended. */
+      playVideo: string;
+      /** Alt text for the project image when there is no video; the project name is appended. */
+      imageAlt: string;
       viewCode: string;
+      /** Button to the live, playable version of a project. */
+      openLive: string;
     };
     items: Record<
       ProjectId,

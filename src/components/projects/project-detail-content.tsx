@@ -7,7 +7,8 @@ import { ProjectTechPills } from "@/components/projects/project-tech-pills";
 import { ProjectVideo } from "@/components/projects/project-video";
 import type { ProjectMeta } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
-import { faArrowLeft, faImage } from "@fortawesome/free-solid-svg-icons";
+import { getPreviewMedia } from "@/lib/projects";
+import { faArrowLeft, faArrowUpRightFromSquare, faImage } from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 type ProjectDetailContentProps = {
@@ -60,7 +61,10 @@ export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
             <h2 className="sr-only">{labels.video}</h2>
             <ProjectVideo
               videoUrl={meta.videoUrl}
+              media={getPreviewMedia(meta)}
               title={`${meta.name} — ${labels.video}`}
+              playLabel={`${labels.playVideo}: ${meta.name}`}
+              imageAlt={`${labels.imageAlt}: ${meta.name}`}
               placeholderLabel={labels.videoPlaceholder}
             />
           </div>
@@ -167,6 +171,20 @@ export function ProjectDetailContent({ meta }: ProjectDetailContentProps) {
                 </div>
               </section>
             </Reveal>
+
+            {meta.liveUrl ? (
+              <Reveal delay={0.1}>
+                <a
+                  href={meta.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary w-full"
+                >
+                  <Icon icon={faArrowUpRightFromSquare} className="h-3.5 w-3.5 shrink-0" />
+                  {labels.openLive}
+                </a>
+              </Reveal>
+            ) : null}
 
             {meta.github?.length ? (
               <div className="flex w-full flex-col gap-2">

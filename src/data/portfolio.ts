@@ -10,6 +10,7 @@ import {
   faDragon,
   faSeedling,
   faAtom,
+  faSatellite,
   faNetworkWired,
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
@@ -90,6 +91,8 @@ export const skillMeta: { id: SkillId; icon: IconDefinition }[] = [
 
 export type ProjectId =
   | "scentory"
+  | "phaseshift"
+  | "orbital"
   | "vert"
   | "knightrpg"
   | "cardgame"
@@ -103,6 +106,8 @@ export type ProjectMeta = {
   tech: string[];
   github?: string[];
   demo?: string;
+  /** Where the project can be tried, shown as a button on the detail page. */
+  liveUrl?: string;
   /** Optional YouTube watch or embed URL — shown on the project detail page when set. */
   videoUrl?: string;
   /**
@@ -122,6 +127,26 @@ export const projectMeta: ProjectMeta[] = [
     tint: "#efe3d4",
     tech: ["Tauri", "React", "TypeScript", "SQLite"],
     videoUrl: "https://youtu.be/TRFo4u2JtcM?si=R_PUnw9no61y9mDk",
+    preview: { clip: true },
+  },
+  {
+    id: "phaseshift",
+    name: "Phase Shift",
+    icon: faAtom,
+    tint: "#e4e2ea",
+    tech: ["Python", "Qiskit", "IonQ", "JavaScript", "Pyodide", "pytest"],
+    github: ["https://github.com/TPisco/quantum-interference-game"],
+    liveUrl: "https://qollab.xyz/u/Ryoto/quantum-interference-game",
+    // Clip cut from the hackathon demo video; it has no YouTube upload to embed.
+    preview: { clip: true },
+  },
+  {
+    id: "orbital",
+    name: "Orbital",
+    icon: faSatellite,
+    tint: "#e3e7ea",
+    tech: ["Python", "FastAPI", "pandas", "React", "TypeScript", "three.js", "D3"],
+    preview: { clip: false },
   },
   {
     id: "vert",
@@ -131,6 +156,7 @@ export const projectMeta: ProjectMeta[] = [
     tech: ["C#", "ASP.NET Core MVC", "EF Core", "Razor", "SQL Server", "Bootstrap"],
     github: ["https://github.com/TPisco/Communication_Site_OrganismeCommunautaireVertLavenir"],
     videoUrl: "https://youtu.be/CYHIV0WOGr8",
+    preview: { clip: true },
   },
   {
     id: "cardgame",
@@ -140,6 +166,7 @@ export const projectMeta: ProjectMeta[] = [
     tech: ["Angular", "TypeScript", "C#", "MVC"],
     github: ["https://github.com/TPisco/5w5_ProjetCartes_SERVEUR", "https://github.com/TPisco/5w5_ProjetCartes_CLIENT"],
     videoUrl: "https://youtu.be/syJdqsed4AY",
+    preview: { clip: true },
   },
   {
     id: "knightrpg",
@@ -149,6 +176,7 @@ export const projectMeta: ProjectMeta[] = [
     tech: ["Godot", "GDScript"],
     github: ["https://github.com/TPisco/Game_KnightRPG_world"],
     videoUrl: "https://youtu.be/oGJPH3d_j6Y",
+    preview: { clip: true },
   },
 ];
 

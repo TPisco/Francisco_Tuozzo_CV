@@ -376,7 +376,26 @@ export const en: Dictionary = {
     eyebrow: "Events & competitions",
     title: "Building under a clock.",
     lead: "Where I've put the work in front of other people and had it judged.",
+    viewProject: "See the project",
+    projectPage: "Public project page",
     items: {
+      qollabIonq: {
+        name: "Qollab × IonQ Global Quantum Hackathon",
+        org: "Université de Sherbrooke node, online",
+        period: "48-hour hackathon",
+        result: "2nd of 14 projects at the Sherbrooke node",
+        description:
+          "A 48-hour online build, October 9 to 11, 2026, run across university nodes in 10 countries. Each node judged its own entries first, on novelty, technical execution, impact and documentation, before the top projects moved on to global judging. With one teammate, I led Phase Shift, a quantum interference puzzle for the Quantum Playground theme. It placed 2nd of 14 projects at the Université de Sherbrooke node.",
+        highlights: [
+          "48-hour online build",
+          "Team of two",
+          "Python and Qiskit on Qollab",
+          "Runs on IonQ's simulator",
+          "2nd of 14 at the Sherbrooke node",
+        ],
+        badge: "2nd · Qollab × IonQ",
+        badgeAria: "2nd of 14 projects at the Sherbrooke node. Go to the event.",
+      },
       cursorHackathon: {
         name: "Cursor Community Hackathon",
         org: "Botpress HQ, Montreal",

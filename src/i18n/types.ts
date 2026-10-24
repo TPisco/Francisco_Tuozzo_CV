@@ -127,6 +127,10 @@ export interface Dictionary {
     eyebrow: string;
     title: string;
     lead: string;
+    /** Link to the detail page of the project built at the event. */
+    viewProject: string;
+    /** Link to the project's public page on the event's platform. */
+    projectPage: string;
     items: Record<
       EventId,
       {
@@ -137,6 +141,10 @@ export interface Dictionary {
         result: string;
         description: string;
         highlights: string[];
+        /** Short placement shown on the project's row in the project list. */
+        badge?: string;
+        /** Accessible name of that badge, which links back to this entry. */
+        badgeAria?: string;
       }
     >;
   };

@@ -376,7 +376,26 @@ export const es: Dictionary = {
     eyebrow: "Eventos y concursos",
     title: "Programar contra el reloj.",
     lead: "Donde he puesto mi trabajo frente a otras personas y lo han evaluado.",
+    viewProject: "Ver el proyecto",
+    projectPage: "Página pública del proyecto",
     items: {
+      qollabIonq: {
+        name: "Qollab × IonQ Global Quantum Hackathon",
+        org: "Nodo de la Université de Sherbrooke, en línea",
+        period: "Hackathon de 48 horas",
+        result: "2.º de 14 proyectos en el nodo de Sherbrooke",
+        description:
+          "48 horas de desarrollo en línea, del 9 al 11 de octubre de 2026, repartidas entre nodos universitarios de 10 países. Cada nodo evaluó primero sus propios proyectos, según originalidad, ejecución técnica, impacto y documentación, antes de que los mejores pasaran a la evaluación global. Con un compañero de equipo dirigí Phase Shift, un rompecabezas de interferencia cuántica para el tema Quantum Playground. Quedó en 2.º lugar de 14 proyectos en el nodo de la Université de Sherbrooke.",
+        highlights: [
+          "48 horas en línea",
+          "Equipo de dos",
+          "Python y Qiskit en Qollab",
+          "Ejecutado en el simulador de IonQ",
+          "2.º de 14 en el nodo de Sherbrooke",
+        ],
+        badge: "2.º · Qollab × IonQ",
+        badgeAria: "2.º de 14 proyectos en el nodo de Sherbrooke. Ir al evento.",
+      },
       cursorHackathon: {
         name: "Hackathon Cursor Community",
         org: "Sede de Botpress, Montreal",

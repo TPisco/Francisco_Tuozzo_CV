@@ -3,7 +3,7 @@
 import { useMotionValue, useReducedMotion } from "framer-motion";
 import { useState, type PointerEvent } from "react";
 import { ProjectPreviewCard } from "@/components/projects/project-preview-card";
-import { ProjectRow } from "@/components/projects/project-row";
+import { ProjectRow, type ProjectAward } from "@/components/projects/project-row";
 import { projectMeta } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 import { useMediaQuery } from "@/lib/use-media-query";
@@ -48,15 +48,23 @@ export function ProjectList() {
         }}
         onPointerLeave={() => setActiveIndex(null)}
       >
-        {projectMeta.map((meta, index) => (
-          <ProjectRow
-            key={meta.id}
-            meta={meta}
-            item={t.projects.items[meta.id]}
-            index={index}
-            onPointerEnter={handleRowEnter}
-          />
-        ))}
+        {projectMeta.map((meta, index) => {
+          const event = meta.award ? t.events.items[meta.award] : undefined;
+          const award: ProjectAward | undefined =
+            meta.award && event?.badge
+              ? { label: event.badge, detail: event.badgeAria ?? event.result, href: `/#event-${meta.award}` }
+              : undefined;
+          return (
+            <ProjectRow
+              key={meta.id}
+              meta={meta}
+              item={t.projects.items[meta.id]}
+              award={award}
+              index={index}
+              onPointerEnter={handleRowEnter}
+            />
+          );
+        })}
       </ul>
 
       {previewEnabled && armed ? (

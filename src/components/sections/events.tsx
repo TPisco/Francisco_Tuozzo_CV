@@ -1,11 +1,17 @@
 "use client";
 
+import Link from "next/link";
 import { Icon } from "@/components/icon";
 import { SectionHeading } from "@/components/section-heading";
 import { Reveal } from "@/components/reveal";
-import { eventOrder } from "@/data/portfolio";
+import { eventMeta, eventOrder } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
-import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { getProjectPath } from "@/lib/projects";
+import {
+  faArrowRight,
+  faArrowUpRightFromSquare,
+  faTrophy,
+} from "@fortawesome/free-solid-svg-icons";
 
 export function Events() {
   const { t } = useI18n();
@@ -25,9 +31,14 @@ export function Events() {
         <div className="mt-14 space-y-px">
           {eventOrder.map((id, i) => {
             const item = t.events.items[id];
+            const links = eventMeta[id];
             return (
               <Reveal key={id} delay={(i % 2) * 0.05}>
-                <div className="grid gap-3 rounded-2xl px-2 py-7 transition-colors hover:bg-cream/70 md:grid-cols-12 md:gap-8 md:px-6">
+                {/* The id is the target of the award badge in the project list. */}
+                <div
+                  id={`event-${id}`}
+                  className="grid gap-3 rounded-2xl px-2 py-7 transition-colors hover:bg-cream/70 md:grid-cols-12 md:gap-8 md:px-6"
+                >
                   <div className="md:col-span-4">
                     <p className="text-xs font-semibold uppercase tracking-wider text-clay">
                       {item.period}
@@ -55,6 +66,30 @@ export function Events() {
                         </li>
                       ))}
                     </ul>
+                    {links ? (
+                      <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+                        {links.projectId ? (
+                          <Link
+                            href={getProjectPath(links.projectId)}
+                            className="link-underline inline-flex items-center gap-1.5"
+                          >
+                            {t.events.viewProject}
+                            <Icon icon={faArrowRight} className="h-3 w-3" />
+                          </Link>
+                        ) : null}
+                        {links.url ? (
+                          <a
+                            href={links.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="link-underline inline-flex items-center gap-1.5"
+                          >
+                            {t.events.projectPage}
+                            <Icon icon={faArrowUpRightFromSquare} className="h-3 w-3" />
+                          </a>
+                        ) : null}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </Reveal>

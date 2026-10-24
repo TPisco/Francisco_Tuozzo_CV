@@ -29,29 +29,33 @@ export function Navbar() {
       <nav className="wrap flex h-20 items-center justify-between">
         <Link
           href="/#top"
-          className="font-display text-xl font-semibold tracking-tight no-underline"
+          className="whitespace-nowrap font-display text-xl font-semibold tracking-tight no-underline"
         >
           {profile.name}
         </Link>
 
-        {/* Tighter gap at md: seven items plus the CTA is a lot for 768px. */}
-        <div className="hidden items-center gap-5 md:flex lg:gap-8">
+        {/*
+          Six links, the language switcher and the CTA only fit on one line from
+          1024px, and only with a tighter gap until 1280px (French is the widest
+          locale). Below lg the Menu button takes over.
+        */}
+        <div className="hidden items-center gap-5 lg:flex xl:gap-8">
           {primaryLinks.map((link) => (
             <Link
               key={link.id}
               href={`/${link.href}`}
-              className="text-sm font-medium text-ink-soft no-underline transition-colors hover:text-ink"
+              className="whitespace-nowrap text-sm font-medium text-ink-soft no-underline transition-colors hover:text-ink"
             >
               {t.nav[link.id]}
             </Link>
           ))}
           <LanguageSwitcher />
-          <Link href="/#contact" className="btn-primary no-underline">
+          <Link href="/#contact" className="btn-primary whitespace-nowrap no-underline">
             {t.nav.contact}
           </Link>
         </div>
 
-        <div className="flex items-center gap-3 md:hidden">
+        <div className="flex items-center gap-3 lg:hidden">
           <LanguageSwitcher />
           <button
             type="button"
@@ -66,7 +70,7 @@ export function Navbar() {
       </nav>
 
       {open ? (
-        <div className="border-t border-ink/10 bg-cream md:hidden">
+        <div className="border-t border-ink/10 bg-cream lg:hidden">
           <div className="wrap flex flex-col py-3">
             {navOrder.map((link) => (
               <Link

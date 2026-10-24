@@ -55,19 +55,19 @@ export const socials: SocialLink[] = [
 
 export type NavId =
   | "about"
-  | "skills"
+  | "education"
   | "projects"
   | "experience"
-  | "education"
+  | "skills"
   | "events"
   | "contact";
 
 export const navOrder: { id: NavId; href: string }[] = [
   { id: "about", href: "#about" },
-  { id: "skills", href: "#skills" },
+  { id: "education", href: "#education" },
   { id: "projects", href: "#projects" },
   { id: "experience", href: "#experience" },
-  { id: "education", href: "#education" },
+  { id: "skills", href: "#skills" },
   { id: "events", href: "#events" },
   { id: "contact", href: "#contact" },
 ];

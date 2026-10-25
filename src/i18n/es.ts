@@ -24,8 +24,8 @@ export const es: Dictionary = {
 
   about: {
     eyebrow: "Perfil",
-    headingLead: "Un desarrollador al que le gusta",
-    headingAccent: "terminar lo que empieza.",
+    headingLead: "Un desarrollador al que le gusta terminar",
+    headingAccent: "lo que empieza.",
     paragraphLabels: ["Quién soy", "Idiomas", "Cómo trabajo"],
     paragraphs: [
       "Soy estudiante de informática en Quebec y estoy terminando mi formación técnica. La mayor parte de lo que sé lo aprendí construyendo cosas que tenían que funcionar de verdad: una herramienta de escritorio que un pequeño negocio puede usar sin Internet, el sitio de una organización comunitaria con una sección de administración real y un RPG 3D que genera su propio mundo.",
@@ -272,7 +272,6 @@ export const es: Dictionary = {
 
   experience: {
     eyebrow: "Experiencia",
-    title: "Trabajos que me enseñaron a trabajar con la gente.",
     items: {
       tutor: {
         role: "Tutor de informática",
@@ -285,7 +284,7 @@ export const es: Dictionary = {
       tennis: {
         role: "Capitán / recogepelotas",
         org: "Campeonato de tenis Omnium Banque Nationale",
-        period: "direction",
+        period: "Liderazgo",
         description:
           "Dirigí un equipo de recogepelotas en un torneo de tenis profesional — coordinando rotaciones en cancha, horarios y descansos para mantener la cobertura equilibrada en un entorno de ritmo intenso.",
         takeaways: ["Liderazgo de equipo", "Coordinación", "Operaciones dinámicas"],
@@ -319,7 +318,6 @@ export const es: Dictionary = {
 
   education: {
     eyebrow: "Formación",
-    title: "Donde aprendí las bases.",
     items: {
       bacc: {
         program: "Licenciatura en informática",
@@ -366,7 +364,6 @@ export const es: Dictionary = {
 
   events: {
     eyebrow: "Eventos y concursos",
-    title: "Programar contra el reloj.",
     viewProject: "Ver el proyecto",
     projectPage: "Página pública del proyecto",
     items: {

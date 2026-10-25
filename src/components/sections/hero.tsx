@@ -11,7 +11,7 @@ export function Hero() {
 
   return (
     <section id="top" className="wrap pt-24 sm:pt-28">
-      <WindowFrame className="rounded-surface bg-shell/70 shadow-soft" barClassName="h-10 px-5">
+      <WindowFrame className="rounded-surface bg-shell shadow-soft" barClassName="h-10 px-5">
         <div className="flex min-h-[min(60dvh,580px)] flex-col justify-between gap-12 px-6 pb-8 pt-10 sm:px-12 sm:pb-12 sm:pt-14 lg:px-16">
           <div>
             {/* On phones the navbar has no room for the name, so it opens the hero instead. */}

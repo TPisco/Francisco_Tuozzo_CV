@@ -4,6 +4,10 @@ import { Reveal } from "@/components/reveal";
 /**
  * One card of the Info page's bento grid: near-white on the toned page, or ink
  * for the one dark card. Grid placement comes in through className.
+ *
+ * Cards below the fold reveal on scroll. The first row passes `onLoad`: a CSS
+ * entrance that runs before hydration, so the page is never blank while the
+ * script loads.
  */
 export function Bubble({
   children,
@@ -12,6 +16,7 @@ export function Bubble({
   as: Tag = "div",
   id,
   delay = 0,
+  onLoad = false,
 }: {
   children: ReactNode;
   className?: string;
@@ -19,17 +24,30 @@ export function Bubble({
   as?: "div" | "article";
   id?: string;
   delay?: number;
+  onLoad?: boolean;
 }) {
+  const card = (
+    <Tag
+      id={id}
+      className={`flex h-full scroll-mt-24 flex-col rounded-surface p-7 shadow-soft sm:p-9 ${
+        dark ? "bg-ink text-cream" : "border border-ink/[0.06] bg-shell"
+      }`}
+    >
+      {children}
+    </Tag>
+  );
+
+  if (onLoad) {
+    return (
+      <div className={`animate-rise opacity-0 ${className}`} style={{ animationDelay: `${delay * 1000}ms` }}>
+        {card}
+      </div>
+    );
+  }
+
   return (
     <Reveal delay={delay} className={className}>
-      <Tag
-        id={id}
-        className={`flex h-full scroll-mt-24 flex-col rounded-surface p-7 shadow-soft sm:p-9 ${
-          dark ? "bg-ink text-cream" : "border border-ink/[0.06] bg-shell"
-        }`}
-      >
-        {children}
-      </Tag>
+      {card}
     </Reveal>
   );
 }
@@ -39,19 +57,14 @@ export function BubbleLabel({ children, className = "text-ink-faint" }: { childr
   return <p className={`text-[11px] font-medium uppercase tracking-[0.16em] ${className}`}>{children}</p>;
 }
 
-/** Heading over a group of bubbles: what the group is, then its one-line title. */
-export function GroupHeader({ eyebrow, title, id }: { eyebrow: string; title: string; id: string }) {
+/**
+ * Names a group of bubbles for screen readers only. Visually the Info page is
+ * one continuous grid, like the reference; each card's label says what it is.
+ */
+export function GroupHeading({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <Reveal>
-      <div className="mb-6 sm:mb-8">
-        <p className="eyebrow">{eyebrow}</p>
-        <h2
-          id={id}
-          className="mt-3 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-medium leading-[1.08] tracking-[-0.035em] [text-wrap:balance]"
-        >
-          {title}
-        </h2>
-      </div>
-    </Reveal>
+    <h2 id={id} className="sr-only">
+      {children}
+    </h2>
   );
 }

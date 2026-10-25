@@ -24,8 +24,8 @@ export const fr: Dictionary = {
 
   about: {
     eyebrow: "À propos",
-    headingLead: "Un développeur qui aime",
-    headingAccent: "mener ses projets à terme.",
+    headingLead: "Un développeur qui aime mener ses projets",
+    headingAccent: "à terme.",
     paragraphLabels: ["Qui je suis", "Langues", "Ma façon de travailler"],
     paragraphs: [
       "Je suis étudiant en informatique au Québec et je termine mon DEC technique. L'essentiel de ce que je sais, je l'ai appris en construisant des choses qui devaient vraiment fonctionner : un outil de bureau qu'une petite entreprise peut utiliser sans Internet, le site d'un organisme communautaire avec une vraie section d'administration, un jeu de rôle 3D qui génère son propre monde.",
@@ -272,7 +272,6 @@ export const fr: Dictionary = {
 
   experience: {
     eyebrow: "Expérience",
-    title: "Des emplois qui m'ont appris à travailler avec les gens.",
     items: {
       tutor: {
         role: "Tuteur en informatique",
@@ -285,7 +284,7 @@ export const fr: Dictionary = {
       tennis: {
         role: "Capitaine / ramasseur de balles",
         org: "Championnat de tennis Omnium Banque Nationale",
-        period: "direction",
+        period: "Leadership",
         description:
           "J'ai dirigé une équipe de ramasseurs de balles lors d'un tournoi de tennis professionnel — coordination des rotations sur les terrains, des horaires et des pauses pour maintenir une couverture équilibrée dans un environnement exigeant.",
         takeaways: ["Leadership d'équipe", "Coordination", "Opérations rapides"],
@@ -319,7 +318,6 @@ export const fr: Dictionary = {
 
   education: {
     eyebrow: "Formation",
-    title: "Là où j'ai appris les bases.",
     items: {
       bacc: {
         program: "Baccalauréat en informatique",
@@ -366,7 +364,6 @@ export const fr: Dictionary = {
 
   events: {
     eyebrow: "Événements et concours",
-    title: "Développer contre la montre.",
     viewProject: "Voir le projet",
     projectPage: "Page publique du projet",
     items: {

@@ -20,10 +20,10 @@ export function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* No solid bar: the controls float, and a soft fade keeps them legible over content. */}
+      {/* No bar: the controls float. Solid cream behind the 72px row, fading only below it, so scrolled text never shows through. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-cream via-cream/75 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[104px] bg-gradient-to-b from-cream from-70% to-transparent"
       />
       <nav aria-label={t.nav.label} className="wrap relative flex h-[72px] items-center gap-4">
         <div className="hidden flex-1 sm:block">
@@ -145,7 +145,7 @@ function LinksMenu() {
         <Icon icon={faAt} className="h-4 w-4" />
       </button>
       {open ? (
-        <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-2xl border border-ink/10 bg-shell p-4 shadow-lift">
+        <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-frame border border-ink/10 bg-shell p-4 shadow-lift">
           <ExternalLinks className="flex flex-col gap-3" onNavigate={close} />
         </div>
       ) : null}

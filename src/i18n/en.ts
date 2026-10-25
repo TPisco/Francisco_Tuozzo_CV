@@ -272,7 +272,6 @@ export const en: Dictionary = {
 
   experience: {
     eyebrow: "Experience",
-    title: "Work that taught me to work with people.",
     items: {
       tutor: {
         role: "Computer science tutor",
@@ -285,7 +284,7 @@ export const en: Dictionary = {
       tennis: {
         role: "Captain / Ball Boy",
         org: "Omnium Banque Nationale Tennis Championship",
-        period: "LeaderShip",
+        period: "Leadership",
         description:
           "Led a team of ball boys at a professional tennis tournament — coordinating court rotations, schedules, and breaks to keep coverage balanced and the crew ready in a fast-paced environment.",
         takeaways: ["Team leadership", "Coordination", "Fast-paced operations"],
@@ -319,7 +318,6 @@ export const en: Dictionary = {
 
   education: {
     eyebrow: "Education",
-    title: "Where I learned the fundamentals.",
     items: {
       bacc: {
         program: "Bachelor of Computer Science",
@@ -366,7 +364,6 @@ export const en: Dictionary = {
 
   events: {
     eyebrow: "Events & competitions",
-    title: "Building under a clock.",
     viewProject: "See the project",
     projectPage: "Public project page",
     items: {

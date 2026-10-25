@@ -7,6 +7,7 @@ import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { Reveal } from "@/components/reveal";
 import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
+import { linkLabel } from "@/lib/links";
 
 export function Contact() {
   const { t, locale } = useI18n();
@@ -15,10 +16,10 @@ export function Contact() {
   const [message, setMessage] = useState("");
 
   const directLinks = [
-    { label: profile.email, href: `mailto:${profile.email}`, icon: faEnvelope, external: false },
-    { label: "github.com/franciscotuozzo", href: profile.github, icon: faGithub, external: true },
-    { label: "linkedin.com/in/franciscotuozzo", href: profile.linkedin, icon: faLinkedin, external: true },
-  ];
+    { href: `mailto:${profile.email}`, icon: faEnvelope, external: false },
+    { href: profile.github, icon: faGithub, external: true },
+    { href: profile.linkedin, icon: faLinkedin, external: true },
+  ].map((link) => ({ ...link, label: linkLabel(link.href) }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,10 +56,11 @@ export function Contact() {
                         href={link.href}
                         target={link.external ? "_blank" : undefined}
                         rel={link.external ? "noopener noreferrer" : undefined}
-                        className="group inline-flex items-center gap-3 py-1.5 text-cream/80 transition-colors hover:text-cream"
+                        className="group inline-flex max-w-full items-center gap-3 py-1.5 text-cream/80 transition-colors hover:text-cream"
                       >
-                        <Icon icon={link.icon} className="h-4 w-4 text-clay-soft" />
-                        <span className="border-b border-transparent transition-colors group-hover:border-cream/40">
+                        <Icon icon={link.icon} className="h-4 w-4 shrink-0 text-clay-soft" />
+                        {/* The LinkedIn handle is long; let it wrap on phones instead of overflowing. */}
+                        <span className="min-w-0 border-b border-transparent transition-colors [overflow-wrap:anywhere] group-hover:border-cream/40">
                           {link.label}
                         </span>
                       </a>
@@ -112,7 +114,7 @@ export function Contact() {
                   </Field>
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2 rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-clay hover:text-cream"
+                    className="inline-flex items-center justify-center gap-2 rounded-full bg-cream px-6 py-3 text-sm font-semibold text-ink transition-colors hover:bg-clay-deep hover:text-cream"
                   >
                     <Icon icon={faPaperPlane} className="h-3.5 w-3.5" />
                     {t.contact.send}
@@ -140,7 +142,7 @@ function Field({
     <div>
       <label
         htmlFor={id}
-        className="mb-2 block text-xs font-semibold uppercase tracking-wider text-cream/50"
+        className="mb-2 block text-xs font-semibold uppercase tracking-wider text-cream/60"
       >
         {label}
       </label>

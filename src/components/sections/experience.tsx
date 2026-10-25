@@ -1,6 +1,6 @@
 "use client";
 
-import { Bubble, BubbleLabel, GroupHeader } from "@/components/info/bubble";
+import { Bubble, BubbleLabel, GroupHeading } from "@/components/info/bubble";
 import { experienceOrder } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 
@@ -19,15 +19,17 @@ export function Experience() {
   const { t } = useI18n();
 
   return (
-    <section id="experience" aria-labelledby="experience-title" className="wrap scroll-mt-20 pt-20 sm:pt-28">
-      <GroupHeader id="experience-title" eyebrow={t.experience.eyebrow} title={t.experience.title} />
+    <section id="experience" aria-labelledby="experience-title" className="wrap scroll-mt-20 pt-4">
+      <GroupHeading id="experience-title">{t.experience.eyebrow}</GroupHeading>
 
       <div className="grid gap-4 md:grid-cols-6">
         {experienceOrder.map((id, i) => {
           const exp = t.experience.items[id];
           return (
             <Bubble key={id} as="article" delay={Math.min(i, 4) * 0.05} className={placement(i, experienceOrder.length)}>
-              <BubbleLabel>{exp.period}</BubbleLabel>
+              <BubbleLabel>
+                {t.experience.eyebrow} · {exp.period}
+              </BubbleLabel>
               <h3 className="mt-4 text-xl font-medium leading-tight tracking-tight">{exp.role}</h3>
               <p className="mt-1 text-sm text-ink-soft">{exp.org}</p>
               <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">{exp.description}</p>

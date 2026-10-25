@@ -105,7 +105,6 @@ export interface Dictionary {
 
   experience: {
     eyebrow: string;
-    title: string;
     items: Record<
       ExperienceId,
       {
@@ -120,7 +119,6 @@ export interface Dictionary {
 
   education: {
     eyebrow: string;
-    title: string;
     items: Record<
       EducationId,
       {
@@ -135,7 +133,6 @@ export interface Dictionary {
 
   events: {
     eyebrow: string;
-    title: string;
     /** Link to the detail page of the project built at the event. */
     viewProject: string;
     /** Link to the project's public page on the event's platform. */

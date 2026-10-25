@@ -49,7 +49,8 @@ export function ProjectCard({ meta, item, award, priority }: ProjectCardProps) {
     >
       <div
         className="overflow-hidden rounded-surface"
-        style={{ background: `linear-gradient(180deg, ${meta.tint} 0%, ${meta.tint} 30%, #fffdfa 100%)` }}
+        // Half tint, half shell at the top: lighter than the page, like the Info bubbles, while keeping each project's hue.
+        style={{ background: `linear-gradient(180deg, color-mix(in srgb, ${meta.tint} 50%, #fffdfa) 0%, #fffdfa 100%)` }}
       >
         <div className="flex items-start justify-between gap-6 px-6 pt-6 sm:px-10 sm:pt-9">
           <div className="min-w-0">
@@ -68,7 +69,7 @@ export function ProjectCard({ meta, item, award, priority }: ProjectCardProps) {
               <Link
                 href={award.href}
                 aria-label={`${award.label}, ${award.detail}`}
-                className="relative z-10 mt-3 inline-flex items-center gap-1.5 rounded-full bg-clay/10 px-2.5 py-1 text-xs font-semibold text-clay-deep no-underline transition-[background-color,transform] duration-150 ease-out hover:bg-clay/20 active:scale-[0.97]"
+                className="relative z-10 mt-3 inline-flex items-center gap-1.5 rounded-full bg-shell/80 px-2.5 py-1 text-xs font-semibold text-clay-deep no-underline transition-[background-color,transform] duration-150 ease-out hover:bg-shell active:scale-[0.97]"
               >
                 <Icon icon={faTrophy} className="h-3 w-3" />
                 {award.label}

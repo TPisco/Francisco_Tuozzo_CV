@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Icon } from "@/components/icon";
-import { Bubble, BubbleLabel, GroupHeader } from "@/components/info/bubble";
+import { Bubble, BubbleLabel, GroupHeading } from "@/components/info/bubble";
 import { eventMeta, eventOrder } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 import { getProjectPath } from "@/lib/projects";
@@ -13,8 +13,8 @@ export function Events() {
   const { t } = useI18n();
 
   return (
-    <section id="events" aria-labelledby="events-title" className="wrap scroll-mt-20 pt-20 sm:pt-28">
-      <GroupHeader id="events-title" eyebrow={t.events.eyebrow} title={t.events.title} />
+    <section id="events" aria-labelledby="events-title" className="wrap scroll-mt-20 pt-4">
+      <GroupHeading id="events-title">{t.events.eyebrow}</GroupHeading>
 
       <div className="grid gap-4 lg:grid-cols-12">
         {eventOrder.map((id, i) => {
@@ -30,7 +30,7 @@ export function Events() {
               className={i === 0 ? "lg:col-span-7" : "lg:col-span-5"}
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <BubbleLabel className="text-clay">{item.period}</BubbleLabel>
+                <BubbleLabel className="text-clay-deep">{item.period}</BubbleLabel>
                 <p className="inline-flex items-center gap-2 rounded-full bg-clay/10 px-3 py-1.5 text-xs font-semibold text-clay-deep">
                   <Icon icon={faTrophy} className="h-3 w-3" />
                   {item.result}
@@ -47,15 +47,15 @@ export function Events() {
                 ))}
               </ul>
               {links ? (
-                <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-7 text-sm">
+                <div className="mt-auto flex flex-wrap items-center gap-x-6 pt-5 text-sm">
                   {links.projectId ? (
-                    <Link href={getProjectPath(links.projectId)} className="link-underline inline-flex items-center gap-1.5">
+                    <Link href={getProjectPath(links.projectId)} className="link-underline inline-flex items-center gap-1.5 py-2">
                       {t.events.viewProject}
                       <Icon icon={faArrowRight} className="h-3 w-3" />
                     </Link>
                   ) : null}
                   {links.url ? (
-                    <a href={links.url} target="_blank" rel="noopener noreferrer" className="link-underline inline-flex items-center gap-1.5">
+                    <a href={links.url} target="_blank" rel="noopener noreferrer" className="link-underline inline-flex items-center gap-1.5 py-2">
                       {t.events.projectPage}
                       <Icon icon={faArrowUpRightFromSquare} className="h-3 w-3" />
                     </a>

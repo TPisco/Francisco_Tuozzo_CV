@@ -33,8 +33,8 @@ const config: Config = {
         ink: {
           DEFAULT: "#231f1a",
           soft: "#5d554b",
-          // Dark enough for small labels: 4.9:1 on shell, 4:1 on cream.
-          faint: "#7a7064",
+          // Dark enough for small labels: 5.9:1 on shell, 4.9:1 on cream.
+          faint: "#6b6257",
         },
         clay: {
           DEFAULT: "#c2603f",

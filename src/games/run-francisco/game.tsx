@@ -1,18 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { GameShell } from "@/components/play/game-shell";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { GameShell, useGameActions, useGameShell } from "@/components/play/game-shell";
+import { safeTop, StageButton, StageCard, stagePill, TOUCH_RESERVE, TouchButton } from "@/components/play/stage";
+import { useFixedStep } from "@/components/play/use-fixed-step";
 import { Icon } from "@/components/icon";
 import { useI18n } from "@/i18n/provider";
 import { fill } from "@/lib/fill";
 import { tabPaths } from "@/lib/navigation";
-import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faRotateRight, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { copy, type RunFranciscoCopy } from "./copy";
 import { Controls } from "./input";
 import { levels } from "./levels";
 import { completeLevel, completeRun, emptyProgress, parseProgress, PROGRESS_KEY, type Progress } from "./progress";
-import { drawFrame, viewFor } from "./render";
-import { startRun, step, type Input, type RunState } from "./simulation";
+import { drawFrame, viewFor, type Pose } from "./render";
+import { startRun, step, type RunState } from "./simulation";
 import { heroSprites, SpriteBank } from "./sprites";
 import { formatTime } from "./time";
 import { buildTrack } from "./track";
@@ -21,7 +24,10 @@ type Phase = "title" | "intro" | "playing" | "caught" | "fell" | "complete" | "v
 type Result = { time: number; record: boolean; total?: number; totalRecord?: boolean };
 
 const STEP = 1 / 120;
-const INTRO_MS = 1900;
+/** Seconds of the level card before a run starts. */
+const INTRO = 1.9;
+/** Seconds the "Go!" stays up. */
+const GO = 0.7;
 
 /** Each level always uses the same seed, so it can be learned and times compared. */
 function newRun(index: number): RunState {
@@ -30,17 +36,26 @@ function newRun(index: number): RunState {
 
 /**
  * Run, Francisco! A Pamplona-style chase in five levels. The simulation and
- * level layout are plain functions (simulation.ts, track.ts); this component
- * runs the loop, draws to the canvas and shows the screens between runs.
+ * level layout are plain functions (simulation.ts, track.ts); the shell owns the
+ * menu and pausing; this file runs the loop, draws, and shows the screens.
  */
 export default function RunFrancisco() {
+  const { t, locale } = useI18n();
+  const card = t.games.runFrancisco;
+  const words = copy[locale];
+  return (
+    <GameShell title={card.title} controls={words.controls}>
+      <Stage words={words} title={card.title} tagline={card.tagline} />
+    </GameShell>
+  );
+}
+
+function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: string; tagline: string }) {
   const { t } = useI18n();
-  const copy = t.games.runFrancisco;
+  const { paused } = useGameShell();
 
   const [phase, setPhase] = useState<Phase>("title");
   const [levelIndex, setLevelIndex] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [controlsOpen, setControlsOpen] = useState(true);
   const [progress, setProgress] = useState<Progress>(emptyProgress);
   const [result, setResult] = useState<Result | null>(null);
   const [go, setGo] = useState(false);
@@ -51,19 +66,38 @@ export default function RunFrancisco() {
   const chaserMarkRef = useRef<HTMLSpanElement>(null);
   const primaryRef = useRef<HTMLButtonElement>(null);
 
-  const runRef = useRef<RunState>(newRun(0));
+  const runRef = useRef<RunState | null>(null);
+  if (runRef.current === null) runRef.current = newRun(0);
+  const prevPose = useRef<Pose>({ px: 0, py: 0, cx: 0 });
+  const introLeft = useRef(0);
+  const goLeft = useRef(0);
+  const pendingFocus = useRef(true);
+  const phaseRef = useRef<Phase>("title");
+  const pausedRef = useRef(true);
+  const progressRef = useRef(progress);
+  const levelRef = useRef(0);
+
   const controls = useMemo(() => new Controls(), []);
   const sprites = useMemo(() => new SpriteBank(), []);
   const backgrounds = useRef(new Map<string, HTMLImageElement>());
   const playthrough = useRef<{ times: number[]; fromStart: boolean }>({ times: [], fromStart: true });
-  const timers = useRef<number[]>([]);
 
-  const phaseRef = useRef(phase);
-  const pausedRef = useRef(true);
-  const progressRef = useRef(progress);
-  phaseRef.current = phase;
-  pausedRef.current = menuOpen || controlsOpen;
-  progressRef.current = progress;
+  const enter = useCallback((next: Phase) => {
+    phaseRef.current = next;
+    setPhase(next);
+    // Screens with a button get it focused, once every key has been let go (see the render loop).
+    if (next !== "intro" && next !== "playing") pendingFocus.current = true;
+  }, []);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    if (paused) controls.releaseAll();
+    else pendingFocus.current = true;
+  }, [paused, controls]);
+
+  useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
 
   useEffect(() => {
     try {
@@ -87,12 +121,13 @@ export default function RunFrancisco() {
       const level = levels[index];
       sprites.preload([...heroSprites, level.chaser.sprite, ...level.obstacles.map((o) => o.sprite), "coffee", "tennisBall"]);
       if (!backgrounds.current.has(level.id)) {
+        // The picture is drawn about 1.1x the stage's height: pick the file that covers that without upscaling.
+        const height = canvasRef.current?.height ?? window.innerHeight;
         const image = new Image();
         image.decoding = "async";
-        image.src = `/games/run-francisco/backgrounds/${level.id}-${window.innerWidth * (window.devicePixelRatio || 1) > 1600 ? 2560 : 1280}.webp`;
+        image.src = `/games/run-francisco/backgrounds/${level.id}-${height * 1.1 > 560 ? 2560 : 1280}.webp`;
         backgrounds.current.set(level.id, image);
       }
-      // Warm up the next level while this one plays.
       if (index + 1 < levels.length) sprites.preload([levels[index + 1].chaser.sprite]);
     },
     [sprites],
@@ -100,30 +135,20 @@ export default function RunFrancisco() {
 
   useEffect(() => loadAssets(0), [loadAssets]);
 
-  const clearTimers = () => {
-    timers.current.forEach((id) => window.clearTimeout(id));
-    timers.current = [];
-  };
-
   const startLevel = useCallback(
     (index: number) => {
-      clearTimers();
       loadAssets(index);
       runRef.current = newRun(index);
       controls.releaseAll();
+      levelRef.current = index;
+      introLeft.current = INTRO;
+      goLeft.current = 0;
       setLevelIndex(index);
       setResult(null);
       setGo(false);
-      setPhase("intro");
-      timers.current.push(
-        window.setTimeout(() => {
-          setPhase("playing");
-          setGo(true);
-        }, INTRO_MS),
-        window.setTimeout(() => setGo(false), INTRO_MS + 700),
-      );
+      enter("intro");
     },
-    [controls, loadAssets],
+    [controls, enter, loadAssets],
   );
 
   const newGame = useCallback(
@@ -134,87 +159,102 @@ export default function RunFrancisco() {
     [startLevel],
   );
 
-  useEffect(() => clearTimers, []);
+  const actions = useMemo(
+    () => (phase === "title" ? [] : [{ label: t.gameShell.restart, icon: faRotateRight, onSelect: () => startLevel(levelRef.current) }]),
+    [phase, startLevel, t.gameShell.restart],
+  );
+  useGameActions(actions);
 
-  // What happens when a run ends; kept in a ref so the animation loop always calls the latest one.
-  const onOutcome = useRef<(state: RunState) => void>(() => {});
-  onOutcome.current = (state: RunState) => {
-    const index = levelIndex;
+  const finish = (state: RunState) => {
+    const index = levelRef.current;
     if (state.outcome === "caught" || state.outcome === "fell") {
-      setPhase(state.outcome);
+      enter(state.outcome);
       return;
     }
     const level = levels[index];
     playthrough.current.times[index] = state.time;
-    const level1 = completeLevel(progressRef.current, index, level.id, state.time);
+    const done = completeLevel(progressRef.current, index, level.id, state.time);
     if (index < levels.length - 1) {
-      save(level1.progress);
-      setResult({ time: state.time, record: level1.record });
-      setPhase("complete");
+      save(done.progress);
+      setResult({ time: state.time, record: done.record });
+      enter("complete");
       return;
     }
     const { times, fromStart } = playthrough.current;
     const full = fromStart && times.filter((x) => x !== undefined).length === levels.length;
     const total = full ? times.reduce((sum, x) => sum + x, 0) : undefined;
-    const run = total !== undefined ? completeRun(level1.progress, total) : { progress: level1.progress, record: false };
+    const run = total !== undefined ? completeRun(done.progress, total) : { progress: done.progress, record: false };
     save(run.progress);
-    setResult({ time: state.time, record: level1.record, total, totalRecord: run.record });
-    setPhase("victory");
+    setResult({ time: state.time, record: done.record, total, totalRecord: run.record });
+    enter("victory");
   };
 
-  // The loop: fixed 1/120 s physics steps, one draw per frame, HUD updated without React renders.
-  useEffect(() => {
-    const canvas = canvasRef.current!;
-    const ctx = canvas.getContext("2d")!;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let raf = 0;
-    let last = performance.now();
-    let acc = 0;
-    let clock = 0;
-
-    const tick = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      clock += dt;
-      const state = runRef.current;
-
-      if (phaseRef.current === "playing" && !pausedRef.current && state.outcome === "running") {
-        acc += dt;
-        const input: Input = controls.read();
-        while (acc >= STEP && state.outcome === "running") {
-          step(state, input, STEP);
-          acc -= STEP;
+  useFixedStep({
+    step: STEP,
+    active: () => !pausedRef.current && (phaseRef.current === "intro" || phaseRef.current === "playing"),
+    update: (dt) => {
+      if (phaseRef.current === "intro") {
+        introLeft.current -= dt;
+        if (introLeft.current <= 0) {
+          enter("playing");
+          goLeft.current = GO;
+          setGo(true);
         }
-        if (state.outcome !== "running") onOutcome.current(state);
-      } else {
-        acc = 0;
+        return;
       }
-
-      const view = viewFor(canvas.width, canvas.height);
+      if (goLeft.current > 0) {
+        goLeft.current -= dt;
+        if (goLeft.current <= 0) setGo(false);
+      }
+      const state = runRef.current!;
+      prevPose.current = { px: state.player.x, py: state.player.y, cx: state.chaser.x };
+      step(state, controls.read(), dt);
+      if (state.outcome !== "running") finish(state);
+    },
+    render: (alpha, clock) => {
+      const canvas = canvasRef.current;
+      const state = runRef.current!;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      const playing = phaseRef.current === "playing";
+      const prev = prevPose.current;
+      const pose: Pose = playing
+        ? {
+            px: prev.px + (state.player.x - prev.px) * alpha,
+            py: prev.py + (state.player.y - prev.py) * alpha,
+            cx: prev.cx + (state.chaser.x - prev.cx) * alpha,
+          }
+        : { px: state.player.x, py: state.player.y, cx: state.chaser.x };
+      const dpr = canvas.width / Math.max(1, canvas.clientWidth);
+      const touch = window.matchMedia("(pointer: coarse)").matches;
       drawFrame(
         {
           ctx,
-          view,
+          view: viewFor(canvas.width, canvas.height, touch ? TOUCH_RESERVE * dpr : 0),
           sprites,
           background: backgrounds.current.get(state.track.level.id),
           clock,
-          reducedMotion,
-          chasing: phaseRef.current === "playing",
+          reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+          chasing: playing,
+          pose,
         },
         state,
       );
 
       const length = state.track.level.length;
       if (timeRef.current) timeRef.current.textContent = formatTime(state.time);
-      if (barRef.current) barRef.current.style.transform = `scaleX(${Math.min(1, Math.max(0, state.player.x / length))})`;
-      if (chaserMarkRef.current) chaserMarkRef.current.style.left = `${Math.min(100, Math.max(0, (state.chaser.x / length) * 100))}%`;
-      raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [controls, sprites]);
+      if (barRef.current) barRef.current.style.transform = `scaleX(${Math.min(1, Math.max(0, pose.px / length))})`;
+      if (chaserMarkRef.current) chaserMarkRef.current.style.left = `${Math.min(100, Math.max(0, (pose.cx / length) * 100))}%`;
 
-  // Canvas pixels follow its box and the screen's density (capped at 2x).
+      if (pendingFocus.current && !pausedRef.current && !controls.anyHeld() && primaryRef.current) {
+        primaryRef.current.focus({ preventScroll: true });
+        pendingFocus.current = false;
+      }
+    },
+  });
+
+  // Canvas pixels follow its box and the screen's density (capped at 2x), including a density change alone.
   useEffect(() => {
     const canvas = canvasRef.current!;
     const resize = () => {
@@ -225,46 +265,34 @@ export default function RunFrancisco() {
     resize();
     const observer = new ResizeObserver(resize);
     observer.observe(canvas);
-    return () => observer.disconnect();
+    const density = window.matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
+    density.addEventListener("change", resize);
+    return () => {
+      observer.disconnect();
+      density.removeEventListener("change", resize);
+    };
   }, []);
 
   useEffect(() => controls.attach(() => phaseRef.current === "playing" && !pausedRef.current), [controls]);
-  useEffect(() => {
-    if (menuOpen || controlsOpen) controls.releaseAll();
-  }, [menuOpen, controlsOpen, controls]);
-
-  // Put focus on each screen's main button, so Enter or Space continues.
-  useEffect(() => {
-    if (!menuOpen && !controlsOpen) primaryRef.current?.focus();
-  }, [phase, menuOpen, controlsOpen]);
 
   const level = levels[levelIndex];
-  const levelCopy = copy.levels[level.id];
+  const levelWords = words.levels[level.id];
   const best = progress.best[level.id];
   const inRun = phase !== "title";
 
   return (
-    <GameShell
-      title={copy.title}
-      controls={copy.controls}
-      controlsOpen={controlsOpen}
-      onControlsOpen={() => setControlsOpen(true)}
-      onControlsClose={() => setControlsOpen(false)}
-      menuOpen={menuOpen}
-      onMenuOpenChange={setMenuOpen}
-      actions={inRun ? [{ label: t.gameShell.restart, onSelect: () => startLevel(levelIndex) }] : []}
-    >
+    <>
       <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
 
       {inRun ? (
-        <div className="pointer-events-none absolute inset-x-0 top-3 z-10 flex justify-center px-28 sm:top-5">
-          <div className="w-full max-w-md rounded-full bg-shell/90 px-5 py-2.5 shadow-soft backdrop-blur-md">
+        <div className={`pointer-events-none absolute inset-x-0 z-10 flex justify-center px-28 ${safeTop}`}>
+          <div className={`w-full max-w-md px-5 py-2.5 ${stagePill}`}>
             <div className="flex items-baseline justify-between gap-3 text-xs font-semibold text-ink">
               <span className="truncate">
-                {copy.hud.level} {levelIndex + 1} · {levelCopy.name}
+                {words.hud.level} {levelIndex + 1} · {levelWords.name}
               </span>
               <span className="font-mono tabular-nums">
-                <span className="sr-only">{copy.hud.time} </span>
+                <span className="sr-only">{words.hud.time} </span>
                 <span ref={timeRef}>0:00.00</span>
               </span>
             </div>
@@ -277,35 +305,34 @@ export default function RunFrancisco() {
       ) : null}
 
       {best !== undefined && inRun ? (
-        <p className="pointer-events-none absolute right-3 top-3 z-10 hidden rounded-full bg-shell/90 px-4 py-2.5 text-xs font-semibold text-ink shadow-soft backdrop-blur-md sm:right-5 sm:top-5 md:block">
-          {copy.hud.best} <span className="font-mono tabular-nums">{formatTime(best)}</span>
+        <p
+          className={`pointer-events-none absolute right-[max(0.75rem,env(safe-area-inset-right))] z-10 hidden px-4 py-2.5 text-xs font-semibold text-ink sm:right-[max(1.25rem,env(safe-area-inset-right))] md:block ${stagePill} ${safeTop}`}
+        >
+          {words.hud.best} <span className="font-mono tabular-nums">{formatTime(best)}</span>
         </p>
       ) : null}
 
       {go ? (
-        <p
-          aria-live="polite"
-          className="pointer-events-none absolute inset-x-0 top-[30%] z-10 animate-rise text-center text-6xl font-semibold tracking-tight text-shell opacity-0 [text-shadow:0_4px_24px_rgba(35,31,26,0.45)]"
-        >
-          {copy.go}
+        <p className="pointer-events-none absolute inset-x-0 top-[30%] z-10 animate-rise text-center text-6xl font-semibold tracking-tight text-shell opacity-0 [text-shadow:0_4px_24px_rgba(35,31,26,0.45)]">
+          {words.go}
         </p>
       ) : null}
 
       <div aria-live="polite" className="contents">
         {phase === "title" ? (
-          <Card>
+          <StageCard>
             <p className="eyebrow">{t.play.eyebrow}</p>
-            <h1 className="mt-3 text-[clamp(2.2rem,5vw,3.25rem)] font-medium leading-[1.02] tracking-[-0.04em]">{copy.title}</h1>
-            <p className="mt-3 text-ink-soft">{copy.tagline}</p>
+            <h1 className="mt-3 text-[clamp(2.2rem,5vw,3.25rem)] font-medium leading-[1.02] tracking-[-0.04em]">{title}</h1>
+            <p className="mt-3 text-ink-soft">{tagline}</p>
             {progress.bestTotal !== null ? (
               <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-cream px-3 py-1.5 text-sm font-medium text-ink">
                 <Icon icon={faTrophy} className="h-3 w-3 text-clay-deep" />
-                {copy.hud.best} <span className="font-mono tabular-nums">{formatTime(progress.bestTotal)}</span>
+                {words.hud.best} <span className="font-mono tabular-nums">{formatTime(progress.bestTotal)}</span>
               </p>
             ) : null}
-            <PrimaryButton ref={primaryRef} onClick={() => newGame(0)}>
-              {copy.newGame}
-            </PrimaryButton>
+            <StageButton ref={primaryRef} onClick={() => newGame(0)}>
+              {words.newGame}
+            </StageButton>
             {progress.unlocked > 0 ? (
               <div className="mt-4 flex flex-wrap gap-2">
                 {levels.slice(1, progress.unlocked + 1).map((l, i) => (
@@ -315,99 +342,86 @@ export default function RunFrancisco() {
                     onClick={() => newGame(i + 1)}
                     className="rounded-full border border-ink/15 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-ink/40 hover:bg-ink/[0.03]"
                   >
-                    {fill(copy.startFrom, { n: i + 2 })} · {copy.levels[l.id].name}
+                    {fill(words.startFrom, { n: i + 2 })} · {words.levels[l.id].name}
                   </button>
                 ))}
               </div>
             ) : null}
-          </Card>
+          </StageCard>
         ) : null}
 
         {phase === "intro" ? (
-          <Card compact>
-            <p className="text-sm font-semibold text-clay-deep">{fill(copy.intro, { n: levelIndex + 1, name: levelCopy.name })}</p>
-            <p className="mt-2 text-3xl font-medium tracking-tight">{fill(copy.goal, { chaser: levelCopy.chaser })}</p>
+          <StageCard compact>
+            <p className="text-sm font-semibold text-clay-deep">{fill(words.intro, { n: levelIndex + 1, name: levelWords.name })}</p>
+            <p className="mt-2 text-3xl font-medium tracking-tight">{fill(words.goal, { chaser: levelWords.chaser })}</p>
             <span className="mt-5 block h-1 overflow-hidden rounded-full bg-ink/10">
-              <span className="block h-full origin-left animate-[grow_1.9s_linear_forwards] rounded-full bg-ink" />
+              <span
+                className="block h-full origin-left animate-[grow_1.9s_linear_forwards] rounded-full bg-ink"
+                style={{ animationPlayState: paused ? "paused" : "running" }}
+              />
             </span>
-          </Card>
+          </StageCard>
         ) : null}
 
         {phase === "caught" || phase === "fell" ? (
-          <Card compact>
+          <StageCard compact>
             <p className="text-3xl font-medium tracking-tight">
-              {phase === "caught" ? fill(copy.caught, { chaser: levelCopy.chaser }) : copy.fell}
+              {phase === "caught" ? fill(words.caught, { chaser: levelWords.chaser }) : words.fell}
             </p>
-            <PrimaryButton ref={primaryRef} onClick={() => startLevel(levelIndex)}>
-              {copy.retry}
-            </PrimaryButton>
-          </Card>
+            <StageButton ref={primaryRef} onClick={() => startLevel(levelIndex)}>
+              {words.retry}
+            </StageButton>
+          </StageCard>
         ) : null}
 
         {phase === "complete" && result ? (
-          <Card compact>
-            <p className="text-sm font-semibold text-clay-deep">{fill(copy.intro, { n: levelIndex + 1, name: levelCopy.name })}</p>
-            <p className="mt-2 text-3xl font-medium tracking-tight">{copy.complete}</p>
-            <TimeLine time={result.time} record={result.record} recordLabel={copy.record} />
-            <PrimaryButton ref={primaryRef} onClick={() => startLevel(levelIndex + 1)}>
-              {copy.next}
-            </PrimaryButton>
-          </Card>
+          <StageCard compact>
+            <p className="text-sm font-semibold text-clay-deep">{fill(words.intro, { n: levelIndex + 1, name: levelWords.name })}</p>
+            <p className="mt-2 text-3xl font-medium tracking-tight">{words.complete}</p>
+            <TimeLine time={result.time} record={result.record} recordLabel={words.record} />
+            <StageButton ref={primaryRef} onClick={() => startLevel(levelIndex + 1)}>
+              {words.next}
+            </StageButton>
+          </StageCard>
         ) : null}
 
         {phase === "victory" && result ? (
-          <Card>
-            <p className="eyebrow">{copy.title}</p>
-            <p className="mt-3 text-[clamp(2rem,4.6vw,3rem)] font-medium leading-[1.04] tracking-[-0.035em]">{copy.victory}</p>
+          <StageCard>
+            <p className="eyebrow">{title}</p>
+            <p className="mt-3 text-[clamp(2rem,4.6vw,3rem)] font-medium leading-[1.04] tracking-[-0.035em]">{words.victory}</p>
             {result.total !== undefined ? (
               <TimeLine
                 time={result.total}
-                label={fill(copy.totalTime, { time: "" }).trim()}
+                label={fill(words.totalTime, { time: "" }).trim()}
                 record={result.totalRecord ?? false}
-                recordLabel={copy.record}
+                recordLabel={words.record}
               />
             ) : (
-              <TimeLine time={result.time} record={result.record} recordLabel={copy.record} />
+              <TimeLine time={result.time} record={result.record} recordLabel={words.record} />
             )}
-            <PrimaryButton ref={primaryRef} onClick={() => newGame(0)}>
-              {copy.again}
-            </PrimaryButton>
+            <StageButton ref={primaryRef} onClick={() => newGame(0)}>
+              {words.again}
+            </StageButton>
             <Link href={tabPaths.play} className="link-underline mt-4 inline-block text-sm">
               {t.gameShell.allGames}
             </Link>
-          </Card>
+          </StageCard>
         ) : null}
       </div>
 
-      {phase === "playing" ? <TouchPad controls={controls} labels={copy.buttons} /> : null}
-    </GameShell>
-  );
-}
-
-function Card({ children, compact = false }: { children: ReactNode; compact?: boolean }) {
-  return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
-      <div
-        className={`w-full animate-rise rounded-surface border border-ink/[0.06] bg-shell/95 opacity-0 shadow-lift backdrop-blur-md ${
-          compact ? "max-w-sm p-7" : "max-w-md p-8 sm:p-10"
-        }`}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function PrimaryButton({ children, onClick, ref }: { children: ReactNode; onClick: () => void; ref: React.Ref<HTMLButtonElement> }) {
-  return (
-    <button
-      ref={ref}
-      type="button"
-      onClick={onClick}
-      className="mt-7 inline-flex w-full items-center justify-center rounded-full bg-ink px-6 py-3.5 text-base font-semibold text-cream transition-[background-color,transform] duration-150 ease-out hover:bg-clay-deep active:scale-[0.97]"
-    >
-      {children}
-    </button>
+      {phase === "playing" ? (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden justify-between px-[max(1rem,env(safe-area-inset-left))] pb-[max(1rem,env(safe-area-inset-bottom))] [@media(pointer:coarse)]:flex">
+          <div className="pointer-events-auto flex gap-3">
+            <TouchButton label={words.buttons.left} icon={faCaretLeft} onChange={(down) => controls.press("brake", down)} />
+            <TouchButton label={words.buttons.right} icon={faCaretRight} onChange={(down) => controls.press("run", down)} />
+          </div>
+          <div className="pointer-events-auto flex gap-3">
+            <TouchButton label={words.buttons.slide} icon={faCaretDown} onChange={(down) => controls.press("slide", down)} />
+            <TouchButton label={words.buttons.jump} icon={faCaretUp} onChange={(down) => controls.press("jump", down)} />
+          </div>
+        </div>
+      ) : null}
+    </>
   );
 }
 
@@ -423,38 +437,5 @@ function TimeLine({ time, record, recordLabel, label }: { time: number; record: 
         </span>
       ) : null}
     </p>
-  );
-}
-
-/** On-screen buttons for touch screens: brake and run on the left, slide and jump on the right. */
-function TouchPad({ controls, labels }: { controls: Controls; labels: { left: string; right: string; jump: string; slide: string } }) {
-  const button = (control: keyof Input, label: string, icon: typeof faCaretUp) => (
-    <button
-      type="button"
-      aria-label={label}
-      onPointerDown={(e) => {
-        e.currentTarget.setPointerCapture(e.pointerId);
-        controls.press(control, true);
-      }}
-      onPointerUp={() => controls.press(control, false)}
-      onPointerCancel={() => controls.press(control, false)}
-      onContextMenu={(e) => e.preventDefault()}
-      className="flex h-16 w-16 items-center justify-center rounded-full bg-shell/80 text-ink shadow-soft backdrop-blur-md active:scale-95 active:bg-shell sm:h-20 sm:w-20"
-    >
-      <Icon icon={icon} className="h-7 w-7" />
-    </button>
-  );
-
-  return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden justify-between p-4 pb-[max(1rem,env(safe-area-inset-bottom))] [@media(pointer:coarse)]:flex">
-      <div className="pointer-events-auto flex gap-3">
-        {button("brake", labels.left, faCaretLeft)}
-        {button("run", labels.right, faCaretRight)}
-      </div>
-      <div className="pointer-events-auto flex gap-3">
-        {button("slide", labels.slide, faCaretDown)}
-        {button("jump", labels.jump, faCaretUp)}
-      </div>
-    </div>
   );
 }

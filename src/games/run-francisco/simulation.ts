@@ -8,7 +8,6 @@ import {
   BOOST_TIME,
   BRAKING,
   CHASER_CATCHUP,
-  CHASER_LEASH,
   CHASER_START_GAP,
   COASTING,
   COFFEE_RADIUS,
@@ -200,13 +199,20 @@ export function step(state: RunState, input: Input, dt: number): void {
   const config = track.level.chaser;
   chaser.speed = Math.min(config.max, config.start + config.ramp * state.time);
   const lead = player.x - chaser.x;
-  chaser.x += (chaser.speed + (lead > CHASER_LEASH ? CHASER_CATCHUP : 0)) * dt;
+  chaser.x += (chaser.speed + (lead > config.leash ? CHASER_CATCHUP : 0)) * dt;
 
   if (track.level.ballEvery > 0) {
     state.ballClock -= dt;
     if (state.ballClock <= 0) {
-      state.ballClock = track.level.ballEvery;
-      state.balls.push({ x: chaser.x });
+      // Hold the shot if the ball would reach you right where you need to jump: you can't dodge both.
+      const meet = player.x + player.vx * ((player.x - chaser.x) / Math.max(1, BALL_SPEED - player.vx));
+      const blocked = track.obstacles.some((o) => o.x + o.spec.w > meet - 4 && o.x < meet + 4);
+      if (blocked) {
+        state.ballClock = 0.3;
+      } else {
+        state.ballClock = track.level.ballEvery;
+        state.balls.push({ x: chaser.x });
+      }
     }
   }
 

@@ -3,14 +3,22 @@ import { BALL_HEIGHT, PLAYER_HEIGHT, SLIDE_HEIGHT } from "./physics";
 import type { RunState } from "./simulation";
 import { SPRITE_PX_PER_METER, type HeroSprite, type SpriteBank } from "./sprites";
 
-/** How the world maps onto the canvas: Francisco stays at 35% of the width, the ground at 80% of the height. */
+/** How the world maps onto the canvas: Francisco stays at 30% of the width, the ground at 80% of the height. */
 export type View = { width: number; height: number; ppm: number; groundY: number; anchorX: number };
 
-/** At least 20 m of track across and 7 m of height, whichever is tighter. */
-export function viewFor(width: number, height: number): View {
-  const ppm = Math.min(height / 7, width / 20);
-  return { width, height, ppm, groundY: Math.round(height * 0.8), anchorX: width * 0.35 };
+/**
+ * At least 17 m of track across and 6.5 m of height, whichever is tighter: with
+ * Francisco at 30%, that's about 12 m (over a second at full speed) of warning ahead.
+ * `bottomReserve` (device pixels) keeps the track above on-screen touch buttons.
+ */
+export function viewFor(width: number, height: number, bottomReserve = 0): View {
+  const ppm = Math.min(height / 6.5, width / 17);
+  const groundY = Math.round(Math.min(height * 0.8, height - bottomReserve));
+  return { width, height, ppm, groundY, anchorX: width * 0.3 };
 }
+
+/** Where to draw the moving things this frame: between the last two simulation steps. */
+export type Pose = { px: number; py: number; cx: number };
 
 export type Backgrounds = Map<string, HTMLImageElement>;
 
@@ -24,6 +32,8 @@ type Scene = {
   reducedMotion: boolean;
   /** The chase warnings (red edge, distance tag) only make sense during a run. */
   chasing: boolean;
+  /** Interpolated positions; defaults to the state's own. */
+  pose?: Pose;
 };
 
 const INK = "#231f1a";
@@ -33,7 +43,8 @@ const CLAY = "#c2603f";
 export function drawFrame(scene: Scene, state: RunState) {
   const { ctx, view } = scene;
   const level = state.track.level;
-  const camera = state.player.x;
+  const pose = scene.pose ?? { px: state.player.x, py: state.player.y, cx: state.chaser.x };
+  const camera = pose.px;
   // A small shake on a stumble, unless the visitor asked for less motion.
   const shake = !scene.reducedMotion && state.player.stumble > 0.45 ? Math.sin(scene.clock * 90) * 3 : 0;
 
@@ -61,6 +72,7 @@ export function drawFrame(scene: Scene, state: RunState) {
       }
     }
     const knocked = state.obstaclesHit[i];
+    if (o.spec.kind === "low") drawShadow(scene, sx(o.x + o.spec.w / 2), o.spec.w * 1.1, 0);
     drawThing(scene, o.spec.sprite, sx(o.x + o.spec.w / 2), sy(base), {
       w: o.spec.w,
       h: o.spec.h,
@@ -89,9 +101,9 @@ export function drawFrame(scene: Scene, state: RunState) {
     }
   }
 
-  drawChaser(scene, state, sx, sy);
-  drawHero(scene, state, sx, sy);
-  if (scene.chasing) drawDanger(scene, state, sx);
+  drawChaser(scene, state, pose, sx, sy);
+  drawHero(scene, state, pose, sx, sy);
+  if (scene.chasing) drawDanger(scene, state, pose, sx);
   if (level.id === "winter") drawSnow(scene, camera);
   if (state.player.boost > 0) drawSpeedLines(scene, state, sy);
 }
@@ -178,8 +190,9 @@ function drawFinish(scene: Scene, level: LevelConfig, sx: (x: number) => number,
   ctx.fillRect(x - view.ppm * 1.6, top + cell * 2, cell * 16 + post, cell * 0.6);
 }
 
-function drawChaser(scene: Scene, state: RunState, sx: (x: number) => number, sy: (y: number) => number) {
-  const { chaser, track } = state;
+function drawChaser(scene: Scene, state: RunState, pose: Pose, sx: (x: number) => number, sy: (y: number) => number) {
+  const { track } = state;
+  const chaser = { x: pose.cx };
   const name = track.level.chaser.sprite;
   const frame = Math.floor(scene.clock * 14);
   if (name === "bug") {
@@ -192,14 +205,15 @@ function drawChaser(scene: Scene, state: RunState, sx: (x: number) => number, sy
     return;
   }
   const size = chaserSizes[name] ?? { w: 2, h: 2 };
+  drawShadow(scene, sx(chaser.x - size.w / 2), size.w * 1.05, 0);
   drawThing(scene, name, sx(chaser.x - size.w / 2), sy(0), { ...size, color: CLAY, frame });
 }
 
 const chaserSizes: Record<string, { w: number; h: number }> = {
   ballMachine: { w: 1.2, h: 1.3 },
-  forklift: { w: 2.6, h: 2.3 },
-  snowplow: { w: 4, h: 2.8 },
-  deadlineClock: { w: 1.4, h: 2 },
+  forklift: { w: 2.8, h: 2.3 },
+  snowplow: { w: 4.85, h: 2.8 },
+  deadlineClock: { w: 1.3, h: 1.95 },
 };
 
 function heroSpriteFor(state: RunState): HeroSprite {
@@ -213,18 +227,19 @@ function heroSpriteFor(state: RunState): HeroSprite {
   return "heroIdle";
 }
 
-function drawHero(scene: Scene, state: RunState, sx: (x: number) => number, sy: (y: number) => number) {
+function drawHero(scene: Scene, state: RunState, pose: Pose, sx: (x: number) => number, sy: (y: number) => number) {
   const { ctx, view } = scene;
   const p = state.player;
   const name = heroSpriteFor(state);
   const sprite = scene.sprites.get(name);
-  const x = sx(p.x);
-  const y = sy(p.y);
+  const x = sx(pose.px);
+  const y = sy(pose.py);
+  if (!p.falling) drawShadow(scene, x, p.slide > 0 ? 1.3 : 0.7, pose.py);
   if (sprite) {
     let frame = 0;
     const count = sprite.meta.frames;
     // The run cycle advances with distance, so feet never skate.
-    if (name === "heroRun") frame = Math.floor((p.x / 2.4) * count) % count;
+    if (name === "heroRun") frame = Math.floor((pose.px / 2.4) * count) % count;
     else if (name === "heroJump") frame = Math.min(count - 1, Math.max(0, Math.round(((7 - p.vy) / 14) * (count - 1))));
     else frame = Math.floor(scene.clock * 12) % count;
     drawSprite(scene, name, x, y, frame);
@@ -252,10 +267,20 @@ function drawHero(scene: Scene, state: RunState, sx: (x: number) => number, sy: 
   ctx.restore();
 }
 
-/** A reddish edge and a distance tag when the chaser is close or off screen behind. */
-function drawDanger(scene: Scene, state: RunState, sx: (x: number) => number) {
+/** A soft contact shadow on the ground, smaller and fainter the higher the thing is. */
+function drawShadow(scene: Scene, x: number, width: number, height: number) {
   const { ctx, view } = scene;
-  const lead = state.player.x - state.chaser.x;
+  const k = 1 / (1 + height * 0.8);
+  ctx.fillStyle = `rgba(35,31,26,${0.22 * k})`;
+  ctx.beginPath();
+  ctx.ellipse(x, view.groundY + view.ppm * 0.02, (width * view.ppm * k) / 2, view.ppm * 0.07 * k, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+/** A reddish edge and a distance tag when the chaser is close or off screen behind. */
+function drawDanger(scene: Scene, state: RunState, pose: Pose, sx: (x: number) => number) {
+  const { ctx, view } = scene;
+  const lead = pose.px - pose.cx;
   const danger = Math.max(0, Math.min(1, 1 - (lead - 1) / 7));
   if (danger > 0) {
     const pulse = scene.reducedMotion ? 1 : 0.75 + Math.sin(scene.clock * 10) * 0.25;
@@ -265,7 +290,7 @@ function drawDanger(scene: Scene, state: RunState, sx: (x: number) => number) {
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, view.width * 0.25, view.height);
   }
-  if (sx(state.chaser.x) < 0 && state.outcome === "running") {
+  if (sx(pose.cx) < 0 && state.outcome === "running") {
     const size = Math.max(14, view.ppm * 0.28);
     const y = view.groundY - view.ppm * 1.2;
     ctx.fillStyle = "rgba(255,253,250,0.92)";

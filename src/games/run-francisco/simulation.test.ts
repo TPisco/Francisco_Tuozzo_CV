@@ -9,7 +9,7 @@ const idle: Input = { run: false, brake: false, jump: false, slide: false };
 const run: Input = { ...idle, run: true };
 
 /** A slow-chaser level, so tests about moving aren't cut short by getting caught. */
-const calm: LevelConfig = { ...levels[0], length: 200, chaser: { sprite: "bug", start: 1, ramp: 0, max: 1 }, ballEvery: 0 };
+const calm: LevelConfig = { ...levels[0], length: 200, chaser: { sprite: "bug", start: 1, ramp: 0, max: 1, leash: 1000 }, ballEvery: 0 };
 const backpack: ObstacleSpec = { sprite: "backpack", kind: "low", w: 0.4, h: 0.5, weight: 1 };
 const banner: ObstacleSpec = { sprite: "banner", kind: "overhead", w: 1.6, h: 0.3, weight: 1 };
 

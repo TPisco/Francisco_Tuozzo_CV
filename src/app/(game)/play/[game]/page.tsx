@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { GameLoader } from "@/components/play/game-loader";
 import { games, getGameBySlug } from "@/data/games";
 import { en } from "@/i18n/en";
 
 export const dynamicParams = false;
+
+/** Games are dark and full screen: a matching browser bar, and drawing under the notch (the shell pads for it). */
+export const viewport: Viewport = {
+  themeColor: "#231f1a",
+  viewportFit: "cover",
+};
 
 export function generateStaticParams() {
   return games.map((game) => ({ game: game.slug }));

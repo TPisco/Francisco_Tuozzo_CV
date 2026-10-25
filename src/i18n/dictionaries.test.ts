@@ -1,16 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { dictionaries, locales } from "@/i18n";
-
-/** Every leaf's path, list indices included, e.g. "projects.items.vert.detail.features.3". */
-function keyPaths(value: unknown, prefix = ""): string[] {
-  if (Array.isArray(value)) {
-    return value.flatMap((entry, i) => keyPaths(entry, `${prefix}${i}.`));
-  }
-  if (value && typeof value === "object") {
-    return Object.entries(value).flatMap(([key, entry]) => keyPaths(entry, `${prefix}${key}.`));
-  }
-  return [prefix.slice(0, -1)];
-}
+import { emptyStrings, keyPaths } from "./key-paths";
 
 describe("translations", () => {
   const english = keyPaths(dictionaries.en).sort();
@@ -24,11 +14,7 @@ describe("translations", () => {
   // English included: the others are measured against it, so an empty English string would pass unnoticed.
   for (const locale of locales) {
     test(`${locale} has no empty strings`, () => {
-      const empty = keyPaths(dictionaries[locale]).filter((path) => {
-        const leaf = path.split(".").reduce<unknown>((node, key) => (node as Record<string, unknown>)[key], dictionaries[locale]);
-        return typeof leaf === "string" && leaf.trim() === "";
-      });
-      expect(empty).toEqual([]);
+      expect(emptyStrings(dictionaries[locale])).toEqual([]);
     });
   }
 });

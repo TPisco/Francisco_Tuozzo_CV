@@ -36,6 +36,11 @@ describe("progress", () => {
     expect(parseProgress('{"unlocked":"lots"}')).toEqual(emptyProgress);
   });
 
+  test("a saved time that isn't a real time is dropped, not shown as NaN", () => {
+    const saved = JSON.stringify({ unlocked: 2, best: { campus: "fast", tennis: -3, port: 41.5, winter: null, nope: 9 }, bestTotal: "x" });
+    expect(parseProgress(saved)).toEqual({ unlocked: 2, best: { port: 41.5 }, bestTotal: null });
+  });
+
   test("saved data round-trips", () => {
     const { progress } = completeLevel(emptyProgress, 1, "tennis", 41.25);
     expect(parseProgress(JSON.stringify(progress))).toEqual(progress);

@@ -28,6 +28,9 @@ export function Footer() {
           <li>
             <Link href={tabPaths.info} className="footer-link">{t.nav.info}</Link>
           </li>
+          <li>
+            <Link href={tabPaths.play} className="footer-link">{t.nav.play}</Link>
+          </li>
         </FooterColumn>
 
         <FooterColumn title={t.footer.contact} className="lg:col-span-4">

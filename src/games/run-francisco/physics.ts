@@ -29,8 +29,7 @@ export const STUMBLE_TIME = 0.6;
 
 /** The chaser starts this far behind. */
 export const CHASER_START_GAP = 8;
-/** A chaser left this far behind sprints to catch up, so dawdling never pays. */
-export const CHASER_LEASH = 22;
+/** How much faster a chaser runs once it has fallen further behind than its level's leash. */
 export const CHASER_CATCHUP = 3;
 
 /** Tennis balls fly from behind at head height: slide under them. */

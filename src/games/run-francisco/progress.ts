@@ -37,10 +37,16 @@ export function parseProgress(raw: string | null): Progress {
   try {
     const data = JSON.parse(raw) as Partial<Progress>;
     if (typeof data.unlocked !== "number" || typeof data.best !== "object" || data.best === null) return emptyProgress;
+    const isTime = (v: unknown): v is number => typeof v === "number" && Number.isFinite(v) && v > 0;
+    const best: Progress["best"] = {};
+    for (const level of levels) {
+      const time = (data.best as Record<string, unknown>)[level.id];
+      if (isTime(time)) best[level.id] = time;
+    }
     return {
       unlocked: Math.min(Math.max(0, Math.floor(data.unlocked)), levels.length - 1),
-      best: data.best,
-      bestTotal: typeof data.bestTotal === "number" ? data.bestTotal : null,
+      best,
+      bestTotal: isTime(data.bestTotal) ? data.bestTotal : null,
     };
   } catch {
     return emptyProgress;

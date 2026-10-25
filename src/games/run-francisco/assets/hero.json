@@ -1,4 +1,12 @@
 {
   "pxPerMeter": 160,
-  "sprites": {}
+  "sprites": {
+    "heroRun": { "file": "/games/run-francisco/sprites/heroRun.webp", "frames": 12, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 },
+    "heroJump": { "file": "/games/run-francisco/sprites/heroJump.webp", "frames": 5, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 },
+    "heroSlide": { "file": "/games/run-francisco/sprites/heroSlide.webp", "frames": 4, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 },
+    "heroStumble": { "file": "/games/run-francisco/sprites/heroStumble.webp", "frames": 4, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 },
+    "heroCaught": { "file": "/games/run-francisco/sprites/heroCaught.webp", "frames": 2, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 },
+    "heroFall": { "file": "/games/run-francisco/sprites/heroFall.webp", "frames": 2, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 },
+    "heroIdle": { "file": "/games/run-francisco/sprites/heroIdle.webp", "frames": 1, "frameWidth": 320, "frameHeight": 320, "anchorX": 160, "anchorY": 312 }
+  }
 }

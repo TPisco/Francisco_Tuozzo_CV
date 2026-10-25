@@ -14,30 +14,45 @@ const keyMap: Record<string, Control> = {
   KeyS: "slide",
 };
 
+const none = (): Input => ({ run: false, brake: false, jump: false, slide: false });
+
 /**
- * Keyboard and on-screen buttons merged into one Input. Each source sets its
+ * Keyboard and on-screen buttons merged into one Input. Each source keeps its
  * own flags, so letting go of a key doesn't release a finger still on a button.
+ * A jump or slide press is remembered until a simulation step reads it, so a
+ * quick tap that falls between two frames still counts.
  */
 export class Controls {
-  private keys: Input = { run: false, brake: false, jump: false, slide: false };
-  private touch: Input = { run: false, brake: false, jump: false, slide: false };
+  private keys = none();
+  private touch = none();
+  private tapped = { jump: false, slide: false };
 
+  /** The input for one simulation step; consumes remembered taps. */
   read(): Input {
-    return {
+    const input = {
       run: this.keys.run || this.touch.run,
       brake: this.keys.brake || this.touch.brake,
-      jump: this.keys.jump || this.touch.jump,
-      slide: this.keys.slide || this.touch.slide,
+      jump: this.keys.jump || this.touch.jump || this.tapped.jump,
+      slide: this.keys.slide || this.touch.slide || this.tapped.slide,
     };
+    this.tapped = { jump: false, slide: false };
+    return input;
+  }
+
+  /** True while any game key or button is still down. */
+  anyHeld(): boolean {
+    return Object.values(this.keys).some(Boolean) || Object.values(this.touch).some(Boolean);
   }
 
   press(control: Control, down: boolean): void {
     this.touch[control] = down;
+    if (down && (control === "jump" || control === "slide")) this.tapped[control] = true;
   }
 
   releaseAll(): void {
-    this.keys = { run: false, brake: false, jump: false, slide: false };
-    this.touch = { ...this.keys };
+    this.keys = none();
+    this.touch = none();
+    this.tapped = { jump: false, slide: false };
   }
 
   /** Listens on the window; returns the function that stops listening. */
@@ -53,6 +68,7 @@ export class Controls {
       // Presses only count while playing, so Space and arrows still work the overlays' buttons.
       if (!enabled()) return;
       e.preventDefault();
+      if (!e.repeat && (control === "jump" || control === "slide")) this.tapped[control] = true;
       this.keys[control] = true;
     };
     const keydown = onKey(true);

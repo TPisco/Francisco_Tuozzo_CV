@@ -5,11 +5,19 @@ import type {
   EducationId,
   EventId,
 } from "@/data/portfolio";
-import type { LevelId } from "@/games/run-francisco/levels";
+import type { GameId } from "@/data/games";
 
 export type Locale = "en" | "fr" | "es";
 
 export type Labelled = { label: string; value: string };
+
+export type GameCardCopy = {
+  title: string;
+  tagline: string;
+  description: string;
+  /** Short facts on the card ("5 levels"). */
+  meta: string[];
+};
 
 export interface Dictionary {
   /** Native name shown in the language switcher (e.g. "Français"). */
@@ -218,36 +226,6 @@ export interface Dictionary {
     rotate: string;
   };
 
-  games: {
-    runFrancisco: {
-      title: string;
-      tagline: string;
-      description: string;
-      /** Short facts on the card ("5 levels"). */
-      meta: string[];
-      /** The controls card: what each key or button does. */
-      controls: { keyboard: Labelled[]; touch: Labelled[] };
-      /** Accessible names of the on-screen buttons. */
-      buttons: { left: string; right: string; jump: string; slide: string };
-      levels: Record<LevelId, { name: string; chaser: string }>;
-      hud: { level: string; time: string; best: string };
-      /** {n} is a level number. */
-      startFrom: string;
-      newGame: string;
-      /** {n}, {name}: the level; {chaser}: who chases you there. */
-      intro: string;
-      goal: string;
-      go: string;
-      caught: string;
-      fell: string;
-      retry: string;
-      complete: string;
-      next: string;
-      victory: string;
-      /** {time} is the total time. */
-      totalTime: string;
-      record: string;
-      again: string;
-    };
-  };
+  /** Each game's card on the Play page. What a game says once open lives in its own folder (src/games/<slug>/copy.ts). */
+  games: Record<GameId, GameCardCopy>;
 }

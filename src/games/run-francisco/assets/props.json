@@ -1,4 +1,257 @@
 {
   "pxPerMeter": 160,
-  "sprites": {}
+  "sprites": {
+    "bug": {
+      "file": "/games/run-francisco/sprites/bug.webp",
+      "frames": 8,
+      "frameWidth": 128,
+      "frameHeight": 96,
+      "anchorX": 64,
+      "anchorY": 88,
+      "hitbox": {
+        "w": 0.58,
+        "h": 0.39
+      }
+    },
+    "ballMachine": {
+      "file": "/games/run-francisco/sprites/ballMachine.webp",
+      "frames": 8,
+      "frameWidth": 208,
+      "frameHeight": 224,
+      "anchorX": 104,
+      "anchorY": 216,
+      "hitbox": {
+        "w": 1.0,
+        "h": 1.09
+      }
+    },
+    "forklift": {
+      "file": "/games/run-francisco/sprites/forklift.webp",
+      "frames": 8,
+      "frameWidth": 464,
+      "frameHeight": 384,
+      "anchorX": 232,
+      "anchorY": 376,
+      "hitbox": {
+        "w": 2.36,
+        "h": 1.93
+      }
+    },
+    "snowplow": {
+      "file": "/games/run-francisco/sprites/snowplow.webp",
+      "frames": 8,
+      "frameWidth": 792,
+      "frameHeight": 472,
+      "anchorX": 396,
+      "anchorY": 464,
+      "hitbox": {
+        "w": 4.12,
+        "h": 2.36
+      }
+    },
+    "deadlineClock": {
+      "file": "/games/run-francisco/sprites/deadlineClock.webp",
+      "frames": 8,
+      "frameWidth": 232,
+      "frameHeight": 328,
+      "anchorX": 116,
+      "anchorY": 320,
+      "hitbox": {
+        "w": 1.1,
+        "h": 1.65
+      }
+    },
+    "backpack": {
+      "file": "/games/run-francisco/sprites/backpack.webp",
+      "frames": 1,
+      "frameWidth": 96,
+      "frameHeight": 112,
+      "anchorX": 48,
+      "anchorY": 104,
+      "hitbox": {
+        "w": 0.42,
+        "h": 0.48
+      }
+    },
+    "bench": {
+      "file": "/games/run-francisco/sprites/bench.webp",
+      "frames": 1,
+      "frameWidth": 280,
+      "frameHeight": 104,
+      "anchorX": 140,
+      "anchorY": 96,
+      "hitbox": {
+        "w": 1.39,
+        "h": 0.44
+      }
+    },
+    "banner": {
+      "file": "/games/run-francisco/sprites/banner.webp",
+      "frames": 1,
+      "frameWidth": 304,
+      "frameHeight": 80,
+      "anchorX": 152,
+      "anchorY": 72,
+      "hitbox": {
+        "w": 1.52,
+        "h": 0.31
+      }
+    },
+    "net": {
+      "file": "/games/run-francisco/sprites/net.webp",
+      "frames": 1,
+      "frameWidth": 248,
+      "frameHeight": 176,
+      "anchorX": 124,
+      "anchorY": 168,
+      "hitbox": {
+        "w": 1.21,
+        "h": 0.83
+      }
+    },
+    "ballBasket": {
+      "file": "/games/run-francisco/sprites/ballBasket.webp",
+      "frames": 1,
+      "frameWidth": 144,
+      "frameHeight": 152,
+      "anchorX": 72,
+      "anchorY": 144,
+      "hitbox": {
+        "w": 0.67,
+        "h": 0.71
+      }
+    },
+    "tennisBall": {
+      "file": "/games/run-francisco/sprites/tennisBall.webp",
+      "frames": 1,
+      "frameWidth": 48,
+      "frameHeight": 48,
+      "anchorX": 24,
+      "anchorY": 40,
+      "hitbox": {
+        "w": 0.14,
+        "h": 0.13
+      }
+    },
+    "crate": {
+      "file": "/games/run-francisco/sprites/crate.webp",
+      "frames": 1,
+      "frameWidth": 208,
+      "frameHeight": 168,
+      "anchorX": 104,
+      "anchorY": 160,
+      "hitbox": {
+        "w": 1.01,
+        "h": 0.78
+      }
+    },
+    "barrel": {
+      "file": "/games/run-francisco/sprites/barrel.webp",
+      "frames": 1,
+      "frameWidth": 136,
+      "frameHeight": 176,
+      "anchorX": 68,
+      "anchorY": 168,
+      "hitbox": {
+        "w": 0.62,
+        "h": 0.84
+      }
+    },
+    "pipe": {
+      "file": "/games/run-francisco/sprites/pipe.webp",
+      "frames": 1,
+      "frameWidth": 264,
+      "frameHeight": 96,
+      "anchorX": 132,
+      "anchorY": 88,
+      "hitbox": {
+        "w": 1.3,
+        "h": 0.42
+      }
+    },
+    "snowbank": {
+      "file": "/games/run-francisco/sprites/snowbank.webp",
+      "frames": 1,
+      "frameWidth": 248,
+      "frameHeight": 136,
+      "anchorX": 124,
+      "anchorY": 128,
+      "hitbox": {
+        "w": 1.21,
+        "h": 0.6
+      }
+    },
+    "cone": {
+      "file": "/games/run-francisco/sprites/cone.webp",
+      "frames": 1,
+      "frameWidth": 112,
+      "frameHeight": 144,
+      "anchorX": 56,
+      "anchorY": 136,
+      "hitbox": {
+        "w": 0.5,
+        "h": 0.65
+      }
+    },
+    "sign": {
+      "file": "/games/run-francisco/sprites/sign.webp",
+      "frames": 1,
+      "frameWidth": 272,
+      "frameHeight": 104,
+      "anchorX": 136,
+      "anchorY": 96,
+      "hitbox": {
+        "w": 1.33,
+        "h": 0.45
+      }
+    },
+    "chair": {
+      "file": "/games/run-francisco/sprites/chair.webp",
+      "frames": 1,
+      "frameWidth": 144,
+      "frameHeight": 184,
+      "anchorX": 72,
+      "anchorY": 176,
+      "hitbox": {
+        "w": 0.64,
+        "h": 0.87
+      }
+    },
+    "cables": {
+      "file": "/games/run-francisco/sprites/cables.webp",
+      "frames": 1,
+      "frameWidth": 152,
+      "frameHeight": 72,
+      "anchorX": 76,
+      "anchorY": 64,
+      "hitbox": {
+        "w": 0.7,
+        "h": 0.29
+      }
+    },
+    "lamp": {
+      "file": "/games/run-francisco/sprites/lamp.webp",
+      "frames": 1,
+      "frameWidth": 216,
+      "frameHeight": 120,
+      "anchorX": 108,
+      "anchorY": 112,
+      "hitbox": {
+        "w": 0.99,
+        "h": 0.52
+      }
+    },
+    "coffee": {
+      "file": "/games/run-francisco/sprites/coffee.webp",
+      "frames": 1,
+      "frameWidth": 56,
+      "frameHeight": 72,
+      "anchorX": 28,
+      "anchorY": 64,
+      "hitbox": {
+        "w": 0.2,
+        "h": 0.29
+      }
+    }
+  }
 }

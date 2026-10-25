@@ -1,21 +1,22 @@
+import { runFranciscoManifest } from "@/games/run-francisco/manifest";
+
 /**
- * The games on the Play page, in the order they're listed. Adding one takes
- * three steps: an entry here, its copy under `games.<id>` in the dictionaries,
- * and its component in components/play/game-loader.tsx. The Play page, the
- * game's page and the sitemap pick it up from this list.
+ * The games on the Play page, in the order they're listed (a new game goes at
+ * the end, in its own bubble below the others).
+ *
+ * A game is a folder in src/games/<slug>/ with:
+ * - manifest.ts: id, slug, tint (added to the list below);
+ * - copy.ts: everything it says once open, in every language;
+ * - game.tsx: its default-exported component, wrapped in components/play/game-shell
+ *   (menu, controls card, pausing, ways back to the site);
+ * plus its card copy under games.<id> in the dictionaries, one line in
+ * components/play/game-loader.tsx, and its cover in public/games/<slug>/.
+ * The route, the Play page, the sitemap and games.test.ts follow this list.
  */
+export const games = [runFranciscoManifest] as const;
 
-export type GameId = "runFrancisco";
-
-export type GameMeta = {
-  id: GameId;
-  /** URL segment: the game is played at /play/<slug>. */
-  slug: string;
-  /** Fills the cover's frame while the image loads. */
-  tint: string;
-};
-
-export const games: GameMeta[] = [{ id: "runFrancisco", slug: "run-francisco", tint: "#e9d6c2" }];
+export type GameMeta = (typeof games)[number];
+export type GameId = GameMeta["id"];
 
 export function getGamePath(game: GameMeta): string {
   return `/play/${game.slug}`;

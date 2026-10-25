@@ -19,20 +19,22 @@ const config: Config = {
         serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       colors: {
-        // Warm, premium light palette — cream paper, soft sand, earth accents.
+        // Warm light palette: a toned paper background (cream) so the near-white
+        // surfaces (shell) read clearly as cards, plus sand and earth accents.
         cream: {
-          DEFAULT: "#faf6f0",
-          deep: "#f5efe6",
+          DEFAULT: "#efe8dd",
+          deep: "#e8e0d3",
         },
         sand: {
-          DEFAULT: "#f0e8dd",
-          deep: "#e7dccd",
+          DEFAULT: "#e6ddcf",
+          deep: "#dbd0bf",
         },
         shell: "#fffdfa",
         ink: {
           DEFAULT: "#231f1a",
           soft: "#5d554b",
-          faint: "#938979",
+          // Dark enough for small labels: 4.9:1 on shell, 4:1 on cream.
+          faint: "#7a7064",
         },
         clay: {
           DEFAULT: "#c2603f",

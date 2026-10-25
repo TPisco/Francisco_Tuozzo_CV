@@ -26,7 +26,7 @@ export const fr: Dictionary = {
     eyebrow: "À propos",
     headingLead: "Un développeur qui aime",
     headingAccent: "mener ses projets à terme.",
-    photoPlaceholder: "Photo à venir",
+    paragraphLabels: ["Qui je suis", "Langues", "Ma façon de travailler"],
     paragraphs: [
       "Je suis étudiant en informatique au Québec et je termine mon DEC technique. L'essentiel de ce que je sais, je l'ai appris en construisant des choses qui devaient vraiment fonctionner : un outil de bureau qu'une petite entreprise peut utiliser sans Internet, le site d'un organisme communautaire avec une vraie section d'administration, un jeu de rôle 3D qui génère son propre monde.",
       "Je travaille en français, en anglais et en espagnol. Ça m'a beaucoup servi, autant pour aider des camarades coincés sur un problème que pour expliquer des choix techniques à des gens qui ne codent pas.",
@@ -273,7 +273,6 @@ export const fr: Dictionary = {
   experience: {
     eyebrow: "Expérience",
     title: "Des emplois qui m'ont appris à travailler avec les gens.",
-    lead: "Ce n'était pas toujours du code — mais chaque poste a façonné ma façon de communiquer, de rester fiable et d'expliquer clairement des notions techniques.",
     items: {
       tutor: {
         role: "Tuteur en informatique",
@@ -321,7 +320,6 @@ export const fr: Dictionary = {
   education: {
     eyebrow: "Formation",
     title: "Là où j'ai appris les bases.",
-    lead: "Les cours derrière les projets de cette page — et ce que j'étudie en ce moment.",
     items: {
       bacc: {
         program: "Baccalauréat en informatique",
@@ -369,7 +367,6 @@ export const fr: Dictionary = {
   events: {
     eyebrow: "Événements et concours",
     title: "Développer contre la montre.",
-    lead: "Là où j'ai présenté mon travail devant d'autres personnes et où il a été jugé.",
     viewProject: "Voir le projet",
     projectPage: "Page publique du projet",
     items: {

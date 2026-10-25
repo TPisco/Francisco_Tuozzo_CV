@@ -44,9 +44,9 @@ export interface Dictionary {
     /** The Info page title is lead + accent; the accent is set in the serif italic. */
     headingLead: string;
     headingAccent: string;
-    /** Shown in a photo slot until a real photo is added. */
-    photoPlaceholder: string;
     paragraphs: string[];
+    /** Small label above each paragraph, same order and length as paragraphs. */
+    paragraphLabels: string[];
     facts: Labelled[];
   };
 
@@ -106,7 +106,6 @@ export interface Dictionary {
   experience: {
     eyebrow: string;
     title: string;
-    lead: string;
     items: Record<
       ExperienceId,
       {
@@ -122,7 +121,6 @@ export interface Dictionary {
   education: {
     eyebrow: string;
     title: string;
-    lead: string;
     items: Record<
       EducationId,
       {
@@ -138,7 +136,6 @@ export interface Dictionary {
   events: {
     eyebrow: string;
     title: string;
-    lead: string;
     /** Link to the detail page of the project built at the event. */
     viewProject: string;
     /** Link to the project's public page on the event's platform. */

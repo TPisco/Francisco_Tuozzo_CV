@@ -53,18 +53,6 @@ export const socials: SocialLink[] = [
   { label: "Email", href: `mailto:${profile.email}`, icon: faEnvelope },
 ];
 
-/**
- * Photos on the Info page, in order. Until `src` is set (a file in
- * /public/photos), the slot shows a labelled placeholder of the same shape.
- * `alt` describes the photo for screen readers once it exists.
- */
-export type InfoPhoto = { src: string | null; alt: string };
-
-export const infoPhotos: [InfoPhoto, InfoPhoto] = [
-  { src: null, alt: "Portrait of Francisco Tuozzo" },
-  { src: null, alt: "Francisco Tuozzo at work" },
-];
-
 export type SkillId =
   | "frontend"
   | "backend"

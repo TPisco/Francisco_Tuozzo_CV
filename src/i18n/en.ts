@@ -26,7 +26,7 @@ export const en: Dictionary = {
     eyebrow: "About",
     headingLead: "A developer who likes",
     headingAccent: "finishing things.",
-    photoPlaceholder: "Photo coming soon",
+    paragraphLabels: ["Who I am", "Languages", "How I work"],
     paragraphs: [
       "I'm a computer science student in Quebec, finishing my technical degree. Most of what I know I learned by building things that had to actually work — a desktop tool a small business could run with no internet, a community website with a working admin section, a 3D RPG that generates its own world.",
       "I work in French, English, and Spanish. That's been useful both for tutoring classmates who were stuck and for explaining technical decisions to people who don't write code.",
@@ -273,7 +273,6 @@ export const en: Dictionary = {
   experience: {
     eyebrow: "Experience",
     title: "Work that taught me to work with people.",
-    lead: "Not all of it was code — but each role shaped how I communicate, stay reliable, and explain technical things clearly.",
     items: {
       tutor: {
         role: "Computer science tutor",
@@ -321,7 +320,6 @@ export const en: Dictionary = {
   education: {
     eyebrow: "Education",
     title: "Where I learned the fundamentals.",
-    lead: "The coursework behind the projects on this page — and what I'm studying next.",
     items: {
       bacc: {
         program: "Bachelor of Computer Science",
@@ -369,7 +367,6 @@ export const en: Dictionary = {
   events: {
     eyebrow: "Events & competitions",
     title: "Building under a clock.",
-    lead: "Where I've put the work in front of other people and had it judged.",
     viewProject: "See the project",
     projectPage: "Public project page",
     items: {

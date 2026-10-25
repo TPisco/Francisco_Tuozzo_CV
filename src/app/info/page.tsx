@@ -12,15 +12,18 @@ export const metadata: Metadata = {
   description: en.about.paragraphs[0],
 };
 
-/** Info: who I am, where I've worked and studied, what I use, where I've competed, and how to reach me. */
+/**
+ * Info: a bento of bubbles (who I am, hackathons, education, past jobs),
+ * then the skills section and the contact form.
+ */
 export default function InfoPage() {
   return (
     <>
       <InfoIntro />
-      <Experience />
-      <Education />
-      <Skills />
       <Events />
+      <Education />
+      <Experience />
+      <Skills />
       <Contact />
     </>
   );

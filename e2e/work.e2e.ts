@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 const projectCards = (page: import("@playwright/test").Page) =>
   page.getByRole("list", { name: "Selected work" }).getByRole("listitem");

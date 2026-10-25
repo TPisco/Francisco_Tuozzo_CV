@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test("the Play tab lists the games, and a card's button opens its game full screen", async ({ page }) => {
   await page.goto("/");

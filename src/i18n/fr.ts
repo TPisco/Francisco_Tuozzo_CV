@@ -10,6 +10,8 @@ export const fr: Dictionary = {
     info: "À propos",
     play: "Jouer",
     links: "Liens",
+    newTab: "s’ouvre dans un nouvel onglet",
+    skip: "Aller au contenu",
   },
 
   hero: {

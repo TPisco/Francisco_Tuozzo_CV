@@ -26,6 +26,10 @@ export interface Dictionary {
     play: string;
     /** Accessible name of the phone menu holding the external links. */
     links: string;
+    /** Read out after a link that opens a new tab. */
+    newTab: string;
+    /** The first focusable link on every page, jumping past the navbar. */
+    skip: string;
   };
 
   hero: {

@@ -6,7 +6,9 @@ import { Icon } from "@/components/icon";
 import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 import { tabPaths } from "@/lib/navigation";
-import { faArrowDown, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faDownload, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export function Footer() {
   const { t, locale } = useI18n();
@@ -30,18 +32,25 @@ export function Footer() {
 
         <FooterColumn title={t.footer.contact} className="lg:col-span-4">
           <li>
-            <a href={`mailto:${profile.email}`} className="footer-link">{profile.email}</a>
+            <a href={`mailto:${profile.email}`} className="footer-link">
+              <Icon icon={faEnvelope} className="h-4 w-4 shrink-0" />
+              {profile.email}
+            </a>
           </li>
           <li>
-            <ExternalLink href={profile.linkedin}>LinkedIn</ExternalLink>
+            <ExternalLink href={profile.linkedin} icon={faLinkedin}>
+              LinkedIn
+            </ExternalLink>
           </li>
           <li>
-            <ExternalLink href={profile.github}>GitHub</ExternalLink>
+            <ExternalLink href={profile.github} icon={faGithub}>
+              GitHub
+            </ExternalLink>
           </li>
           <li>
             <a href={resumeByLocale[locale]} download aria-label={t.hero.resumeAria} className="footer-link group">
+              <Icon icon={faDownload} className="h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-y-0.5" />
               {t.hero.resume}
-              <Icon icon={faArrowDown} className="h-3 w-3 transition-transform duration-200 ease-out group-hover:translate-y-0.5" />
             </a>
           </li>
         </FooterColumn>
@@ -67,14 +76,13 @@ function FooterColumn({ title, className, children }: { title: string; className
   );
 }
 
-function ExternalLink({ href, children }: { href: string; children: ReactNode }) {
+function ExternalLink({ href, icon, children }: { href: string; icon: IconDefinition; children: ReactNode }) {
+  const { t } = useI18n();
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" className="footer-link group">
+      <Icon icon={icon} className="h-4 w-4 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-y-px" />
       {children}
-      <Icon
-        icon={faArrowRight}
-        className="h-3 w-3 -rotate-45 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-      />
+      <span className="sr-only"> ({t.nav.newTab})</span>
     </a>
   );
 }

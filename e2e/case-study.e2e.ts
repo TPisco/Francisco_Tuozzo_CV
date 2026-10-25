@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test("a contents link jumps to its section and marks it as current", async ({ page }) => {
   await page.goto("/projects/phaseshift");

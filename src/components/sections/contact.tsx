@@ -63,6 +63,7 @@ export function Contact() {
                         <span className="min-w-0 border-b border-transparent transition-colors [overflow-wrap:anywhere] group-hover:border-cream/40">
                           {link.label}
                         </span>
+                        {link.external ? <span className="sr-only"> ({t.nav.newTab})</span> : null}
                       </a>
                     </li>
                   ))}

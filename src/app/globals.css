@@ -137,7 +137,96 @@
   }
 }
 
+/* The name intro (components/intro.tsx): 2.7 s from first stroke to the panel gone.
+   Strokes trace each letter (45 ms apart), the letters fill, a clay dot lands,
+   then the ink panel lifts with the strong ease-in-out the rest of the site uses. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #231f1a;
+  animation: intro-lift 0.7s cubic-bezier(0.77, 0, 0.175, 1) 2s forwards;
+}
+.intro-name {
+  width: min(82vw, 960px);
+  height: auto;
+  overflow: visible;
+  animation: intro-name-up 0.7s cubic-bezier(0.77, 0, 0.175, 1) 2s forwards;
+}
+.intro-name path {
+  fill: #efe8dd;
+  fill-opacity: 0;
+  stroke: #efe8dd;
+  stroke-width: 14;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    intro-draw 0.9s cubic-bezier(0.65, 0, 0.35, 1) calc(0.1s + var(--i) * 45ms) forwards,
+    intro-fill 0.45s ease-out calc(1s + var(--i) * 25ms) forwards;
+}
+.intro-dot {
+  fill: #d98a6a;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.4);
+  animation: intro-dot 0.35s cubic-bezier(0.23, 1, 0.32, 1) 1.5s forwards;
+}
+@media (max-width: 640px) {
+  .intro-name path {
+    stroke-width: 26;
+  }
+}
+@keyframes intro-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes intro-fill {
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+}
+@keyframes intro-dot {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes intro-lift {
+  to {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
+}
+@keyframes intro-name-up {
+  to {
+    transform: translateY(-24vh);
+    opacity: 0;
+  }
+}
+/* Skipped by a key, click, scroll or touch: lift now. */
+html[data-intro="leave"] .intro {
+  animation: intro-lift 0.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+html[data-intro="skip"] .intro,
+html[data-intro="done"] .intro {
+  display: none;
+}
+/* While it plays, the first view's entrance waits for the panel to lift. */
+html[data-intro="play"] .animate-rise {
+  animation-delay: 2.15s !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .intro {
+    display: none;
+  }
+
   *,
   ::before,
   ::after {

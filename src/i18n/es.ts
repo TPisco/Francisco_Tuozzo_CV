@@ -10,6 +10,8 @@ export const es: Dictionary = {
     info: "Perfil",
     play: "Jugar",
     links: "Enlaces",
+    newTab: "se abre en una pestaña nueva",
+    skip: "Saltar al contenido",
   },
 
   hero: {

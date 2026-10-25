@@ -10,7 +10,9 @@ import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
 import { getActiveTab, tabPaths, tabs, type Tab } from "@/lib/navigation";
 import { useDismiss } from "@/lib/use-dismiss";
-import { faArrowDown, faArrowRight, faAt } from "@fortawesome/free-solid-svg-icons";
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faAt, faDownload } from "@fortawesome/free-solid-svg-icons";
 
 export function Navbar() {
   const { t } = useI18n();
@@ -36,7 +38,7 @@ export function Navbar() {
         <TabSwitch active={active} labels={t.nav} />
 
         <div className="flex flex-1 items-center justify-end gap-2 sm:gap-5">
-          <ExternalLinks className="hidden items-center gap-5 lg:flex" />
+          <ExternalLinks className="hidden items-center gap-6 lg:flex" />
           <LanguageSwitcher />
           <LinksMenu />
         </div>
@@ -78,47 +80,67 @@ function TabSwitch({ active, labels }: { active: Tab | null; labels: Record<Tab,
   );
 }
 
-/** GitHub, LinkedIn and the résumé for the current language. */
+/**
+ * GitHub, LinkedIn and the résumé for the current language, each with its own
+ * icon right against its label (tight inside a link, roomy between links).
+ */
 function ExternalLinks({ className, onNavigate }: { className: string; onNavigate?: () => void }) {
   const { t, locale } = useI18n();
   return (
     <ul className={className}>
       <li>
-        <NavExternal href={profile.github} onNavigate={onNavigate}>GitHub</NavExternal>
+        <NavLink href={profile.github} icon={faGithub} external onNavigate={onNavigate}>
+          GitHub
+        </NavLink>
       </li>
       <li>
-        <NavExternal href={profile.linkedin} onNavigate={onNavigate}>LinkedIn</NavExternal>
+        <NavLink href={profile.linkedin} icon={faLinkedin} external onNavigate={onNavigate}>
+          LinkedIn
+        </NavLink>
       </li>
       <li>
-        <a
-          href={resumeByLocale[locale]}
-          download
-          aria-label={t.hero.resumeAria}
-          onClick={onNavigate}
-          className="group inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-medium text-ink-soft no-underline transition-colors hover:text-ink"
-        >
+        <NavLink href={resumeByLocale[locale]} icon={faDownload} download label={t.hero.resumeAria} onNavigate={onNavigate}>
           {t.hero.resume}
-          <Icon icon={faArrowDown} className="h-3 w-3 transition-transform duration-200 ease-out group-hover:translate-y-0.5" />
-        </a>
+        </NavLink>
       </li>
     </ul>
   );
 }
 
-function NavExternal({ href, onNavigate, children }: { href: string; onNavigate?: () => void; children: ReactNode }) {
+function NavLink({
+  href,
+  icon,
+  external = false,
+  download = false,
+  label,
+  onNavigate,
+  children,
+}: {
+  href: string;
+  icon: IconDefinition;
+  external?: boolean;
+  download?: boolean;
+  label?: string;
+  onNavigate?: () => void;
+  children: ReactNode;
+}) {
+  const { t } = useI18n();
   return (
     <a
       href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+      target={external ? "_blank" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
+      download={download || undefined}
+      aria-label={label}
       onClick={onNavigate}
-      className="group inline-flex items-center gap-1.5 whitespace-nowrap text-sm font-medium text-ink-soft no-underline transition-colors hover:text-ink"
+      className="group inline-flex min-h-6 items-center gap-1.5 whitespace-nowrap text-sm font-medium text-ink-soft no-underline transition-colors duration-150 hover:text-ink"
     >
-      {children}
       <Icon
-        icon={faArrowRight}
-        className="h-3 w-3 -rotate-45 transition-transform duration-200 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+        icon={icon}
+        className={`h-4 w-4 shrink-0 transition-transform duration-200 ease-out ${download ? "group-hover:translate-y-0.5" : "group-hover:-translate-y-px"}`}
       />
+      {children}
+      {external ? <span className="sr-only"> ({t.nav.newTab})</span> : null}
     </a>
   );
 }
@@ -144,7 +166,7 @@ function LinksMenu() {
       </button>
       {open ? (
         <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-frame border border-ink/10 bg-shell p-4 shadow-lift">
-          <ExternalLinks className="flex flex-col gap-3" onNavigate={close} />
+          <ExternalLinks className="flex flex-col gap-4" onNavigate={close} />
         </div>
       ) : null}
     </div>

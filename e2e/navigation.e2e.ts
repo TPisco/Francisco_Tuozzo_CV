@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 
 test("the Work / Info / Play switch moves between the pages and marks the current one", async ({ page }) => {
   await page.goto("/");

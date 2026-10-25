@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Albert_Sans, Gloock } from "next/font/google";
 import "@/lib/fontawesome";
 import "./globals.css";
+import { introScript } from "@/components/intro";
 import { LanguageProvider } from "@/i18n/provider";
 import { profile } from "@/data/portfolio";
 
@@ -68,7 +69,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    // The intro script below sets data-intro on <html> before React hydrates it.
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      </head>
       <body className={`${albertSans.variable} ${gloock.variable} font-sans`}>
         {/* The site's chrome (navbar, footer) lives in app/(site)/layout.tsx, so games can take the whole screen. */}
         <LanguageProvider>{children}</LanguageProvider>

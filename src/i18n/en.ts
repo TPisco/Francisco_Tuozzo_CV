@@ -279,7 +279,6 @@ export const en: Dictionary = {
         period: "Recent",
         description:
           "Helped fellow students get unstuck on programming and software concepts, finding the explanation that finally made an idea click for each person.",
-        takeaways: ["Explaining technical ideas", "Patience", "Debugging others' code"],
       },
       tennis: {
         role: "Captain / Ball Boy",
@@ -287,7 +286,6 @@ export const en: Dictionary = {
         period: "Leadership",
         description:
           "Led a team of ball boys at a professional tennis tournament — coordinating court rotations, schedules, and breaks to keep coverage balanced and the crew ready in a fast-paced environment.",
-        takeaways: ["Team leadership", "Coordination", "Fast-paced operations"],
       },
       clerk: {
         role: "Office clerk",
@@ -295,7 +293,6 @@ export const en: Dictionary = {
         period: "Logistics",
         description:
           "Kept daily operations organized and accurate in a fast logistics environment where small mistakes have real downstream cost.",
-        takeaways: ["Accuracy under pressure", "Organization"],
       },
       packer: {
         role: "Packer",
@@ -303,7 +300,6 @@ export const en: Dictionary = {
         period: "Retail",
         description:
           "Worked shoulder-to-shoulder with a team to keep a high-volume operation moving while staying friendly with customers.",
-        takeaways: ["Teamwork", "Steady pace", "Customer-facing"],
       },
       sales: {
         role: "Salesperson",
@@ -311,7 +307,6 @@ export const en: Dictionary = {
         period: "Retail",
         description:
           "Advised customers on products and helped them find the right fit — the same translation-between-people-and-tech I do when explaining code.",
-        takeaways: ["Communication", "Customer service", "Product advice"],
       },
     },
   },
@@ -325,17 +320,6 @@ export const en: Dictionary = {
         period: "In progress",
         description:
           "A 90-credit undergraduate degree on the co-op track, alternating study terms with paid work terms in industry. It builds on the technical diploma with deeper theory — algorithms, operating systems, distributed systems — and the software engineering process end to end.",
-        highlights: [
-          "Software engineering",
-          "Algorithms & data structures",
-          "Databases",
-          "Operating systems",
-          "Networks",
-          "Security & cryptography",
-          "Concurrency & parallelism",
-          "Artificial intelligence",
-          "Co-op work terms",
-        ],
       },
       dec: {
         program: "Computer Science — Techniques de l'informatique",
@@ -343,21 +327,6 @@ export const en: Dictionary = {
         period: "In progress",
         description:
           "A hands-on technical program that covers software from the ground up. Most of what's in my projects section started as coursework here and kept going after the grade was in.",
-        highlights: [
-          "Programming",
-          "Object-oriented programming",
-          "Software analysis",
-          "Project methodology",
-          "Web server programming",
-          "Web transaction systems",
-          "Mobile development",
-          "Interface design",
-          "Databases",
-          "Operating systems",
-          "Networks",
-          "Cybersecurity",
-          "Professional communication",
-        ],
       },
     },
   },
@@ -372,14 +341,11 @@ export const en: Dictionary = {
         org: "Université de Sherbrooke node, online",
         period: "48-hour hackathon",
         result: "2nd of 14 projects at the Sherbrooke node",
-        description:
-          "A 48-hour online build, October 9 to 11, 2026, run across university nodes in 10 countries. Each node judged its own entries first, on novelty, technical execution, impact and documentation, before the top projects moved on to global judging. With one teammate, I led Phase Shift, a quantum interference puzzle for the Quantum Playground theme. It placed 2nd of 14 projects at the Université de Sherbrooke node.",
         highlights: [
           "48-hour online build",
           "Team of two",
           "Python and Qiskit on Qollab",
           "Runs on IonQ's simulator",
-          "2nd of 14 at the Sherbrooke node",
         ],
         badge: "2nd · Qollab × IonQ",
         badgeAria: "2nd of 14 projects at the Sherbrooke node. Go to the event.",
@@ -389,13 +355,10 @@ export const en: Dictionary = {
         org: "Botpress HQ, Montreal",
         period: "Hackathon",
         result: "4th of 10 teams",
-        description:
-          "The first hackathon run by the Cursor community, hosted at Botpress headquarters in Montreal. My team designed and shipped a working project in three hours, then presented it to a five-person jury — we placed 4th out of ten teams.",
         highlights: [
           "Three-hour build",
           "Team project",
           "Judged by a five-person jury",
-          "4th of 10 teams",
         ],
       },
     },

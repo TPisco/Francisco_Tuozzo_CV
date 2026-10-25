@@ -112,7 +112,6 @@ export interface Dictionary {
         org: string;
         period: string;
         description: string;
-        takeaways: string[];
       }
     >;
   };
@@ -126,7 +125,6 @@ export interface Dictionary {
         school: string;
         period: string;
         description: string;
-        highlights: string[];
       }
     >;
   };
@@ -145,7 +143,6 @@ export interface Dictionary {
         period: string;
         /** Placement or distinction, shown as an accent badge. */
         result: string;
-        description: string;
         highlights: string[];
         /** Short placement shown on the project's row in the project list. */
         badge?: string;

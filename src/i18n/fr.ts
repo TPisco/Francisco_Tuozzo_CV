@@ -279,7 +279,6 @@ export const fr: Dictionary = {
         period: "Récent",
         description:
           "J'ai aidé d'autres étudiants à se débloquer en programmation et en génie logiciel, en trouvant l'explication qui faisait enfin cliquer l'idée pour chacun.",
-        takeaways: ["Expliquer des notions techniques", "Patience", "Déboguer le code des autres"],
       },
       tennis: {
         role: "Capitaine / ramasseur de balles",
@@ -287,7 +286,6 @@ export const fr: Dictionary = {
         period: "Leadership",
         description:
           "J'ai dirigé une équipe de ramasseurs de balles lors d'un tournoi de tennis professionnel — coordination des rotations sur les terrains, des horaires et des pauses pour maintenir une couverture équilibrée dans un environnement exigeant.",
-        takeaways: ["Leadership d'équipe", "Coordination", "Opérations rapides"],
       },
       clerk: {
         role: "Commis de bureau",
@@ -295,7 +293,6 @@ export const fr: Dictionary = {
         period: "Logistique",
         description:
           "J'ai gardé les opérations quotidiennes organisées et exactes dans un environnement logistique rapide où la moindre erreur a de vraies conséquences en aval.",
-        takeaways: ["Précision sous pression", "Organisation"],
       },
       packer: {
         role: "Emballeur",
@@ -303,7 +300,6 @@ export const fr: Dictionary = {
         period: "Commerce de détail",
         description:
           "J'ai travaillé coude à coude avec une équipe pour maintenir le rythme d'une opération à fort volume tout en restant agréable avec la clientèle.",
-        takeaways: ["Travail d'équipe", "Cadence soutenue", "Contact client"],
       },
       sales: {
         role: "Vendeur",
@@ -311,7 +307,6 @@ export const fr: Dictionary = {
         period: "Commerce de détail",
         description:
           "J'ai conseillé les clients sur les produits et les ai aidés à trouver ce qui leur convenait — le même travail de traduction entre les gens et la technique que je fais quand j'explique du code.",
-        takeaways: ["Communication", "Service à la clientèle", "Conseil produit"],
       },
     },
   },
@@ -325,17 +320,6 @@ export const fr: Dictionary = {
         period: "En cours",
         description:
           "Un baccalauréat de 90 crédits en régime coopératif, qui alterne sessions d'études et stages rémunérés en entreprise. Il approfondit ce que le DEC a commencé — algorithmique, systèmes d'exploitation, systèmes répartis — et couvre le processus d'ingénierie du logiciel au complet.",
-        highlights: [
-          "Génie logiciel",
-          "Algorithmes et structures de données",
-          "Bases de données",
-          "Systèmes d'exploitation",
-          "Réseaux",
-          "Sécurité et cryptographie",
-          "Concurrence et parallélisme",
-          "Intelligence artificielle",
-          "Stages coopératifs",
-        ],
       },
       dec: {
         program: "Informatique — Techniques de l'informatique",
@@ -343,21 +327,6 @@ export const fr: Dictionary = {
         period: "En cours",
         description:
           "Un programme technique concret qui couvre le logiciel de fond en comble. La plupart des projets de cette page ont commencé comme des travaux de cours ici, puis ont continué bien après la note finale.",
-        highlights: [
-          "Programmation",
-          "Programmation orientée objet",
-          "Analyse logicielle",
-          "Méthodologie de projet",
-          "Programmation web côté serveur",
-          "Systèmes transactionnels web",
-          "Développement mobile",
-          "Conception d'interfaces",
-          "Bases de données",
-          "Systèmes d'exploitation",
-          "Réseaux",
-          "Cybersécurité",
-          "Communication professionnelle",
-        ],
       },
     },
   },
@@ -372,14 +341,11 @@ export const fr: Dictionary = {
         org: "Nœud de l'Université de Sherbrooke, en ligne",
         period: "Hackathon de 48 heures",
         result: "2e sur 14 projets au nœud de Sherbrooke",
-        description:
-          "48 heures de développement en ligne, du 9 au 11 octobre 2026, réparties entre des nœuds universitaires dans 10 pays. Chaque nœud a d'abord jugé ses propres projets, selon l'originalité, l'exécution technique, l'impact et la documentation, avant que les meilleurs passent au jugement mondial. Avec un coéquipier, j'ai dirigé Phase Shift, un casse-tête d'interférence quantique pour le thème Quantum Playground. Il a terminé 2e sur 14 projets au nœud de l'Université de Sherbrooke.",
         highlights: [
           "48 heures en ligne",
           "Équipe de deux",
           "Python et Qiskit sur Qollab",
           "Exécuté sur le simulateur d'IonQ",
-          "2e sur 14 au nœud de Sherbrooke",
         ],
         badge: "2e · Qollab × IonQ",
         badgeAria: "2e sur 14 projets au nœud de Sherbrooke. Aller à l'événement.",
@@ -389,13 +355,10 @@ export const fr: Dictionary = {
         org: "Siège de Botpress, Montréal",
         period: "Hackathon",
         result: "4e sur 10 équipes",
-        description:
-          "Le premier hackathon de la communauté Cursor, tenu au siège de Botpress à Montréal. Mon équipe a conçu et livré un projet fonctionnel en trois heures, puis l'a présenté devant un jury de cinq personnes — nous avons terminé 4e sur dix équipes.",
         highlights: [
           "Trois heures de développement",
           "Projet d'équipe",
           "Jury de cinq personnes",
-          "4e sur 10 équipes",
         ],
       },
     },

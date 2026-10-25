@@ -2,39 +2,37 @@ import type { ReactNode } from "react";
 import { Reveal } from "@/components/reveal";
 
 /**
- * One card of the Info page's bento grid: near-white on the toned page, or ink
- * for the one dark card. Grid placement comes in through className.
+ * One section of the Info page as a single card: near-white on the toned
+ * page. The page decides where each card sits (see app/info/page.tsx), so
+ * placement comes in through className.
  *
- * Cards below the fold reveal on scroll. The first row passes `onLoad`: a CSS
+ * Cards below the fold reveal on scroll. The first one passes `onLoad`: a CSS
  * entrance that runs before hydration, so the page is never blank while the
  * script loads.
  */
 export function Bubble({
   children,
   className = "",
-  dark = false,
-  as: Tag = "div",
   id,
+  labelledBy,
   delay = 0,
   onLoad = false,
 }: {
   children: ReactNode;
   className?: string;
-  dark?: boolean;
-  as?: "div" | "article";
   id?: string;
+  labelledBy?: string;
   delay?: number;
   onLoad?: boolean;
 }) {
   const card = (
-    <Tag
+    <section
       id={id}
-      className={`flex h-full scroll-mt-24 flex-col rounded-surface p-7 shadow-soft sm:p-9 ${
-        dark ? "bg-ink text-cream" : "border border-ink/[0.06] bg-shell"
-      }`}
+      aria-labelledby={labelledBy}
+      className="flex h-full scroll-mt-24 flex-col rounded-surface border border-ink/[0.06] bg-shell p-7 shadow-soft sm:p-10"
     >
       {children}
-    </Tag>
+    </section>
   );
 
   if (onLoad) {
@@ -52,19 +50,24 @@ export function Bubble({
   );
 }
 
-/** The small caps label over a block of text inside a bubble ("WHO I AM"). */
-export function BubbleLabel({ children, className = "text-ink-faint" }: { children: ReactNode; className?: string }) {
-  return <p className={`text-[11px] font-medium uppercase tracking-[0.16em] ${className}`}>{children}</p>;
-}
-
-/**
- * Names a group of bubbles for screen readers only. Visually the Info page is
- * one continuous grid, like the reference; each card's label says what it is.
- */
-export function GroupHeading({ id, children }: { id: string; children: ReactNode }) {
+/** The section's name at the top of its card ("EDUCATION"). */
+export function BubbleHeading({ id, children }: { id: string; children: ReactNode }) {
   return (
-    <h2 id={id} className="sr-only">
+    <h2 id={id} className="eyebrow">
       {children}
     </h2>
   );
 }
+
+/** The small caps label over a block of text inside a card ("WHO I AM"). */
+export function BubbleLabel({ children, className = "text-ink-faint" }: { children: ReactNode; className?: string }) {
+  return <p className={`text-[11px] font-medium uppercase tracking-[0.16em] ${className}`}>{children}</p>;
+}
+
+/** Entries inside one card (two hackathons, five jobs), split by hairlines. */
+export function BubbleList({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <div className={`mt-6 divide-y divide-ink/10 ${className}`}>{children}</div>;
+}
+
+/** Spacing for one entry of a BubbleList. */
+export const bubbleEntry = "py-6 first:pt-0 last:pb-0";

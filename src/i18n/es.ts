@@ -279,7 +279,6 @@ export const es: Dictionary = {
         period: "Reciente",
         description:
           "Ayudé a otros estudiantes a destrabarse en programación y en conceptos de software, encontrando la explicación que por fin hacía encajar la idea para cada persona.",
-        takeaways: ["Explicar ideas técnicas", "Paciencia", "Depurar el código de otros"],
       },
       tennis: {
         role: "Capitán / recogepelotas",
@@ -287,7 +286,6 @@ export const es: Dictionary = {
         period: "Liderazgo",
         description:
           "Dirigí un equipo de recogepelotas en un torneo de tenis profesional — coordinando rotaciones en cancha, horarios y descansos para mantener la cobertura equilibrada en un entorno de ritmo intenso.",
-        takeaways: ["Liderazgo de equipo", "Coordinación", "Operaciones dinámicas"],
       },
       clerk: {
         role: "Empleado de oficina",
@@ -295,7 +293,6 @@ export const es: Dictionary = {
         period: "Logística",
         description:
           "Mantuve las operaciones diarias organizadas y exactas en un entorno logístico rápido donde un pequeño error tiene consecuencias reales.",
-        takeaways: ["Precisión bajo presión", "Organización"],
       },
       packer: {
         role: "Empacador",
@@ -303,7 +300,6 @@ export const es: Dictionary = {
         period: "Comercio minorista",
         description:
           "Trabajé codo a codo con un equipo para mantener el ritmo de una operación de alto volumen sin dejar de ser amable con los clientes.",
-        takeaways: ["Trabajo en equipo", "Ritmo constante", "Trato con clientes"],
       },
       sales: {
         role: "Vendedor",
@@ -311,7 +307,6 @@ export const es: Dictionary = {
         period: "Comercio minorista",
         description:
           "Asesoré a los clientes sobre productos y los ayudé a encontrar lo adecuado — la misma traducción entre las personas y la técnica que hago al explicar código.",
-        takeaways: ["Comunicación", "Atención al cliente", "Asesoría de producto"],
       },
     },
   },
@@ -325,17 +320,6 @@ export const es: Dictionary = {
         period: "En curso",
         description:
           "Una licenciatura de 90 créditos en régimen cooperativo, que alterna sesiones de estudio con prácticas remuneradas en empresas. Profundiza lo que empezó el DEC — algoritmia, sistemas operativos, sistemas distribuidos — y cubre el proceso de ingeniería de software de principio a fin.",
-        highlights: [
-          "Ingeniería de software",
-          "Algoritmos y estructuras de datos",
-          "Bases de datos",
-          "Sistemas operativos",
-          "Redes",
-          "Seguridad y criptografía",
-          "Concurrencia y paralelismo",
-          "Inteligencia artificial",
-          "Prácticas cooperativas",
-        ],
       },
       dec: {
         program: "Informática — Techniques de l'informatique",
@@ -343,21 +327,6 @@ export const es: Dictionary = {
         period: "En curso",
         description:
           "Un programa técnico práctico que cubre el software de arriba abajo. La mayoría de los proyectos de esta página empezaron como trabajos de clase aquí y siguieron mucho después de la nota final.",
-        highlights: [
-          "Programación",
-          "Programación orientada a objetos",
-          "Análisis de software",
-          "Metodología de proyectos",
-          "Programación web de servidor",
-          "Sistemas transaccionales web",
-          "Desarrollo móvil",
-          "Diseño de interfaces",
-          "Bases de datos",
-          "Sistemas operativos",
-          "Redes",
-          "Ciberseguridad",
-          "Comunicación profesional",
-        ],
       },
     },
   },
@@ -372,14 +341,11 @@ export const es: Dictionary = {
         org: "Nodo de la Université de Sherbrooke, en línea",
         period: "Hackathon de 48 horas",
         result: "2.º de 14 proyectos en el nodo de Sherbrooke",
-        description:
-          "48 horas de desarrollo en línea, del 9 al 11 de octubre de 2026, repartidas entre nodos universitarios de 10 países. Cada nodo evaluó primero sus propios proyectos, según originalidad, ejecución técnica, impacto y documentación, antes de que los mejores pasaran a la evaluación global. Con un compañero de equipo dirigí Phase Shift, un rompecabezas de interferencia cuántica para el tema Quantum Playground. Quedó en 2.º lugar de 14 proyectos en el nodo de la Université de Sherbrooke.",
         highlights: [
           "48 horas en línea",
           "Equipo de dos",
           "Python y Qiskit en Qollab",
           "Ejecutado en el simulador de IonQ",
-          "2.º de 14 en el nodo de Sherbrooke",
         ],
         badge: "2.º · Qollab × IonQ",
         badgeAria: "2.º de 14 proyectos en el nodo de Sherbrooke. Ir al evento.",
@@ -389,13 +355,10 @@ export const es: Dictionary = {
         org: "Sede de Botpress, Montreal",
         period: "Hackathon",
         result: "4.º de 10 equipos",
-        description:
-          "El primer hackathon de la comunidad Cursor, celebrado en la sede de Botpress en Montreal. Mi equipo diseñó y entregó un proyecto funcional en tres horas y lo presentó ante un jurado de cinco personas — quedamos 4.º de diez equipos.",
         highlights: [
           "Tres horas de desarrollo",
           "Proyecto en equipo",
           "Jurado de cinco personas",
-          "4.º de 10 equipos",
         ],
       },
     },

@@ -13,16 +13,19 @@ export const metadata: Metadata = {
 };
 
 /**
- * Info: a bento of bubbles (who I am, hackathons, education, past jobs),
- * then the skills section and the contact form.
+ * Info: one card per section, laid out here so the whole bento reads in one
+ * place. About takes the full width, hackathons and education share a row,
+ * jobs take the full width again. Then the skills section and the contact form.
  */
 export default function InfoPage() {
   return (
     <>
-      <InfoIntro />
-      <Events />
-      <Education />
-      <Experience />
+      <div className="wrap grid gap-4 pt-28 sm:pt-32 lg:grid-cols-12">
+        <InfoIntro className="lg:col-span-12" />
+        <Events className="lg:col-span-6" />
+        <Education className="lg:col-span-6" />
+        <Experience className="lg:col-span-12" />
+      </div>
       <Skills />
       <Contact />
     </>

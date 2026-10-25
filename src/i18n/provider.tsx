@@ -26,7 +26,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   // Restore a saved preference, otherwise fall back to the browser language.
   useEffect(() => {
-    const stored = window.localStorage.getItem(STORAGE_KEY);
+    let stored: string | null = null;
+    try {
+      stored = window.localStorage.getItem(STORAGE_KEY);
+    } catch {
+      /* storage blocked (all cookies off, sandboxed iframe): use the browser language */
+    }
     if (isLocale(stored)) {
       setLocaleState(stored);
       return;

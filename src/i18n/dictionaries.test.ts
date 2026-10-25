@@ -19,7 +19,10 @@ describe("translations", () => {
     test(`${locale} has exactly the strings English has, list lengths included`, () => {
       expect(keyPaths(dictionaries[locale]).sort()).toEqual(english);
     });
+  }
 
+  // English included: the others are measured against it, so an empty English string would pass unnoticed.
+  for (const locale of locales) {
     test(`${locale} has no empty strings`, () => {
       const empty = keyPaths(dictionaries[locale]).filter((path) => {
         const leaf = path.split(".").reduce<unknown>((node, key) => (node as Record<string, unknown>)[key], dictionaries[locale]);

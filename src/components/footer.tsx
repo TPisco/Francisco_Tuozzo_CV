@@ -48,7 +48,8 @@ export function Footer() {
       </div>
 
       <div className="wrap flex flex-col gap-2 border-t border-ink/10 py-8 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
-        <p>
+        {/* Built pages keep the build year until the next build; the browser may already be in the next one. */}
+        <p suppressHydrationWarning>
           © {new Date().getFullYear()} {profile.name}. {t.footer.rights}
         </p>
         <p>{t.footer.built}</p>

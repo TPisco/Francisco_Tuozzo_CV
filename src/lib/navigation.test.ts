@@ -14,6 +14,14 @@ describe("getActiveTab", () => {
     expect(getActiveTab("/info")).toBe("info");
   });
 
+  test("the Play page is Play", () => {
+    expect(getActiveTab("/play")).toBe("play");
+  });
+
+  test("a game belongs to Play", () => {
+    expect(getActiveTab("/play/run-francisco")).toBe("play");
+  });
+
   test("a trailing slash does not change the tab", () => {
     expect(getActiveTab("/info/")).toBe("info");
   });

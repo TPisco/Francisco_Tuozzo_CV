@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { games, getGamePath } from "@/data/games";
 import { projectSlugs } from "@/lib/projects";
 
 const siteUrl = "https://francisco-tuozzo.com";
@@ -25,5 +26,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     ...projectPages,
+    {
+      url: `${siteUrl}/play`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    ...games.map((game) => ({
+      url: `${siteUrl}${getGamePath(game)}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.5,
+    })),
   ];
 }

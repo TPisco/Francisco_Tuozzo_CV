@@ -5,6 +5,7 @@ import type {
   EducationId,
   EventId,
 } from "@/data/portfolio";
+import type { LevelId } from "@/games/run-francisco/levels";
 
 export type Locale = "en" | "fr" | "es";
 
@@ -19,9 +20,10 @@ export interface Dictionary {
   nav: {
     /** Accessible name of the main navigation. */
     label: string;
-    /** The two pages in the navbar's pill switch. */
+    /** The three pages in the navbar's pill switch. */
     work: string;
     info: string;
+    play: string;
     /** Accessible name of the phone menu holding the external links. */
     links: string;
   };
@@ -179,5 +181,69 @@ export interface Dictionary {
 
   switcher: {
     label: string;
+  };
+
+  /** The Play page: one card per game. */
+  play: {
+    eyebrow: string;
+    headingLead: string;
+    headingAccent: string;
+    lead: string;
+    /** The button on a game's card. */
+    start: string;
+    /** Its accessible name; {title} is the game's title. */
+    startAria: string;
+  };
+
+  /** What every game shares: the menu, the controls card, leaving. */
+  gameShell: {
+    menu: string;
+    paused: string;
+    resume: string;
+    restart: string;
+    howToPlay: string;
+    allGames: string;
+    backToSite: string;
+    loading: string;
+    /** Closes the controls card and starts. */
+    gotIt: string;
+    /** Headings of the controls card's two columns. */
+    keyboard: string;
+    touch: string;
+    /** Phones held upright get a bigger view sideways. */
+    rotate: string;
+  };
+
+  games: {
+    runFrancisco: {
+      title: string;
+      tagline: string;
+      description: string;
+      /** Short facts on the card ("5 levels"). */
+      meta: string[];
+      /** The controls card: what each key or button does. */
+      controls: { keyboard: Labelled[]; touch: Labelled[] };
+      /** Accessible names of the on-screen buttons. */
+      buttons: { left: string; right: string; jump: string; slide: string };
+      levels: Record<LevelId, { name: string; chaser: string }>;
+      hud: { level: string; time: string; best: string };
+      /** {n} is a level number. */
+      startFrom: string;
+      newGame: string;
+      /** {n}, {name}: the level; {chaser}: who chases you there. */
+      intro: string;
+      goal: string;
+      go: string;
+      caught: string;
+      fell: string;
+      retry: string;
+      complete: string;
+      next: string;
+      victory: string;
+      /** {time} is the total time. */
+      totalTime: string;
+      record: string;
+      again: string;
+    };
   };
 }

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("the Work / Info switch moves between the two pages and marks the current one", async ({ page }) => {
+test("the Work / Info / Play switch moves between the pages and marks the current one", async ({ page }) => {
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Main" });
 

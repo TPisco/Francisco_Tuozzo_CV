@@ -8,6 +8,7 @@ export const es: Dictionary = {
     label: "Principal",
     work: "Proyectos",
     info: "Perfil",
+    play: "Jugar",
     links: "Enlaces",
   },
 
@@ -390,5 +391,77 @@ export const es: Dictionary = {
 
   switcher: {
     label: "Cambiar de idioma",
+  },
+
+  play: {
+    eyebrow: "Jugar",
+    headingLead: "Juegos que hice",
+    headingAccent: "por diversión.",
+    lead: "Un descanso del CV: pequeños juegos que diseñé y programé, con gráficos 3D hechos en Blender. Mejor con teclado; también funcionan en el teléfono.",
+    start: "Jugar",
+    startAria: "Jugar a {title}",
+  },
+
+  gameShell: {
+    menu: "Menú",
+    paused: "Pausa",
+    resume: "Continuar",
+    restart: "Reiniciar el nivel",
+    howToPlay: "Cómo jugar",
+    allGames: "Todos los juegos",
+    backToSite: "Volver al portafolio",
+    loading: "Cargando…",
+    gotIt: "¡Vamos!",
+    keyboard: "Teclado",
+    touch: "Táctil",
+    rotate: "Gira el teléfono en horizontal para verlo más grande.",
+  },
+
+  games: {
+    runFrancisco: {
+      title: "¡Corre, Francisco!",
+      tagline: "Una persecución en cinco niveles por lugares de mi CV.",
+      description:
+        "Escapa de un enjambre de bugs en el campus, de una máquina lanzapelotas en un torneo de tenis, de una carretilla elevadora en el puerto de Montreal, de una quitanieves en el Viejo Quebec y, al final, de la fecha de entrega. Cada nivel es más rápido que el anterior.",
+      meta: ["5 niveles", "Teclado o táctil", "Unos 5 minutos"],
+      controls: {
+        keyboard: [
+          { label: "→ o D", value: "Mantén para correr" },
+          { label: "← o A", value: "Frenar" },
+          { label: "Espacio, ↑ o W", value: "Saltar (mantén para saltar más alto)" },
+          { label: "↓ o S", value: "Deslizarte por debajo" },
+          { label: "Esc", value: "Menú" },
+        ],
+        touch: [
+          { label: "▶", value: "Mantén para correr" },
+          { label: "◀", value: "Frenar" },
+          { label: "▲", value: "Saltar (mantén para saltar más alto)" },
+          { label: "▼", value: "Deslizarte por debajo" },
+        ],
+      },
+      buttons: { left: "Frenar", right: "Correr", jump: "Saltar", slide: "Deslizarse" },
+      levels: {
+        campus: { name: "Campus", chaser: "los bugs" },
+        tennis: { name: "Torneo de tenis", chaser: "la máquina lanzapelotas" },
+        port: { name: "Puerto de Montreal", chaser: "la carretilla elevadora" },
+        winter: { name: "Viejo Quebec", chaser: "la quitanieves" },
+        hackathon: { name: "Noche de hackathon", chaser: "la fecha de entrega" },
+      },
+      hud: { level: "Nivel", time: "Tiempo", best: "Récord" },
+      startFrom: "Empezar en el nivel {n}",
+      newGame: "Nueva partida",
+      intro: "Nivel {n}: {name}",
+      goal: "¡Escapa de {chaser}!",
+      go: "¡Ya!",
+      caught: "¡Te atrapó {chaser}!",
+      fell: "¡Salto fallido!",
+      retry: "Reintentar",
+      complete: "¡Nivel superado!",
+      next: "Siguiente nivel",
+      victory: "¡Lo lograste!",
+      totalTime: "Tiempo total: {time}",
+      record: "¡Nuevo récord!",
+      again: "Jugar de nuevo",
+    },
   },
 };

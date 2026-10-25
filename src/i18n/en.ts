@@ -8,6 +8,7 @@ export const en: Dictionary = {
     label: "Main",
     work: "Work",
     info: "Info",
+    play: "Play",
     links: "Links",
   },
 
@@ -390,5 +391,77 @@ export const en: Dictionary = {
 
   switcher: {
     label: "Change language",
+  },
+
+  play: {
+    eyebrow: "Play",
+    headingLead: "Games I made",
+    headingAccent: "for fun.",
+    lead: "A break from the CV: short games I designed and coded, with 3D art made in Blender. Best with a keyboard; phones work too.",
+    start: "Play",
+    startAria: "Play {title}",
+  },
+
+  gameShell: {
+    menu: "Menu",
+    paused: "Paused",
+    resume: "Resume",
+    restart: "Restart level",
+    howToPlay: "How to play",
+    allGames: "All games",
+    backToSite: "Back to the portfolio",
+    loading: "Loading…",
+    gotIt: "Let's go",
+    keyboard: "Keyboard",
+    touch: "Touch",
+    rotate: "Turn your phone sideways for a bigger view.",
+  },
+
+  games: {
+    runFrancisco: {
+      title: "Run, Francisco!",
+      tagline: "A five-level chase through places from my CV.",
+      description:
+        "Outrun a swarm of bugs on campus, a ball machine at a tennis tournament, a forklift at the Port of Montreal, a snowplow in Old Quebec and, last of all, the deadline itself. Every level is faster than the one before.",
+      meta: ["5 levels", "Keyboard or touch", "About 5 minutes"],
+      controls: {
+        keyboard: [
+          { label: "→ or D", value: "Hold to run" },
+          { label: "← or A", value: "Brake" },
+          { label: "Space, ↑ or W", value: "Jump (hold to jump higher)" },
+          { label: "↓ or S", value: "Slide under things" },
+          { label: "Esc", value: "Menu" },
+        ],
+        touch: [
+          { label: "▶", value: "Hold to run" },
+          { label: "◀", value: "Brake" },
+          { label: "▲", value: "Jump (hold to jump higher)" },
+          { label: "▼", value: "Slide under things" },
+        ],
+      },
+      buttons: { left: "Brake", right: "Run", jump: "Jump", slide: "Slide" },
+      levels: {
+        campus: { name: "Campus", chaser: "the bugs" },
+        tennis: { name: "Tennis tournament", chaser: "the ball machine" },
+        port: { name: "Port of Montreal", chaser: "the forklift" },
+        winter: { name: "Old Quebec", chaser: "the snowplow" },
+        hackathon: { name: "Hackathon night", chaser: "the deadline" },
+      },
+      hud: { level: "Level", time: "Time", best: "Best" },
+      startFrom: "Start from level {n}",
+      newGame: "New game",
+      intro: "Level {n}: {name}",
+      goal: "Outrun {chaser}!",
+      go: "Go!",
+      caught: "Caught by {chaser}!",
+      fell: "Missed the jump!",
+      retry: "Try again",
+      complete: "Level complete!",
+      next: "Next level",
+      victory: "You made it!",
+      totalTime: "Total time: {time}",
+      record: "New record!",
+      again: "Play again",
+    },
   },
 };

@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Albert_Sans, Gloock } from "next/font/google";
 import "@/lib/fontawesome";
 import "./globals.css";
-import { Footer } from "@/components/footer";
-import { Navbar } from "@/components/navbar";
 import { LanguageProvider } from "@/i18n/provider";
 import { profile } from "@/data/portfolio";
 
@@ -72,11 +70,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${albertSans.variable} ${gloock.variable} font-sans`}>
-        <LanguageProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </LanguageProvider>
+        {/* The site's chrome (navbar, footer) lives in app/(site)/layout.tsx, so games can take the whole screen. */}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

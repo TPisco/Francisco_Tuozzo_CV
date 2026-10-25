@@ -8,11 +8,9 @@ import { Icon } from "@/components/icon";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { profile, resumeByLocale } from "@/data/portfolio";
 import { useI18n } from "@/i18n/provider";
-import { getActiveTab, tabPaths, type Tab } from "@/lib/navigation";
+import { getActiveTab, tabPaths, tabs, type Tab } from "@/lib/navigation";
 import { useDismiss } from "@/lib/use-dismiss";
 import { faArrowDown, faArrowRight, faAt } from "@fortawesome/free-solid-svg-icons";
-
-const tabs: Tab[] = ["work", "info"];
 
 export function Navbar() {
   const { t } = useI18n();
@@ -59,7 +57,7 @@ function TabSwitch({ active, labels }: { active: Tab | null; labels: Record<Tab,
               key={tab}
               href={tabPaths[tab]}
               aria-current={current ? "page" : undefined}
-              className={`relative rounded-full px-4 py-1.5 text-sm font-medium no-underline transition-colors duration-200 ${
+              className={`relative rounded-full px-3 py-1.5 text-sm font-medium no-underline transition-colors duration-200 sm:px-4 ${
                 current ? "text-cream" : "text-ink-soft hover:text-ink"
               }`}
             >

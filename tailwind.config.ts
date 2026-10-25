@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/games/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
@@ -62,6 +63,11 @@ const config: Config = {
         rise: {
           from: { opacity: "0", transform: "translateY(16px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        // A bar filling up: the countdown before a level.
+        grow: {
+          from: { transform: "scaleX(0)" },
+          to: { transform: "scaleX(1)" },
         },
       },
       animation: {

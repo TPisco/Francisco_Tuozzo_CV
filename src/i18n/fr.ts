@@ -8,6 +8,7 @@ export const fr: Dictionary = {
     label: "Principale",
     work: "Projets",
     info: "À propos",
+    play: "Jouer",
     links: "Liens",
   },
 
@@ -390,5 +391,77 @@ export const fr: Dictionary = {
 
   switcher: {
     label: "Changer de langue",
+  },
+
+  play: {
+    eyebrow: "Jouer",
+    headingLead: "Des jeux faits",
+    headingAccent: "pour le plaisir.",
+    lead: "Une pause du CV : de petits jeux que j'ai conçus et codés, avec des graphismes 3D faits dans Blender. Idéal au clavier; ça fonctionne aussi sur téléphone.",
+    start: "Jouer",
+    startAria: "Jouer à {title}",
+  },
+
+  gameShell: {
+    menu: "Menu",
+    paused: "Pause",
+    resume: "Reprendre",
+    restart: "Recommencer le niveau",
+    howToPlay: "Comment jouer",
+    allGames: "Tous les jeux",
+    backToSite: "Retour au portfolio",
+    loading: "Chargement…",
+    gotIt: "C'est parti",
+    keyboard: "Clavier",
+    touch: "Tactile",
+    rotate: "Tournez votre téléphone à l'horizontale pour voir plus grand.",
+  },
+
+  games: {
+    runFrancisco: {
+      title: "Cours, Francisco !",
+      tagline: "Une course-poursuite en cinq niveaux à travers les lieux de mon CV.",
+      description:
+        "Échappez à un essaim de bogues sur le campus, à une machine à balles dans un tournoi de tennis, à un chariot élévateur au port de Montréal, à une déneigeuse dans le Vieux-Québec et, pour finir, à la date de remise elle-même. Chaque niveau est plus rapide que le précédent.",
+      meta: ["5 niveaux", "Clavier ou tactile", "Environ 5 minutes"],
+      controls: {
+        keyboard: [
+          { label: "→ ou D", value: "Maintenir pour courir" },
+          { label: "← ou A", value: "Freiner" },
+          { label: "Espace, ↑ ou W", value: "Sauter (maintenir pour sauter plus haut)" },
+          { label: "↓ ou S", value: "Glisser sous les obstacles" },
+          { label: "Échap", value: "Menu" },
+        ],
+        touch: [
+          { label: "▶", value: "Maintenir pour courir" },
+          { label: "◀", value: "Freiner" },
+          { label: "▲", value: "Sauter (maintenir pour sauter plus haut)" },
+          { label: "▼", value: "Glisser sous les obstacles" },
+        ],
+      },
+      buttons: { left: "Freiner", right: "Courir", jump: "Sauter", slide: "Glisser" },
+      levels: {
+        campus: { name: "Campus", chaser: "les bogues" },
+        tennis: { name: "Tournoi de tennis", chaser: "la machine à balles" },
+        port: { name: "Port de Montréal", chaser: "le chariot élévateur" },
+        winter: { name: "Vieux-Québec", chaser: "la déneigeuse" },
+        hackathon: { name: "Nuit de hackathon", chaser: "la date de remise" },
+      },
+      hud: { level: "Niveau", time: "Temps", best: "Record" },
+      startFrom: "Commencer au niveau {n}",
+      newGame: "Nouvelle partie",
+      intro: "Niveau {n} : {name}",
+      goal: "Échappez à {chaser} !",
+      go: "Go !",
+      caught: "Rattrapé par {chaser} !",
+      fell: "Saut raté !",
+      retry: "Réessayer",
+      complete: "Niveau réussi !",
+      next: "Niveau suivant",
+      victory: "Vous avez réussi !",
+      totalTime: "Temps total : {time}",
+      record: "Nouveau record !",
+      again: "Rejouer",
+    },
   },
 };

@@ -13,8 +13,16 @@ function groundHazards(track: Track) {
   ].sort((a, b) => a.x - b.x);
 }
 
-/** Every place you have to get past: obstacles, gaps and blocks. */
-const allHazards = (track: Track) => track.obstacles.length + track.gaps.length + track.platforms.length;
+/** Every place you have to get past: obstacles, gaps, blocks, ice runs, and the balls fired during a full-speed run. */
+const allHazards = (track: Track) =>
+  track.obstacles.length +
+  track.gaps.length +
+  track.platforms.length +
+  track.ice.length +
+  (track.level.ballEvery ? track.level.length / RUN_SPEED / track.level.ballEvery : 0);
+
+/** The final level before the others were made as hard as it: 59 things to get past in 600 m. */
+const OLD_FINAL_PER_100_M = (59 / 600) * 100;
 
 describe("buildTrack", () => {
   test("the same seed always builds the same track", () => {
@@ -104,18 +112,20 @@ describe("buildTrack", () => {
     }
   });
 
-  test("the later levels are about climbing: more blocks, higher floors", () => {
-    const blocks = levels.map((level) => buildTrack(level, 5).platforms);
-    const tallest = blocks.map((list) => Math.max(0, ...list.map((p) => p.h)));
-    expect(blocks[4].length).toBeGreaterThan(blocks[0].length);
-    expect(tallest[4]).toBeGreaterThan(2);
+  // The tracks the game builds: level i with seed i + 1.
+  const played = levels.map((level, i) => buildTrack(level, i + 1));
+
+  test("the tutorial stays low; every level after it climbs past the second floor", () => {
+    const tallest = played.map((track) => Math.max(0, ...track.platforms.map((p) => p.h)));
     expect(tallest[0]).toBeLessThanOrEqual(0.8);
+    for (const height of tallest.slice(1)) expect(height).toBeGreaterThan(2);
   });
 
-  test("each level packs more to get past into every 100 m than the one before", () => {
-    const perHundredMetres = levels.map((level) => (allHazards(buildTrack(level, 5)) / level.length) * 100);
-    for (let i = 1; i < perHundredMetres.length; i++) {
-      expect(perHundredMetres[i]).toBeGreaterThan(perHundredMetres[i - 1]);
+  test("every level after the tutorial packs at least as much into 100 m as the old final level", () => {
+    const perHundredMetres = played.map((track) => (allHazards(track) / track.level.length) * 100);
+    for (const density of perHundredMetres.slice(1)) {
+      expect(density).toBeGreaterThanOrEqual(OLD_FINAL_PER_100_M);
+      expect(density).toBeGreaterThan(perHundredMetres[0] * 1.5);
     }
   });
 

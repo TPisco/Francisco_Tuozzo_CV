@@ -408,7 +408,7 @@ export const fr: Dictionary = {
       title: "Cours, Francisco !",
       tagline: "Une course-poursuite en cinq niveaux à travers les lieux de mon CV.",
       description:
-        "Échappez à un essaim de bogues sur le campus, à une machine à balles dans un tournoi de tennis, à un chariot élévateur au port de Montréal, à une déneigeuse dans le Vieux-Québec et, pour finir, à la date de remise elle-même. Chaque niveau est plus rapide que le précédent.",
+        "Échappez à un essaim de bogues sur le campus, à une machine à balles dans un tournoi de tennis, à un chariot élévateur au port de Montréal, à une déneigeuse dans le Vieux-Québec et, pour finir, à la date de remise elle-même. Le campus sert d'échauffement ; ensuite, chaque niveau est difficile.",
       meta: ["5 niveaux", "Clavier ou tactile", "Environ 5 minutes"],
     },
   },

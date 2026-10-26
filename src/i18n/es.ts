@@ -408,7 +408,7 @@ export const es: Dictionary = {
       title: "¡Corre, Francisco!",
       tagline: "Una persecución en cinco niveles por lugares de mi CV.",
       description:
-        "Escapa de un enjambre de bugs en el campus, de una máquina lanzapelotas en un torneo de tenis, de una carretilla elevadora en el puerto de Montreal, de una quitanieves en el Viejo Quebec y, al final, de la fecha de entrega. Cada nivel es más rápido que el anterior.",
+        "Escapa de un enjambre de bugs en el campus, de una máquina lanzapelotas en un torneo de tenis, de una carretilla elevadora en el puerto de Montreal, de una quitanieves en el Viejo Quebec y, al final, de la fecha de entrega. El campus es un calentamiento; después, todos los niveles son difíciles.",
       meta: ["5 niveles", "Teclado o táctil", "Unos 5 minutos"],
     },
   },

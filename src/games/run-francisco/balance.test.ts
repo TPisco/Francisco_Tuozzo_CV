@@ -56,18 +56,12 @@ describe("difficulty", () => {
     expect(levels.map((_, i) => play(i, 0))).toEqual(levels.map(() => "finished"));
   });
 
-  test("the first level forgives a lot: missing one obstacle in four still finishes", () => {
+  test("the first level is the tutorial run: missing one obstacle in four still finishes", () => {
     expect(play(0, 4)).toBe("finished");
   });
 
-  test("the last level doesn't: missing one obstacle in eight gets you caught", () => {
-    expect(play(levels.length - 1, 8)).not.toBe("finished");
-  });
-
-  test("forgiveness only shrinks: once sloppy play fails a level, it fails every later one", () => {
-    const sloppy = levels.map((_, i) => play(i, 4));
-    const firstFail = sloppy.findIndex((o) => o !== "finished");
-    expect(firstFail).toBeGreaterThan(0);
-    expect(sloppy.slice(firstFail).every((o) => o !== "finished")).toBe(true);
+  test("every level after it is hard: missing one obstacle in eight gets you caught", () => {
+    const sloppy = levels.slice(1).map((_, i) => play(i + 1, 8));
+    expect(sloppy).not.toContain("finished");
   });
 });

@@ -408,7 +408,7 @@ export const en: Dictionary = {
       title: "Run, Francisco!",
       tagline: "A five-level chase through places from my CV.",
       description:
-        "Outrun a swarm of bugs on campus, a ball machine at a tennis tournament, a forklift at the Port of Montreal, a snowplow in Old Quebec and, last of all, the deadline itself. Every level is faster than the one before.",
+        "Outrun a swarm of bugs on campus, a ball machine at a tennis tournament, a forklift at the Port of Montreal, a snowplow in Old Quebec and, last of all, the deadline itself. The campus is a warm-up; after that, every level is hard.",
       meta: ["5 levels", "Keyboard or touch", "About 5 minutes"],
     },
   },

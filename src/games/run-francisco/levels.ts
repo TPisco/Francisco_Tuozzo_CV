@@ -1,9 +1,11 @@
 /**
- * The five levels of Run, Francisco!, easiest first. Everything is in metres
- * and seconds. Difficulty grows through the chaser's speed, how close together
- * obstacles come (`reaction`, the seconds you get between two of them at full
- * speed), which kinds appear, and the level-specific hazards (flying balls,
- * gaps, ice).
+ * The five levels of Run, Francisco!. Everything is in metres and seconds.
+ * The campus is the tutorial run: a slow chaser, room between obstacles, low
+ * blocks. Every level after it is hard: the chaser starts at 8 m/s or more and
+ * never falls far behind, obstacles come less than a second apart (`reaction`,
+ * the seconds you get between two of them at full speed), and climbs reach
+ * the third floor. Each adds its own hazard (flying balls, gaps, ice), and the
+ * hackathon has the fastest chaser, the widest gaps and the tallest climbs.
  */
 
 export type LevelId = "campus" | "tennis" | "port" | "winter" | "hackathon";
@@ -93,9 +95,9 @@ export const levels: LevelConfig[] = [
   },
   {
     id: "tennis",
-    length: 380,
-    chaser: { sprite: "ballMachine", start: 6.4, ramp: 0.05, max: 7.8, leash: 12 },
-    reaction: { start: 1.35, end: 1.05 },
+    length: 600,
+    chaser: { sprite: "ballMachine", start: 8, ramp: 0.06, max: 9.3, leash: 8.2 },
+    reaction: { start: 0.95, end: 0.72 },
     obstacles: [
       { sprite: "net", kind: "low", w: 1.21, h: 0.83, weight: 2 },
       { sprite: "ballBasket", kind: "low", w: 0.67, h: 0.71, weight: 3 },
@@ -103,27 +105,27 @@ export const levels: LevelConfig[] = [
     gapChance: 0,
     gapWidth: { min: 0, max: 0 },
     iceChance: 0,
-    ballEvery: 4.5,
-    coffees: 2,
+    ballEvery: 3.5,
+    coffees: 3,
     palette: { sky: "#f1e4cf", ground: "#c2603f", groundEdge: "#f6f3ee", gap: "#5d554b" },
     bandStart: 0.753,
     night: false,
     weather: null,
-    climbs: { chance: 0.16, maxHeight: 1, stairs: 0.35, overGaps: false, topObstacles: 0 },
+    climbs: { chance: 0.55, maxHeight: 2.6, stairs: 0.6, overGaps: false, topObstacles: 0.35 },
     blocks: { colors: ["#e6ddcf"], top: "#c2603f", pattern: "bleachers" },
   },
   {
     id: "port",
-    length: 450,
-    chaser: { sprite: "forklift", start: 7.2, ramp: 0.05, max: 8.5, leash: 10 },
-    reaction: { start: 1.2, end: 0.95 },
+    length: 600,
+    chaser: { sprite: "forklift", start: 8.1, ramp: 0.06, max: 9.35, leash: 8.2 },
+    reaction: { start: 0.9, end: 0.68 },
     obstacles: [
       { sprite: "crate", kind: "low", w: 1.01, h: 0.78, weight: 3 },
       { sprite: "barrel", kind: "low", w: 0.62, h: 0.84, weight: 2 },
       { sprite: "pipe", kind: "overhead", w: 1.3, h: 0.42, weight: 2 },
     ],
     gapChance: 0.22,
-    gapWidth: { min: 1.6, max: 2.6 },
+    gapWidth: { min: 1.8, max: 2.9 },
     iceChance: 0,
     ballEvery: 0,
     coffees: 3,
@@ -131,14 +133,14 @@ export const levels: LevelConfig[] = [
     bandStart: 0.775,
     night: false,
     weather: null,
-    climbs: { chance: 0.33, maxHeight: 2, stairs: 0.5, overGaps: true, topObstacles: 0 },
+    climbs: { chance: 0.5, maxHeight: 2.6, stairs: 0.6, overGaps: true, topObstacles: 0.35 },
     blocks: { colors: ["#c2603f", "#6f7f8c", "#e07b39", "#7d9b6a"], top: "#e6ddcf", pattern: "container" },
   },
   {
     id: "winter",
-    length: 520,
-    chaser: { sprite: "snowplow", start: 7.5, ramp: 0.05, max: 8.9, leash: 9.5 },
-    reaction: { start: 1.1, end: 0.85 },
+    length: 620,
+    chaser: { sprite: "snowplow", start: 8.2, ramp: 0.06, max: 9.35, leash: 8.2 },
+    reaction: { start: 0.9, end: 0.68 },
     obstacles: [
       { sprite: "snowbank", kind: "low", w: 1.21, h: 0.6, weight: 3 },
       { sprite: "cone", kind: "low", w: 0.5, h: 0.65, weight: 2 },
@@ -153,21 +155,21 @@ export const levels: LevelConfig[] = [
     bandStart: 0.754,
     night: false,
     weather: "snow",
-    climbs: { chance: 0.5, maxHeight: 2.2, stairs: 0.65, overGaps: false, topObstacles: 0.3 },
+    climbs: { chance: 0.6, maxHeight: 2.6, stairs: 0.65, overGaps: false, topObstacles: 0.35 },
     blocks: { colors: ["#b9b1a6"], top: "#f6f3ee", pattern: "stone" },
   },
   {
     id: "hackathon",
-    length: 600,
-    chaser: { sprite: "deadlineClock", start: 8, ramp: 0.06, max: 9.3, leash: 8.2 },
-    reaction: { start: 1, end: 0.75 },
+    length: 650,
+    chaser: { sprite: "deadlineClock", start: 8.4, ramp: 0.07, max: 9.4, leash: 7.8 },
+    reaction: { start: 0.9, end: 0.68 },
     obstacles: [
       { sprite: "chair", kind: "low", w: 0.64, h: 0.87, weight: 2 },
       { sprite: "cables", kind: "low", w: 0.7, h: 0.29, weight: 3 },
       { sprite: "lamp", kind: "overhead", w: 0.99, h: 0.52, weight: 2 },
     ],
-    gapChance: 0.18,
-    gapWidth: { min: 1.8, max: 2.8 },
+    gapChance: 0.26,
+    gapWidth: { min: 1.9, max: 3 },
     iceChance: 0,
     ballEvery: 0,
     coffees: 3,
@@ -175,7 +177,7 @@ export const levels: LevelConfig[] = [
     bandStart: 0.769,
     night: true,
     weather: null,
-    climbs: { chance: 0.5, maxHeight: 2.6, stairs: 0.6, overGaps: true, topObstacles: 0.35 },
+    climbs: { chance: 0.55, maxHeight: 2.9, stairs: 0.7, overGaps: true, topObstacles: 0.45 },
     blocks: { colors: ["#3a4152", "#454d61"], top: "#d98a6a", pattern: "roof" },
   },
 ];

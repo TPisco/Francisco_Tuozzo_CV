@@ -131,6 +131,19 @@
     outline-offset: 3px;
   }
 
+  /* Scroll reveal (components/reveal.tsx): fades up 12px once, when it comes into view. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s);
+  }
+  .reveal[data-shown] {
+    opacity: 1;
+    transform: none;
+  }
+
   /* Underline field for the dark contact panel. */
   .field-dark {
     @apply w-full border-0 border-b border-cream/20 bg-transparent px-0 py-2.5 text-base text-cream outline-none transition-colors placeholder:text-cream/55 focus:border-clay-soft;

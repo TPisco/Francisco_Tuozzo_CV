@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Icon } from "@/components/icon";
 import { WindowFrame } from "@/components/window-frame";
 import type { ProjectMeta } from "@/data/portfolio";
 import type { Dictionary } from "@/i18n";
+import { cardScale } from "@/lib/motion";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { getPreviewMedia, getProjectPath } from "@/lib/projects";
 import { faArrowRight, faTrophy } from "@fortawesome/free-solid-svg-icons";
 
@@ -31,22 +32,48 @@ type ProjectCardProps = {
   positionLabel: string;
 };
 
-/** Smallest scale, when the card's top edge is just entering the viewport. */
-const START_SCALE = 0.92;
+/**
+ * Grows the card to full size as it scrolls in (see cardScale), writing the
+ * transform straight onto the element on scroll, without re-rendering. With
+ * reduced motion it stays at full size, with no transform at all.
+ */
+function useScrollScale(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (calm.matches) {
+        el.style.transform = "";
+        return;
+      }
+      el.style.transform = `scale(${cardScale(el.getBoundingClientRect().top, window.innerHeight)})`;
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    calm.addEventListener("change", schedule);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      calm.removeEventListener("change", schedule);
+      cancelAnimationFrame(frame);
+    };
+  }, [ref]);
+}
 
 export function ProjectCard({ meta, item, award, priority, index, total, positionLabel }: ProjectCardProps) {
   const ref = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
-  // Grows to full size between "top edge enters the viewport" and "top edge at 35%".
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 0.35"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [START_SCALE, 1]);
-
-  // Always pass scale: dropping it would leave whatever value framer last applied
-  // (useReducedMotion is null on the first render, before the setting is known).
-  const style = { "--card-radius": "2.25rem", scale: reduceMotion ? 1 : scale } as CSSProperties;
+  useScrollScale(ref);
+  const style = { "--card-radius": "2.25rem" } as CSSProperties;
 
   return (
-    <motion.article
+    <article
       ref={ref}
       id={`project-${meta.id}`}
       data-project-card
@@ -103,7 +130,7 @@ export function ProjectCard({ meta, item, award, priority, index, total, positio
           </WindowFrame>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 

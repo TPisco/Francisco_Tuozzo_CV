@@ -4,7 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGlobe, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { useI18n } from "@/i18n/provider";
-import { dictionaries, locales } from "@/i18n";
+import { localeLabels, locales } from "@/i18n";
 import { useDismiss } from "@/lib/use-dismiss";
 
 export function LanguageSwitcher() {
@@ -14,7 +14,7 @@ export function LanguageSwitcher() {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useDismiss(ref, open, close, buttonRef);
-  const short = dictionaries[locale].localeShort;
+  const short = localeLabels[locale].short;
 
   return (
     <div ref={ref} className="relative">
@@ -55,7 +55,7 @@ export function LanguageSwitcher() {
                     active ? "bg-cream font-semibold text-ink" : "text-ink-soft hover:bg-cream/70"
                   }`}
                 >
-                  {dictionaries[code].localeName}
+                  {localeLabels[code].name}
                   {active ? <FontAwesomeIcon icon={faCheck} className="h-3 w-3 text-clay-deep" /> : null}
                 </button>
               </li>

@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { dictionaries, locales } from "@/i18n";
+import { locales } from "@/i18n";
+import { dictionaries } from "@/i18n/all";
 import { games, getGameCover } from "./games";
 
 describe("the games registry", () => {

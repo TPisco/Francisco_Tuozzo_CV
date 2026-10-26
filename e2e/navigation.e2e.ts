@@ -14,6 +14,19 @@ test("the Work / Info / Play switch moves between the pages and marks the curren
   await expect(nav.getByRole("link", { name: "Work", exact: true })).not.toHaveAttribute("aria-current", "page");
 });
 
+test("switching to French translates the page, and the choice is remembered", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Change language: EN" }).click();
+  await page.getByRole("menuitemradio", { name: "Français" }).click();
+
+  const headline = page.getByRole("heading", { level: 1 });
+  await expect(headline).toHaveText("Je crée des logiciels que les gens peuvent vraiment utiliser.");
+  await expect(page.locator("html")).toHaveAttribute("lang", "fr");
+
+  await page.reload();
+  await expect(headline).toHaveText("Je crée des logiciels que les gens peuvent vraiment utiliser.");
+});
+
 test("the home page leads with the headline", async ({ page }) => {
   await page.goto("/");
 

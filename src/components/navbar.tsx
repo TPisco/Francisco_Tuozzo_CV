@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MotionConfig, motion } from "framer-motion";
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Icon } from "@/components/icon";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { profile, resumeByLocale } from "@/data/portfolio";
@@ -47,36 +46,64 @@ export function Navbar() {
   );
 }
 
+/**
+ * The Work / Info / Play pill. One dark indicator slides to the current tab with
+ * a slightly springy ease (it re-measures when labels change width: language,
+ * fonts loading). With reduced motion the global rule makes it jump instead.
+ */
 function TabSwitch({ active, labels }: { active: Tab | null; labels: Record<Tab, string> }) {
+  const wrap = useRef<HTMLDivElement>(null);
+  const items = useRef<Partial<Record<Tab, HTMLAnchorElement | null>>>({});
+  const [box, setBox] = useState<{ x: number; w: number } | null>(null);
+  // No slide on the first placement, only between tabs.
+  const [slides, setSlides] = useState(false);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = active ? items.current[active] : null;
+      setBox(el ? { x: el.offsetLeft, w: el.offsetWidth } : null);
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    if (wrap.current) observer.observe(wrap.current);
+    document.fonts?.ready.then(measure);
+    return () => observer.disconnect();
+  }, [active, labels]);
+
+  useEffect(() => {
+    if (!box || slides) return;
+    const id = requestAnimationFrame(() => setSlides(true));
+    return () => cancelAnimationFrame(id);
+  }, [box, slides]);
+
   return (
-    // reducedMotion="user": with the OS setting on, the indicator jumps instead of sliding.
-    <MotionConfig reducedMotion="user">
-      <div className="flex items-center rounded-full border border-ink/10 bg-shell/85 p-1 shadow-soft backdrop-blur-md">
-        {tabs.map((tab) => {
-          const current = active === tab;
-          return (
-            <Link
-              key={tab}
-              href={tabPaths[tab]}
-              aria-current={current ? "page" : undefined}
-              className={`relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-medium no-underline transition-colors duration-200 sm:px-4 ${
-                current ? "text-cream" : "text-ink-soft hover:text-ink"
-              }`}
-            >
-              {current ? (
-                <motion.span
-                  layoutId="nav-tab-indicator"
-                  aria-hidden
-                  className="absolute inset-0 rounded-full bg-ink"
-                  transition={{ type: "spring", duration: 0.4, bounce: 0.12 }}
-                />
-              ) : null}
-              <span className="relative">{labels[tab]}</span>
-            </Link>
-          );
-        })}
-      </div>
-    </MotionConfig>
+    <div ref={wrap} className="relative flex items-center rounded-full border border-ink/10 bg-shell/85 p-1 shadow-soft backdrop-blur-md">
+      <span
+        aria-hidden
+        className={`absolute bottom-1 left-0 top-1 rounded-full bg-ink ${box ? "opacity-100" : "opacity-0"} ${
+          slides ? "transition-[transform,width] duration-[400ms] ease-[cubic-bezier(0.3,1.25,0.5,1)]" : ""
+        }`}
+        style={{ width: box?.w ?? 0, transform: `translateX(${box?.x ?? 0}px)` }}
+      />
+      {tabs.map((tab) => {
+        const current = active === tab;
+        return (
+          <Link
+            key={tab}
+            ref={(el) => {
+              items.current[tab] = el;
+            }}
+            href={tabPaths[tab]}
+            aria-current={current ? "page" : undefined}
+            className={`relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-medium no-underline transition-colors duration-200 sm:px-4 ${
+              current ? "text-cream" : "text-ink-soft hover:text-ink"
+            }`}
+          >
+            {labels[tab]}
+          </Link>
+        );
+      })}
+    </div>
   );
 }
 

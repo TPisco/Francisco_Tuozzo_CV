@@ -1,31 +1,48 @@
 "use client";
 
-import { MotionConfig, motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 
-// Subtle, usability-focused reveal only — small offset, runs once.
-// reducedMotion="user": with the OS setting on, the offset jumps instead of
-// sliding, so the reveal is a plain fade (and the server markup is unchanged).
+// One observer for every Reveal on the page: marks an element once it has come into view.
+let observer: IntersectionObserver | null = null;
+function watch(el: HTMLElement) {
+  if (typeof IntersectionObserver === "undefined") {
+    el.dataset.shown = "";
+    return () => {};
+  }
+  observer ??= new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        (entry.target as HTMLElement).dataset.shown = "";
+        observer?.unobserve(entry.target);
+      }
+    },
+    { rootMargin: "0px 0px -60px 0px" },
+  );
+  observer.observe(el);
+  return () => observer?.unobserve(el);
+}
+
+/**
+ * A subtle, usability-focused reveal: fades up 12px the first time it scrolls
+ * into view (CSS in globals.css, .reveal). With reduced motion the global rule
+ * makes it appear at once.
+ */
 export function Reveal({
   children,
   delay = 0,
-  className,
+  className = "",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => watch(ref.current!), []);
+
   return (
-    <MotionConfig reducedMotion="user">
-      <motion.div
-        className={className}
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.45, delay, ease: [0.22, 1, 0.36, 1] }}
-      >
-        {children}
-      </motion.div>
-    </MotionConfig>
+    <div ref={ref} className={`reveal ${className}`} style={{ "--reveal-delay": `${delay}s` } as CSSProperties}>
+      {children}
+    </div>
   );
 }

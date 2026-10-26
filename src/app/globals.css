@@ -117,10 +117,13 @@
   /* A link whose ::after covers its whole card (see project-card.tsx): the
      focus ring follows the card's shape instead of hugging the link text. The
      card sets --card-radius so the ring matches its corners. */
+  /* Above the card's positioned media (poster, clip), so a click anywhere opens the link;
+     links meant to stay separate (the award badge) sit higher with z-10. */
   .stretched-link::after {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 1;
     border-radius: var(--card-radius, 0);
   }
   .stretched-link:focus-visible {

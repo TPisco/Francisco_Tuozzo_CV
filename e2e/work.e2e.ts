@@ -14,6 +14,19 @@ test("every project has a card, and a card opens its case study", async ({ page 
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Insight Dashboard");
 });
 
+test("clicking a card's preview opens its case study, not only its title", async ({ page }) => {
+  await page.goto("/");
+  const poster = page.locator("#project-phaseshift img").first();
+  await poster.evaluate((el) => el.scrollIntoView({ block: "center" }));
+  await page.waitForTimeout(300);
+
+  const box = await poster.boundingBox();
+  if (!box) throw new Error("the preview has no size");
+  await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+
+  await expect(page).toHaveURL(/\/projects\/phaseshift$/);
+});
+
 test("the list says up front how many projects there are, and links to each", async ({ page }) => {
   await page.goto("/");
   const index = page.getByRole("navigation", { name: "All projects" });

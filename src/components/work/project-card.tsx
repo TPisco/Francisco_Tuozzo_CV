@@ -79,7 +79,7 @@ export function ProjectCard({ meta, item, award, priority, index, total, positio
       data-project-card
       data-scroll-scale
       style={style}
-      className="group relative origin-top scroll-mt-24 rounded-surface border border-ink/10 shadow-soft"
+      className="group relative isolate origin-top scroll-mt-24 rounded-surface border border-ink/10 shadow-soft"
     >
       <div
         className="overflow-hidden rounded-surface"

@@ -21,17 +21,22 @@ Numbers come from measurements on production builds, not estimates.
 ### Soft 720 px clips → sharp 1280 px clips
 - **Before:** the clips were cut for the small hover card.
 - **Why:** on the large cards, up to about 980 px wide, they looked blurry.
-- **Gained:** sharp clips that still weigh under 0.7 MB each, all made by one script (`scripts/make-preview.ps1`).
+- **Gained:** sharp clips that stay light (about 1 MB at most), all made by one script (`scripts/make-preview.ps1`).
 
 ### A list people didn't scroll → a list that says it's a list
 - **Before:** the first project card filled the screen.
 - **Why:** 4 of the 5 people you showed the site to thought the first project was the only one.
-- **Gained:** "Selected work · 6 projects" with a jump link to each one, a "01 / 06" counter on every card, and a "Next project" button that walks through the list.
+- **Gained:** "Selected work" with the number of projects and a jump link to each one, a counter like "01 / 07" on every card, and a "Next project" button that walks through the list.
 
 ### Missing recent work → Phase Shift, Orbital and the hackathon result
 - **Before:** the site stopped at older projects, and the Qollab × IonQ result wasn't mentioned.
 - **Why:** they are your newest and strongest work, and a judged result counts with recruiters.
 - **Gained:** two new case studies with their own clips, the 2nd-of-14 result in Events, and a badge on Phase Shift that links to it.
+
+### No client work → Lunayla's official site
+- **Before:** Luna's site was left out of the first audit, because it wasn't clear it was live or that she agreed to it being shown.
+- **Why:** it is live, and she agreed. It's the only project built for a real client, and recruiters can open it in one click.
+- **Gained:** a case study in three languages with a "See it live" button (renamed from "Try it live" so it fits a website too) and a link to the public repo. Its clip is a scroll through the live site, recorded by `scripts/record-scroll.mjs`, so it can be re-recorded whenever her site changes.
 
 ### YouTube loading with every case study → a play button
 - **Before:** each case study loaded YouTube's player straight away: 5.2 MB per page, 4.2 MB of it YouTube.
@@ -100,7 +105,7 @@ Numbers come from measurements on production builds, not estimates.
 - **Why:** you asked that everything be readable and usable by everyone, including blind and disabled visitors.
 - **Gained:**
   - A "Skip to content" link.
-  - Screen-reader text for icons, new-tab links and the "01 / 06" counters.
+  - Screen-reader text for icons, new-tab links and the "01 / 07" counters.
   - Menus that close on Escape and return focus to their button.
   - Menu rows at least 44 px tall on touch screens.
   - Contrast that passes WCAG AA.

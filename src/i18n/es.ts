@@ -105,7 +105,7 @@ export const es: Dictionary = {
       viewCode: "Ver el código en GitHub",
       contents: "Contenido",
       links: "Enlaces",
-      openLive: "Probarlo en línea",
+      openLive: "Verlo en línea",
     },
     items: {
       scentory: {
@@ -155,6 +155,31 @@ export const es: Dictionary = {
             "Responsable de la visión: un juego donde la interferencia, no la suerte, decide cada rompecabezas",
             "Responsable del desarrollo full-stack: la interfaz web y el motor en Python y Qiskit detrás de ella",
             "Hecho con un compañero de equipo",
+          ],
+        },
+      },
+      lunayla: {
+        tagline: "Sitio oficial de una cantante de Montreal, en tres idiomas",
+        why: "Una clienta real, y un sitio en línea. Lunayla necesitaba un solo lugar al que enviar a su público, a programadores y a la prensa, en francés, inglés y español, y fácil de mantener al día a medida que salen nuevas canciones y conciertos. Lo construí y rehice el diseño con sus comentarios.",
+        detail: {
+          overview:
+            "Un sitio de una sola página para Lunayla, una cantante quebequense radicada en Montreal que hace R&B latino y salsa moderna. Presenta su música, su primer EP, su trayectoria, una galería de fotos y un contacto profesional, en francés, inglés y español. Es un sitio estático en Astro, alojado en Vercel.",
+          description:
+            "Todo lo que lee el visitante vive en archivos de datos, no en el código de las páginas. Los textos están en un archivo JSON por idioma, con las mismas claves en cada uno, y una clave que falta hace fallar la compilación a propósito. Sus sencillos, videos, hitos y fotos son listas JSON cortas: agregar un lanzamiento o un concierto es agregar una entrada. Los hitos con fecha futura aparecen primero con la etiqueta “Próximamente” y pasan a su trayectoria en el siguiente despliegue.\n\nEl sitio no tiene servidor ni seguimiento de visitantes. El formulario de contacto abre la aplicación de correo del visitante con el mensaje ya escrito, junto a un botón que copia la dirección. Los reproductores de Spotify y YouTube solo se cargan al hacer clic, las fotos se convierten a AVIF y WebP en varios tamaños durante la compilación y las fuentes se alojan con el propio sitio. Cada idioma tiene su propia dirección, con enlaces hreflang y etiquetas Open Graph, y la dirección raíz lleva al visitante a su idioma guardado o al de su navegador.",
+          features: [
+            "Francés, inglés y español, cada uno en su propia dirección, con el idioma del visitante elegido automáticamente",
+            "Una sección de música con su último lanzamiento, sus sencillos, videos y sesiones",
+            "Reproductores de Spotify y YouTube que se cargan al hacer clic: nada de esos servicios se carga antes de que el visitante lo pida",
+            "Contenido en archivos JSON: una nueva canción, un concierto o una foto es una entrada más",
+            "Eventos próximos etiquetados automáticamente según su fecha",
+            "Un formulario de contacto sin servidor: abre la aplicación de correo del visitante, con un botón para copiar la dirección",
+            "Texto alternativo en los tres idiomas, y animaciones desactivadas para quien pide menos movimiento",
+          ],
+          role: [
+            "Diseñé y desarrollé el sitio, y lo desplegué en Vercel",
+            "Reuní su biografía, su música, su trayectoria y sus fotos, anotando la fuente de cada dato",
+            "Escribí un informe que alinea cada traducción lado a lado para revisarla",
+            "Rehice el diseño con los comentarios de la artista",
           ],
         },
       },

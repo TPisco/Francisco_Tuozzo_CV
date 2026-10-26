@@ -13,6 +13,7 @@ import {
   faSatellite,
   faNetworkWired,
   faEnvelope,
+  faMusic,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 // Type-only, so this does not create a runtime cycle with the dictionaries.
@@ -80,6 +81,7 @@ export const skillMeta: { id: SkillId; icon: IconDefinition }[] = [
 export type ProjectId =
   | "scentory"
   | "phaseshift"
+  | "lunayla"
   | "orbital"
   | "vert"
   | "knightrpg"
@@ -129,6 +131,18 @@ export const projectMeta: ProjectMeta[] = [
     // Clip cut from the hackathon demo video; it has no YouTube upload to embed.
     preview: { clip: true },
     award: "qollabIonq",
+  },
+  {
+    id: "lunayla",
+    name: "Lunayla",
+    icon: faMusic,
+    tint: "#eee1e2",
+    tech: ["Astro", "TypeScript", "CSS", "Vercel"],
+    github: ["https://github.com/TPisco/SitePersonnelLuna"],
+    // The root address sends visitors to their own language.
+    liveUrl: "https://lunayla-officiel.vercel.app/",
+    // Clip recorded from the live site with scripts/record-scroll.mjs; there is no video to embed.
+    preview: { clip: true },
   },
   {
     id: "orbital",

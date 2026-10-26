@@ -105,7 +105,7 @@ export const fr: Dictionary = {
       viewCode: "Voir le code sur GitHub",
       contents: "Sommaire",
       links: "Liens",
-      openLive: "L'essayer en ligne",
+      openLive: "Le voir en ligne",
     },
     items: {
       scentory: {
@@ -155,6 +155,31 @@ export const fr: Dictionary = {
             "Responsable de la vision : un jeu où l'interférence, et non la chance, décide de chaque casse-tête",
             "Responsable du développement full-stack : l'interface web et le moteur Python et Qiskit derrière",
             "Réalisé avec un coéquipier",
+          ],
+        },
+      },
+      lunayla: {
+        tagline: "Site officiel d'une chanteuse montréalaise, en trois langues",
+        why: "Une vraie cliente, et un site en ligne. Lunayla avait besoin d'un seul endroit où envoyer son public, les diffuseurs et les médias, en français, en anglais et en espagnol, et facile à tenir à jour au fil des nouvelles chansons et des spectacles. Je l'ai construit, puis j'ai retravaillé le design avec ses commentaires.",
+        detail: {
+          overview:
+            "Un site d'une page pour Lunayla, une chanteuse québécoise établie à Montréal qui fait du R&B latin et de la salsa moderne. Il présente sa musique, son premier EP, son parcours, une galerie photo et un contact professionnel, en français, en anglais et en espagnol. C'est un site Astro statique, hébergé sur Vercel.",
+          description:
+            "Tout ce que le visiteur lit vit dans des fichiers de données, pas dans le code des pages. Les textes sont dans un fichier JSON par langue, avec les mêmes clés dans chacun, et une clé manquante fait échouer la compilation, exprès. Ses chansons, ses vidéos, les étapes de son parcours et ses photos sont de courtes listes JSON : ajouter une sortie ou un spectacle, c'est ajouter une entrée. Les étapes datées dans le futur s'affichent en premier avec l'étiquette « À venir », puis passent dans son parcours au déploiement suivant.\n\nLe site n'a ni serveur ni suivi des visiteurs. Le formulaire de contact ouvre l'application courriel du visiteur avec le message déjà rempli, à côté d'un bouton qui copie l'adresse. Les lecteurs Spotify et YouTube ne se chargent qu'au clic, les photos sont converties en AVIF et en WebP en plusieurs tailles à la compilation, et les polices sont hébergées avec le site. Chaque langue a sa propre adresse, avec des liens hreflang et des balises Open Graph, et l'adresse racine envoie le visiteur vers sa langue enregistrée ou celle de son navigateur.",
+          features: [
+            "Français, anglais et espagnol, chacun à sa propre adresse, avec la langue du visiteur choisie automatiquement",
+            "Une section Musique avec sa dernière sortie, ses chansons, ses vidéos et ses sessions",
+            "Lecteurs Spotify et YouTube chargés au clic : rien de ces services ne se charge avant que le visiteur le demande",
+            "Contenu rangé dans des fichiers JSON : une nouvelle chanson, un spectacle ou une photo, c'est une entrée de plus",
+            "Événements à venir étiquetés automatiquement selon leur date",
+            "Un formulaire de contact sans serveur : il ouvre l'application courriel du visiteur, avec un bouton pour copier l'adresse",
+            "Textes alternatifs dans les trois langues, et animations coupées pour les visiteurs qui en demandent moins",
+          ],
+          role: [
+            "Conçu et développé le site, puis déployé sur Vercel",
+            "Rassemblé sa biographie, sa musique, son parcours et ses photos, en notant la source de chaque information",
+            "Écrit un rapport qui aligne chaque traduction côte à côte pour la relecture",
+            "Retravaillé le design avec les commentaires de l'artiste",
           ],
         },
       },

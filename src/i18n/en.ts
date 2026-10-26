@@ -105,7 +105,7 @@ export const en: Dictionary = {
       viewCode: "View code on GitHub",
       contents: "Contents",
       links: "Links",
-      openLive: "Try it live",
+      openLive: "See it live",
     },
     items: {
       scentory: {
@@ -155,6 +155,31 @@ export const en: Dictionary = {
             "Vision lead: defined a game where interference, not luck, decides every puzzle",
             "Full-stack development lead: the browser interface and the Python and Qiskit engine behind it",
             "Built with one teammate",
+          ],
+        },
+      },
+      lunayla: {
+        tagline: "Official website for a Montréal singer, in three languages",
+        why: "A real client, and a site that's live. Lunayla needed one place to send fans, bookers and press, in French, English and Spanish, that stays easy to update as new songs and shows come out. I built it and reworked the design with her feedback.",
+        detail: {
+          overview:
+            "A one-page website for Lunayla, a Québec singer based in Montréal who makes Latin R&B and modern salsa. It presents her music, her debut EP, her journey, a photo gallery and a booking contact, in French, English and Spanish. It's a static Astro site, hosted on Vercel.",
+          description:
+            "Everything a visitor reads lives in data files, not in the page code. The text is in one JSON file per language, with the same keys in each, and a missing key breaks the build on purpose. Her singles, videos, milestones and photos are short JSON lists, so adding a release or a show means adding one entry. Milestones dated in the future show first with an Upcoming tag, then move into her journey on the next deploy.\n\nThe site has no server and no visitor tracking. The contact form opens the visitor's email app with the message filled in, next to a button that copies the address. Spotify and YouTube players load only when clicked, photos are turned into AVIF and WebP at several sizes at build time, and the fonts are hosted with the site. Each language has its own address with hreflang links and Open Graph tags, and the root address sends visitors to their saved or browser language.",
+          features: [
+            "French, English and Spanish, each at its own address, with the visitor's language picked automatically",
+            "A music section with her latest release, singles, videos and sessions",
+            "Click-to-load Spotify and YouTube players: nothing from those services loads until the visitor asks",
+            "Content kept in JSON files: a new single, show or photo is one more entry",
+            "Upcoming events tagged automatically from their date",
+            "A contact form with no server: it opens the visitor's email app, with a button to copy the address",
+            "Alt text in all three languages, and motion turned off for visitors who ask for less",
+          ],
+          role: [
+            "Designed and built the site, then deployed it on Vercel",
+            "Gathered her bio, music, milestones and photos, noting where each fact comes from",
+            "Wrote a report that lines up every translation side by side for review",
+            "Reworked the design with the artist's feedback",
           ],
         },
       },

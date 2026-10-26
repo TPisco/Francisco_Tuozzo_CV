@@ -1,6 +1,7 @@
 "use client";
 
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import Link from "next/link";
 import type { ReactNode, Ref } from "react";
 import { Icon } from "@/components/icon";
 
@@ -38,6 +39,19 @@ export function StageButton({ children, onClick, ref }: { children: ReactNode; o
     >
       {children}
     </button>
+  );
+}
+
+/** A card's way out of the game (Back to the portfolio), quieter than its main button. */
+export function StageLink({ href, icon, children }: { href: string; icon: IconDefinition; children: ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink/40 px-6 py-3 short:mt-2 text-base font-semibold text-ink no-underline transition-[background-color,transform] duration-150 ease-out hover:bg-ink/[0.04] active:scale-[0.97]"
+    >
+      <Icon icon={icon} className="h-3.5 w-3.5" />
+      {children}
+    </Link>
   );
 }
 

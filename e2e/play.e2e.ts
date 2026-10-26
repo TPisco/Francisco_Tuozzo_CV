@@ -34,7 +34,22 @@ test("from inside a game, the menu leads back to the portfolio", async ({ page }
   await page.keyboard.press("Escape");
   const menu = page.getByRole("dialog", { name: "Paused" });
   await expect(menu).toBeVisible();
+  await expect(menu.getByRole("button", { name: "Resume" })).toBeVisible();
   await menu.getByRole("link", { name: "Back to the portfolio" }).click();
+
+  await expect(page).toHaveURL(/\/$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("I build software people can actually use.");
+});
+
+test("after getting caught, a button leads back to the portfolio", async ({ page }) => {
+  await page.goto("/play/run-francisco");
+  await page.getByRole("button", { name: "Let's go" }).click();
+  await page.getByRole("button", { name: "New game" }).click();
+
+  // Standing still: the bugs catch up within a few seconds.
+  await expect(page.getByText("Caught by the bugs!")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "Try again" })).toBeFocused();
+  await page.getByRole("link", { name: "Back to the portfolio" }).click();
 
   await expect(page).toHaveURL(/\/$/);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("I build software people can actually use.");

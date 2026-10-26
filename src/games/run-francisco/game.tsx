@@ -3,13 +3,22 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { GameShell, useGameActions, useGameShell } from "@/components/play/game-shell";
-import { safeTop, StageButton, StageCard, stagePill, TOUCH_RESERVE, TouchButton } from "@/components/play/stage";
+import { safeTop, StageButton, StageCard, StageLink, stagePill, TOUCH_RESERVE, TouchButton } from "@/components/play/stage";
 import { useFixedStep } from "@/components/play/use-fixed-step";
 import { Icon } from "@/components/icon";
 import { useI18n } from "@/i18n/provider";
 import { fill } from "@/lib/fill";
 import { tabPaths } from "@/lib/navigation";
-import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faMobileScreenButton, faRotateRight, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretDown,
+  faCaretLeft,
+  faCaretRight,
+  faCaretUp,
+  faHouse,
+  faMobileScreenButton,
+  faRotateRight,
+  faTrophy,
+} from "@fortawesome/free-solid-svg-icons";
 import { copy, type RunFranciscoCopy } from "./copy";
 import { Controls } from "./input";
 import { levels } from "./levels";
@@ -409,6 +418,9 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
             <StageButton ref={primaryRef} onClick={() => startLevel(levelIndex)}>
               {words.retry}
             </StageButton>
+            <StageLink href={tabPaths.work} icon={faHouse}>
+              {t.gameShell.backToSite}
+            </StageLink>
           </StageCard>
         ) : null}
 
@@ -440,6 +452,9 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
             <StageButton ref={primaryRef} onClick={() => newGame(0)}>
               {words.again}
             </StageButton>
+            <StageLink href={tabPaths.work} icon={faHouse}>
+              {t.gameShell.backToSite}
+            </StageLink>
             <Link href={tabPaths.play} className="link-underline mt-4 inline-block text-sm">
               {t.gameShell.allGames}
             </Link>

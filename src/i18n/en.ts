@@ -390,7 +390,7 @@ export const en: Dictionary = {
   gameShell: {
     menu: "Menu",
     paused: "Paused",
-    resume: "Résumé",
+    resume: "Resume",
     restart: "Restart level",
     howToPlay: "How to play",
     allGames: "All games",

@@ -143,6 +143,11 @@ Numbers come from measurements on production builds, not estimates.
   - Calmer backgrounds near the track.
   - Bigger, outlined tennis balls, with a warning before they arrive.
 
+### Way out hidden in the menu → a button on the end screens
+- **Before:** after getting caught or finishing all five levels, the only way back to the portfolio was through the Menu.
+- **Why:** a visitor who is done playing shouldn't have to hunt for the exit.
+- **Gained:** "Back to the portfolio" sits right under "Try again" and "Play again". The English pause menu's Resume button, which wrongly read "Résumé", was fixed at the same time.
+
 ---
 
 ## Speed

@@ -84,6 +84,10 @@ export const fr: Dictionary = {
 
   projects: {
     eyebrow: "Projets choisis",
+    count: "{n} projets",
+    index: "Tous les projets",
+    next: "Projet suivant",
+    position: "Projet {n} sur {total}",
     detail: {
       back: "Retour aux projets",
       overview: "Aperçu",

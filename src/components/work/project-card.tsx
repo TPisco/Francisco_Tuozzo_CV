@@ -24,12 +24,17 @@ type ProjectCardProps = {
   award?: ProjectAward;
   /** The first card is above the fold: load its poster straight away. */
   priority: boolean;
+  /** Where the card sits in the list (0-based) and how many there are, shown as "01 / 06". */
+  index: number;
+  total: number;
+  /** Read with that number by screen readers, e.g. "Project 1 of 6". */
+  positionLabel: string;
 };
 
 /** Smallest scale, when the card's top edge is just entering the viewport. */
 const START_SCALE = 0.92;
 
-export function ProjectCard({ meta, item, award, priority }: ProjectCardProps) {
+export function ProjectCard({ meta, item, award, priority, index, total, positionLabel }: ProjectCardProps) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   // Grows to full size between "top edge enters the viewport" and "top edge at 35%".
@@ -43,9 +48,11 @@ export function ProjectCard({ meta, item, award, priority }: ProjectCardProps) {
   return (
     <motion.article
       ref={ref}
+      id={`project-${meta.id}`}
+      data-project-card
       data-scroll-scale
       style={style}
-      className="group relative origin-top rounded-surface border border-ink/10 shadow-soft"
+      className="group relative origin-top scroll-mt-24 rounded-surface border border-ink/10 shadow-soft"
     >
       <div
         className="overflow-hidden rounded-surface"
@@ -54,6 +61,12 @@ export function ProjectCard({ meta, item, award, priority }: ProjectCardProps) {
       >
         <div className="flex items-start justify-between gap-6 px-6 pt-6 sm:px-10 sm:pt-9">
           <div className="min-w-0">
+            <p className="mb-1.5 font-mono text-xs font-medium tabular-nums text-ink-faint">
+              <span aria-hidden>
+                {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+              </span>
+              <span className="sr-only">{positionLabel}</span>
+            </p>
             <h3 className="text-2xl font-medium tracking-tight sm:text-[1.75rem]">
               {/* The title link stretches over the whole card; the badge stays its own link. */}
               <Link href={getProjectPath(meta.id)} className="stretched-link no-underline">

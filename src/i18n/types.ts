@@ -76,6 +76,14 @@ export interface Dictionary {
   projects: {
     /** Label of the project list on the home page ("Selected work"). */
     eyebrow: string;
+    /** "{n} projects", next to that label. */
+    count: string;
+    /** Accessible name of the row of project names under it. */
+    index: string;
+    /** The floating button that scrolls to the next card. */
+    next: string;
+    /** Read with each card's "01 / 06": {n} and {total}. */
+    position: string;
     detail: {
       back: string;
       overview: string;

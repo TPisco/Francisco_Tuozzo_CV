@@ -224,6 +224,8 @@ export interface Dictionary {
     touch: string;
     /** Phones held upright get a bigger view sideways. */
     rotate: string;
+    /** Dismisses the rotate card and plays upright. */
+    playAnyway: string;
   };
 
   /** Each game's card on the Play page. What a game says once open lives in its own folder (src/games/<slug>/copy.ts). */

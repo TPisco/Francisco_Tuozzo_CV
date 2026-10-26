@@ -128,6 +128,19 @@ describe("coffee", () => {
 });
 
 describe("the chase", () => {
+  test("the chaser waits for you to start running, up to a second and a half", () => {
+    const state = startRun(track({}, levels[4]));
+    const start = state.chaser.x;
+    play(state, 1.2, () => idle);
+    expect(state.chaser.x).toBe(start);
+    play(state, 0.5, () => idle);
+    expect(state.chaser.x).toBeGreaterThan(start);
+
+    const eager = startRun(track({}, levels[4]));
+    play(eager, 0.3, () => run);
+    expect(eager.chaser.x).toBeGreaterThan(start);
+  });
+
   test("standing still gets you caught", () => {
     const state = startRun(track({}, levels[0]));
     play(state, 10, () => idle);

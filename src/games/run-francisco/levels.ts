@@ -50,6 +50,10 @@ export type LevelConfig = {
    * (public/games/run-francisco/backgrounds/<id>-*.webp); the renderer lines it up with the track.
    */
   bandStart: number;
+  /** A dark scene: sprites get a light rim so they stand off the background. */
+  night: boolean;
+  /** Falling snow drawn over the scene. */
+  weather: "snow" | null;
 };
 
 /** Bottom edge of an overhead hazard: a standing runner hits it, a sliding one passes under. */
@@ -73,6 +77,8 @@ export const levels: LevelConfig[] = [
     coffees: 2,
     palette: { sky: "#f3e6d3", ground: "#b9a27e", groundEdge: "#7d9b6a", gap: "#5d554b" },
     bandStart: 0.694,
+    night: false,
+    weather: null,
   },
   {
     id: "tennis",
@@ -90,6 +96,8 @@ export const levels: LevelConfig[] = [
     coffees: 2,
     palette: { sky: "#f1e4cf", ground: "#c2603f", groundEdge: "#f6f3ee", gap: "#5d554b" },
     bandStart: 0.753,
+    night: false,
+    weather: null,
   },
   {
     id: "port",
@@ -108,6 +116,8 @@ export const levels: LevelConfig[] = [
     coffees: 3,
     palette: { sky: "#f0d9c0", ground: "#8a7a6a", groundEdge: "#6f7f8c", gap: "#4f6f86" },
     bandStart: 0.775,
+    night: false,
+    weather: null,
   },
   {
     id: "winter",
@@ -126,6 +136,8 @@ export const levels: LevelConfig[] = [
     coffees: 3,
     palette: { sky: "#e4e2e3", ground: "#f6f3ee", groundEdge: "#c9d3db", gap: "#9fb3c2" },
     bandStart: 0.754,
+    night: false,
+    weather: "snow",
   },
   {
     id: "hackathon",
@@ -144,5 +156,7 @@ export const levels: LevelConfig[] = [
     coffees: 3,
     palette: { sky: "#2b3346", ground: "#3a4152", groundEdge: "#d98a6a", gap: "#151a26" },
     bandStart: 0.769,
+    night: true,
+    weather: null,
   },
 ];

@@ -1,5 +1,5 @@
 import { OVERHEAD_CLEARANCE, type LevelConfig } from "./levels";
-import { BALL_HEIGHT, PLAYER_HEIGHT, SLIDE_HEIGHT } from "./physics";
+import { BALL_HEIGHT, BALL_SPEED, PLAYER_HEIGHT, SLIDE_HEIGHT } from "./physics";
 import type { RunState } from "./simulation";
 import { SPRITE_PX_PER_METER, type HeroSprite, type SpriteBank } from "./sprites";
 
@@ -34,6 +34,8 @@ type Scene = {
   chasing: boolean;
   /** Interpolated positions; defaults to the state's own. */
   pose?: Pose;
+  /** Device pixels per CSS pixel, so text and outlines keep a readable size on dense screens. */
+  dpr: number;
 };
 
 const INK = "#231f1a";
@@ -55,6 +57,16 @@ export function drawFrame(scene: Scene, state: RunState) {
   drawGround(scene, state, sx);
   drawFinish(scene, level, sx, sy);
 
+  // On a night level, sprites get a soft light rim so they stand off the dark city.
+  const rim = (draw: () => void) => {
+    if (!level.night) return draw();
+    ctx.save();
+    ctx.shadowColor = "rgba(255,241,224,0.75)";
+    ctx.shadowBlur = 5 * scene.dpr;
+    draw();
+    ctx.restore();
+  };
+
   for (let i = 0; i < state.track.obstacles.length; i++) {
     const o = state.track.obstacles[i];
     const left = sx(o.x);
@@ -73,38 +85,49 @@ export function drawFrame(scene: Scene, state: RunState) {
     }
     const knocked = state.obstaclesHit[i];
     if (o.spec.kind === "low") drawShadow(scene, sx(o.x + o.spec.w / 2), o.spec.w * 1.1, 0);
-    drawThing(scene, o.spec.sprite, sx(o.x + o.spec.w / 2), sy(base), {
-      w: o.spec.w,
-      h: o.spec.h,
-      alpha: knocked ? 0.45 : 1,
-      tilt: knocked && o.spec.kind === "low" ? 0.35 : 0,
-      color: level.palette.groundEdge,
-    });
+    rim(() =>
+      drawThing(scene, o.spec.sprite, sx(o.x + o.spec.w / 2), sy(base), {
+        w: o.spec.w,
+        h: o.spec.h,
+        alpha: knocked ? 0.45 : 1,
+        tilt: knocked && o.spec.kind === "low" ? 0.35 : 0,
+        color: level.palette.groundEdge,
+      }),
+    );
   }
 
   state.track.coffees.forEach((cup, i) => {
     if (state.coffeesTaken[i]) return;
-    const bob = Math.sin(scene.clock * 4 + i) * 0.06;
+    const bob = scene.reducedMotion ? 0 : Math.sin(scene.clock * 4 + i) * 0.06;
     drawThing(scene, "coffee", sx(cup.x), sy(cup.y - 0.16 + bob), { w: 0.22, h: 0.32, color: CREAM, glow: true });
   });
 
   for (const ball of state.balls) {
     const x = sx(ball.x);
     const y = sy(BALL_HEIGHT);
-    ctx.fillStyle = "rgba(207,220,87,0.25)";
-    ctx.fillRect(x - view.ppm * 0.9, y - view.ppm * 0.03, view.ppm * 0.9, view.ppm * 0.06);
-    if (!drawSprite(scene, "tennisBall", x, y + view.ppm * 0.07, 0)) {
-      ctx.fillStyle = "#cfdc57";
-      ctx.beginPath();
-      ctx.arc(x, y, view.ppm * 0.09, 0, Math.PI * 2);
-      ctx.fill();
+    const r = Math.max(5 * scene.dpr, view.ppm * 0.12);
+    if (x < -r) {
+      // Still off screen to the left: a pulsing chip at head height, about a second ahead of it.
+      const secondsAway = -x / view.ppm / Math.max(1, BALL_SPEED - state.player.vx);
+      if (secondsAway < 1.2) {
+        const pulse = scene.reducedMotion ? 1 : 0.7 + Math.sin(scene.clock * 14) * 0.3;
+        ctx.fillStyle = `rgba(255,253,250,${0.95 * pulse})`;
+        ctx.beginPath();
+        ctx.arc(14 * scene.dpr + r, y, r * 1.8, 0, Math.PI * 2);
+        ctx.fill();
+        drawBall(ctx, 14 * scene.dpr + r, y, r, scene.dpr);
+      }
+      continue;
     }
+    ctx.fillStyle = "rgba(207,220,87,0.6)";
+    ctx.fillRect(x - view.ppm * 1.1, y - r * 0.45, view.ppm * 1.1, r * 0.9);
+    drawBall(ctx, x, y, r, scene.dpr);
   }
 
-  drawChaser(scene, state, pose, sx, sy);
-  drawHero(scene, state, pose, sx, sy);
+  rim(() => drawChaser(scene, state, pose, sx, sy));
+  rim(() => drawHero(scene, state, pose, sx, sy));
   if (scene.chasing) drawDanger(scene, state, pose, sx);
-  if (level.id === "winter") drawSnow(scene, camera);
+  if (level.weather === "snow") drawSnow(scene, camera);
   if (state.player.boost > 0) drawSpeedLines(scene, state, sy);
 }
 
@@ -113,23 +136,75 @@ function drawBackdrop(scene: Scene, level: LevelConfig, camera: number) {
   ctx.fillStyle = level.palette.sky;
   ctx.fillRect(0, 0, view.width, view.height);
   if (!background || !background.complete || background.naturalWidth === 0) return;
-  // Scale the picture so its flat ground band meets the track, then mirror-tile it slowly behind.
+  const tile = backdropTile(background, level);
+  // Scale so the picture's flat ground band meets the track, then tile it slowly behind (parallax 0.25).
   const scale = view.groundY / (background.naturalHeight * level.bandStart);
-  const w = background.naturalWidth * scale;
-  const h = background.naturalHeight * scale;
-  const offset = (camera * view.ppm * 0.25) % (w * 2);
-  for (let x = -offset; x < view.width; x += w) {
-    const index = Math.round((x + offset) / w);
-    ctx.save();
-    if (index % 2 === 1) {
-      ctx.translate(x + w, 0);
-      ctx.scale(-1, 1);
-      ctx.drawImage(background, 0, 0, w, h);
-    } else {
-      ctx.drawImage(background, x, 0, w, h);
-    }
-    ctx.restore();
-  }
+  const w = tile.width * scale;
+  const h = tile.height * scale;
+  const offset = (camera * view.ppm * 0.25) % w;
+  for (let x = -offset; x < view.width; x += w) ctx.drawImage(tile, x, 0, w, h);
+}
+
+const tiles = new WeakMap<HTMLImageElement, HTMLCanvasElement>();
+/** Share of the picture's width crossfaded into its start, so it repeats without a seam. */
+const SEAM = 0.12;
+
+/**
+ * Prepares a level's background once: slightly softened (less saturation and
+ * contrast), hazed toward the sky colour near the track so scenery never reads
+ * as an obstacle, and made seamless by crossfading its right end into its left.
+ */
+function backdropTile(image: HTMLImageElement, level: LevelConfig): HTMLCanvasElement {
+  const cached = tiles.get(image);
+  if (cached) return cached;
+  const W = image.naturalWidth;
+  const H = image.naturalHeight;
+  const overlap = Math.round(W * SEAM);
+  const canvas = document.createElement("canvas");
+  canvas.width = W - overlap;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d")!;
+  ctx.filter = "saturate(0.85) contrast(0.9)";
+  ctx.drawImage(image, 0, 0);
+  // The picture's right end, fading out over the first `overlap` pixels: continuous both ways.
+  const fade = document.createElement("canvas");
+  fade.width = overlap;
+  fade.height = H;
+  const f = fade.getContext("2d")!;
+  f.filter = "saturate(0.85) contrast(0.9)";
+  f.drawImage(image, W - overlap, 0, overlap, H, 0, 0, overlap, H);
+  f.filter = "none";
+  f.globalCompositeOperation = "destination-in";
+  const mask = f.createLinearGradient(0, 0, overlap, 0);
+  mask.addColorStop(0, "rgba(0,0,0,1)");
+  mask.addColorStop(1, "rgba(0,0,0,0)");
+  f.fillStyle = mask;
+  f.fillRect(0, 0, overlap, H);
+  ctx.filter = "none";
+  ctx.drawImage(fade, 0, 0);
+  // Haze from 55% of the height down to the ground band.
+  const haze = ctx.createLinearGradient(0, H * 0.55, 0, H * level.bandStart);
+  haze.addColorStop(0, hexToRgba(level.palette.sky, 0));
+  haze.addColorStop(1, hexToRgba(level.palette.sky, level.night ? 0.22 : 0.32));
+  ctx.fillStyle = haze;
+  ctx.fillRect(0, H * 0.55, canvas.width, H * (level.bandStart - 0.55) + 2);
+  tiles.set(image, canvas);
+  return canvas;
+}
+
+function hexToRgba(hex: string, alpha: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${alpha})`;
+}
+
+function drawBall(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, dpr: number) {
+  ctx.fillStyle = "#cfdc57";
+  ctx.strokeStyle = INK;
+  ctx.lineWidth = 2 * dpr;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.stroke();
 }
 
 function drawGround(scene: Scene, state: RunState, sx: (x: number) => number) {
@@ -199,7 +274,7 @@ function drawChaser(scene: Scene, state: RunState, pose: Pose, sx: (x: number) =
     // A small swarm, each bug on its own beat.
     const offsets = [0, -0.7, -1.3, -0.4, -1.9];
     offsets.forEach((dx, i) => {
-      const hop = Math.abs(Math.sin(scene.clock * 9 + i * 1.7)) * 0.18 + (i % 2) * 0.35;
+      const hop = (scene.reducedMotion ? 0 : Math.abs(Math.sin(scene.clock * 9 + i * 1.7)) * 0.18) + (i % 2) * 0.35;
       drawThing(scene, "bug", sx(chaser.x - 0.3 + dx), sy(hop), { w: 0.55, h: 0.4, color: INK, frame: frame + i * 3 });
     });
     return;
@@ -291,7 +366,7 @@ function drawDanger(scene: Scene, state: RunState, pose: Pose, sx: (x: number) =
     ctx.fillRect(0, 0, view.width * 0.25, view.height);
   }
   if (sx(pose.cx) < 0 && state.outcome === "running") {
-    const size = Math.max(14, view.ppm * 0.28);
+    const size = Math.max(14 * scene.dpr, view.ppm * 0.28);
     const y = view.groundY - view.ppm * 1.2;
     ctx.fillStyle = "rgba(255,253,250,0.92)";
     roundRect(ctx, 10, y - size, size * 3.6, size * 1.6, size * 0.8);
@@ -305,12 +380,16 @@ function drawDanger(scene: Scene, state: RunState, pose: Pose, sx: (x: number) =
 
 function drawSnow(scene: Scene, camera: number) {
   const { ctx, view } = scene;
+  // With reduced motion the flakes stay put (a snowy scene, not a moving one).
+  const t = scene.reducedMotion ? 0 : scene.clock;
+  const pan = scene.reducedMotion ? 0 : camera * view.ppm * 0.6;
   ctx.fillStyle = "rgba(255,255,255,0.8)";
   for (let i = 0; i < 70; i++) {
     const seed = (i * 9301 + 49297) % 233280;
-    const x = ((seed % view.width) - camera * view.ppm * 0.6 + scene.clock * 20 * (1 + (i % 3))) % view.width;
-    const y = ((seed * 7) % view.height + scene.clock * (40 + (i % 5) * 15)) % view.height;
-    ctx.fillRect((x + view.width) % view.width, y, 2 + (i % 2), 2 + (i % 2));
+    const x = ((seed % view.width) - pan + t * 20 * (1 + (i % 3))) % view.width;
+    const y = (((seed * 7) % view.height) + t * (40 + (i % 5) * 15)) % view.height;
+    const size = (2 + (i % 2)) * scene.dpr;
+    ctx.fillRect((x + view.width) % view.width, y, size, size);
   }
 }
 

@@ -21,7 +21,7 @@ export const en: Dictionary = {
     intro: "Computer science student in Quebec.",
     introMuted: "Looking for a winter 2027 internship.",
     seeWork: "See my work",
-    resume: "Resume",
+    resume: "Résumé",
     resumeAria: "Download my résumé (PDF)",
   },
 
@@ -407,7 +407,7 @@ export const en: Dictionary = {
   gameShell: {
     menu: "Menu",
     paused: "Paused",
-    resume: "Resume",
+    resume: "Résumé",
     restart: "Restart level",
     howToPlay: "How to play",
     allGames: "All games",
@@ -417,6 +417,7 @@ export const en: Dictionary = {
     keyboard: "Keyboard",
     touch: "Touch",
     rotate: "Turn your phone sideways for a bigger view.",
+    playAnyway: "Play anyway",
   },
 
   games: {

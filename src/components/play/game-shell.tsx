@@ -165,16 +165,17 @@ export function GameShell({
           <h2 id="game-controls-title" className="mt-2 text-3xl font-medium tracking-tight">
             {shell.howToPlay}
           </h2>
-          <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            <ControlList heading={shell.keyboard} items={controls.keyboard} />
-            <ControlList heading={shell.touch} items={controls.touch} />
+          {/* Only the controls this device has: keys with a mouse or trackpad, buttons on a touch screen. */}
+          <div className="mt-6">
+            <ControlList heading={shell.keyboard} items={controls.keyboard} className="[@media(pointer:coarse)]:hidden" />
+            <ControlList heading={shell.touch} items={controls.touch} className="hidden [@media(pointer:coarse)]:block" />
           </div>
           <p className="mt-5 hidden rounded-frame bg-cream px-4 py-3 text-sm text-ink-soft [@media(pointer:coarse)_and_(orientation:portrait)]:block">
             {shell.rotate}
           </p>
           <button
             type="button"
-            autoFocus
+            data-autofocus
             onClick={closeControls}
             className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-base font-semibold text-cream transition-[background-color,transform] duration-150 ease-out hover:bg-clay-deep active:scale-[0.97]"
           >
@@ -203,7 +204,12 @@ function ShellDialog({
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
+    if (open && !dialog.open) {
+      dialog.showModal();
+      // Open at the top, with focus on the main button but without scrolling to it (phones).
+      dialog.scrollTop = 0;
+      dialog.querySelector<HTMLElement>("[data-autofocus]")?.focus({ preventScroll: true });
+    }
     if (!open && dialog.open) dialog.close();
   }, [open]);
 
@@ -244,7 +250,7 @@ function MenuButton({
     <button
       type="button"
       onClick={onClick}
-      autoFocus={autoFocus}
+      data-autofocus={autoFocus || undefined}
       className={`inline-flex w-full items-center gap-3 rounded-full px-5 py-3 text-left text-[15px] font-semibold transition-[background-color,transform] duration-150 ease-out active:scale-[0.98] ${
         primary ? "bg-ink text-cream hover:bg-clay-deep" : "bg-cream text-ink hover:bg-sand"
       }`}
@@ -259,7 +265,7 @@ function MenuLink({ href, icon, children }: { href: string; icon: IconDefinition
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-ink/15 px-4 py-2.5 text-sm font-semibold text-ink no-underline transition-[background-color,border-color] duration-150 ease-out hover:border-ink/40 hover:bg-ink/[0.03]"
+      className="inline-flex items-center justify-center gap-2 rounded-full border border-ink/40 px-4 py-2.5 text-sm font-semibold text-ink no-underline transition-[background-color,border-color] duration-150 ease-out hover:border-ink/40 hover:bg-ink/[0.03]"
     >
       <Icon icon={icon} className="h-3 w-3" />
       {children}
@@ -267,17 +273,17 @@ function MenuLink({ href, icon, children }: { href: string; icon: IconDefinition
   );
 }
 
-function ControlList({ heading, items }: { heading: string; items: Labelled[] }) {
+function ControlList({ heading, items, className = "" }: { heading: string; items: Labelled[]; className?: string }) {
   return (
-    <div>
+    <div className={className}>
       <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink-faint">{heading}</p>
-      <dl className="mt-3 space-y-3">
+      <dl className="mt-3 grid gap-x-4 gap-y-3 sm:grid-cols-[auto_1fr] sm:items-baseline">
         {items.map((item) => (
-          <div key={item.label}>
-            <dt className="inline-block rounded-md border border-ink/15 bg-cream px-2 py-0.5 font-mono text-xs font-semibold text-ink">
+          <div key={item.label} className="contents">
+            <dt className="justify-self-start rounded-md border border-ink/25 bg-cream px-2 py-0.5 font-mono text-xs font-semibold text-ink">
               {item.label}
             </dt>
-            <dd className="mt-1 text-sm leading-snug text-ink-soft">{item.value}</dd>
+            <dd className="-mt-2 text-sm leading-snug text-ink-soft sm:mt-0">{item.value}</dd>
           </div>
         ))}
       </dl>

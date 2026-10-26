@@ -32,6 +32,6 @@ export function Intro() {
 
 /**
  * Runs in <head> before the first paint and decides whether the intro plays
- * (see Intro). Never on a game page (/play/<game>): games open straight away.
+ * (see Intro). Only on the home page, as the way into the site: links straight to Info, a case study or a game open at once.
  */
-export const introScript = `(function(){var d=document.documentElement;try{if(location.pathname.indexOf("/play/")===0||window.matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("intro-seen")){d.dataset.intro="skip";return}sessionStorage.setItem("intro-seen","1")}catch(e){}d.dataset.intro="play"})();`;
+export const introScript = `(function(){var d=document.documentElement;try{if(location.pathname!=="/"||window.matchMedia("(prefers-reduced-motion: reduce)").matches||sessionStorage.getItem("intro-seen")){d.dataset.intro="skip";return}sessionStorage.setItem("intro-seen","1")}catch(e){}d.dataset.intro="play"})();`;

@@ -9,13 +9,16 @@ import { Icon } from "@/components/icon";
  * style, so a new game looks like it belongs without restyling anything.
  */
 
-/** A centred bubble over the game: level cards, results, the title screen. */
+/**
+ * A centred bubble over the game: level cards, results, the title screen. On a
+ * short screen (a phone sideways) it scrolls instead of being cut off.
+ */
 export function StageCard({ children, compact = false }: { children: ReactNode; compact?: boolean }) {
   return (
-    <div className="absolute inset-0 z-10 flex items-center justify-center p-4">
+    <div className="absolute inset-0 z-10 grid justify-items-center overflow-y-auto p-4 py-[max(1rem,env(safe-area-inset-top))]">
       <div
-        className={`w-full animate-rise rounded-surface border border-ink/[0.06] bg-shell/95 opacity-0 shadow-lift backdrop-blur-md ${
-          compact ? "max-w-sm p-7" : "max-w-md p-8 sm:p-10"
+        className={`my-auto w-full animate-rise rounded-surface border border-ink/[0.06] bg-shell/95 opacity-0 shadow-lift backdrop-blur-md ${
+          compact ? "max-w-sm p-7 short:p-5" : "max-w-md p-8 sm:p-10 short:p-6"
         }`}
       >
         {children}
@@ -31,7 +34,7 @@ export function StageButton({ children, onClick, ref }: { children: ReactNode; o
       ref={ref}
       type="button"
       onClick={onClick}
-      className="mt-7 inline-flex w-full items-center justify-center rounded-full bg-ink px-6 py-3.5 text-base font-semibold text-cream transition-[background-color,transform] duration-150 ease-out hover:bg-clay-deep active:scale-[0.97]"
+      className="mt-7 inline-flex w-full items-center justify-center rounded-full bg-ink px-6 py-3.5 short:mt-5 text-base font-semibold text-cream transition-[background-color,transform] duration-150 ease-out hover:bg-clay-deep active:scale-[0.97]"
     >
       {children}
     </button>
@@ -60,7 +63,7 @@ export function TouchButton({ label, icon, onChange }: { label: string; icon: Ic
       onPointerUp={() => onChange(false)}
       onPointerCancel={() => onChange(false)}
       onContextMenu={(e) => e.preventDefault()}
-      className="flex h-16 w-16 items-center justify-center rounded-full bg-shell/80 text-ink shadow-soft backdrop-blur-md active:scale-95 active:bg-shell"
+      className="flex h-16 w-16 items-center justify-center rounded-full bg-shell/90 text-ink shadow-lift ring-1 ring-ink/25 backdrop-blur-md active:scale-95 active:bg-shell"
     >
       <Icon icon={icon} className="h-7 w-7" />
     </button>

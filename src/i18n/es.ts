@@ -417,6 +417,7 @@ export const es: Dictionary = {
     keyboard: "Teclado",
     touch: "Táctil",
     rotate: "Gira el teléfono en horizontal para verlo más grande.",
+    playAnyway: "Jugar de todos modos",
   },
 
   games: {

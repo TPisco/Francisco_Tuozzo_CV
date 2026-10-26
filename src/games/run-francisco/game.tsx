@@ -9,7 +9,7 @@ import { Icon } from "@/components/icon";
 import { useI18n } from "@/i18n/provider";
 import { fill } from "@/lib/fill";
 import { tabPaths } from "@/lib/navigation";
-import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faRotateRight, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretLeft, faCaretRight, faCaretUp, faMobileScreenButton, faRotateRight, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { copy, type RunFranciscoCopy } from "./copy";
 import { Controls } from "./input";
 import { levels } from "./levels";
@@ -74,9 +74,15 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
   const pendingFocus = useRef(true);
   const phaseRef = useRef<Phase>("title");
   const pausedRef = useRef(true);
+  /** A phone held upright mid-run: the game waits behind the rotate card. */
+  const blockedRef = useRef(false);
+  const [portraitTouch, setPortraitTouch] = useState(false);
+  const [uprightOk, setUprightOk] = useState(false);
   const progressRef = useRef(progress);
   const levelRef = useRef(0);
 
+  const touchRef = useMediaFlag("(pointer: coarse)");
+  const calmRef = useMediaFlag("(prefers-reduced-motion: reduce)");
   const controls = useMemo(() => new Controls(), []);
   const sprites = useMemo(() => new SpriteBank(), []);
   const backgrounds = useRef(new Map<string, HTMLImageElement>());
@@ -98,6 +104,20 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
   useEffect(() => {
     progressRef.current = progress;
   }, [progress]);
+
+  useEffect(() => {
+    const query = window.matchMedia("(pointer: coarse) and (orientation: portrait)");
+    const update = () => setPortraitTouch(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  const blocked = portraitTouch && !uprightOk && (phase === "intro" || phase === "playing");
+  useEffect(() => {
+    blockedRef.current = blocked;
+    if (blocked) controls.releaseAll();
+  }, [blocked, controls]);
 
   useEffect(() => {
     try {
@@ -191,7 +211,7 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
 
   useFixedStep({
     step: STEP,
-    active: () => !pausedRef.current && (phaseRef.current === "intro" || phaseRef.current === "playing"),
+    active: () => !pausedRef.current && !blockedRef.current && (phaseRef.current === "intro" || phaseRef.current === "playing"),
     update: (dt) => {
       if (phaseRef.current === "intro") {
         introLeft.current -= dt;
@@ -227,7 +247,7 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
           }
         : { px: state.player.x, py: state.player.y, cx: state.chaser.x };
       const dpr = canvas.width / Math.max(1, canvas.clientWidth);
-      const touch = window.matchMedia("(pointer: coarse)").matches;
+      const touch = touchRef.current;
       drawFrame(
         {
           ctx,
@@ -235,9 +255,10 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
           sprites,
           background: backgrounds.current.get(state.track.level.id),
           clock,
-          reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+          reducedMotion: calmRef.current,
           chasing: playing,
           pose,
+          dpr,
         },
         state,
       );
@@ -273,7 +294,22 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
     };
   }, []);
 
-  useEffect(() => controls.attach(() => phaseRef.current === "playing" && !pausedRef.current), [controls]);
+  // Run and brake can already be held during the level card (no need for key repeat); jump and slide wait for Go.
+  useEffect(
+    () =>
+      controls.attach((control) => {
+        if (pausedRef.current || blockedRef.current) return false;
+        if (phaseRef.current === "playing") return true;
+        return phaseRef.current === "intro" && (control === "run" || control === "brake");
+      }),
+    [controls],
+  );
+
+  /** Touch jump and slide only count once the run has started (run and brake can be held during the card). */
+  const pressAction = (control: "jump" | "slide", down: boolean) => {
+    if (down && phaseRef.current !== "playing") return;
+    controls.press(control, down);
+  };
 
   const level = levels[levelIndex];
   const levelWords = words.levels[level.id];
@@ -285,10 +321,10 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
       <canvas ref={canvasRef} aria-hidden className="absolute inset-0 h-full w-full" />
 
       {inRun ? (
-        <div className={`pointer-events-none absolute inset-x-0 z-10 flex justify-center px-28 ${safeTop}`}>
+        <div className={`pointer-events-none absolute inset-x-0 z-10 flex justify-center px-24 sm:px-28 ${safeTop}`}>
           <div className={`w-full max-w-md px-5 py-2.5 ${stagePill}`}>
-            <div className="flex items-baseline justify-between gap-3 text-xs font-semibold text-ink">
-              <span className="truncate">
+            <div className="flex items-baseline justify-between gap-3 text-[13px] font-semibold text-ink">
+              <span className="hidden truncate min-[480px]:inline">
                 {words.hud.level} {levelIndex + 1} · {levelWords.name}
               </span>
               <span className="font-mono tabular-nums">
@@ -323,7 +359,7 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
           <StageCard>
             <p className="eyebrow">{t.play.eyebrow}</p>
             <h1 className="mt-3 text-[clamp(2.2rem,5vw,3.25rem)] font-medium leading-[1.02] tracking-[-0.04em]">{title}</h1>
-            <p className="mt-3 text-ink-soft">{tagline}</p>
+            <p className="mt-3 text-ink-soft short:hidden">{tagline}</p>
             {progress.bestTotal !== null ? (
               <p className="mt-4 inline-flex items-center gap-2 rounded-full bg-cream px-3 py-1.5 text-sm font-medium text-ink">
                 <Icon icon={faTrophy} className="h-3 w-3 text-clay-deep" />
@@ -334,15 +370,17 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
               {words.newGame}
             </StageButton>
             {progress.unlocked > 0 ? (
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-2 short:grid short:grid-cols-2">
                 {levels.slice(1, progress.unlocked + 1).map((l, i) => (
                   <button
                     key={l.id}
                     type="button"
                     onClick={() => newGame(i + 1)}
-                    className="rounded-full border border-ink/15 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-ink/40 hover:bg-ink/[0.03]"
+                    className="rounded-full border border-ink/40 px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/[0.03]"
                   >
-                    {fill(words.startFrom, { n: i + 2 })} · {words.levels[l.id].name}
+                    <span className="short:hidden">{fill(words.startFrom, { n: i + 2 })} · </span>
+                    <span className="hidden short:inline" aria-hidden>{i + 2} · </span>
+                    {words.levels[l.id].name}
                   </button>
                 ))}
               </div>
@@ -350,7 +388,7 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
           </StageCard>
         ) : null}
 
-        {phase === "intro" ? (
+        {phase === "intro" && !blocked ? (
           <StageCard compact>
             <p className="text-sm font-semibold text-clay-deep">{fill(words.intro, { n: levelIndex + 1, name: levelWords.name })}</p>
             <p className="mt-2 text-3xl font-medium tracking-tight">{fill(words.goal, { chaser: levelWords.chaser })}</p>
@@ -409,20 +447,43 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
         ) : null}
       </div>
 
-      {phase === "playing" ? (
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden justify-between px-[max(1rem,env(safe-area-inset-left))] pb-[max(1rem,env(safe-area-inset-bottom))] [@media(pointer:coarse)]:flex">
+      {phase === "playing" || phase === "intro" ? (
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 hidden justify-between px-[max(1rem,env(safe-area-inset-left))] pb-[max(1rem,env(safe-area-inset-bottom))] [@media(pointer:coarse)]:flex">
           <div className="pointer-events-auto flex gap-3">
             <TouchButton label={words.buttons.left} icon={faCaretLeft} onChange={(down) => controls.press("brake", down)} />
             <TouchButton label={words.buttons.right} icon={faCaretRight} onChange={(down) => controls.press("run", down)} />
           </div>
           <div className="pointer-events-auto flex gap-3">
-            <TouchButton label={words.buttons.slide} icon={faCaretDown} onChange={(down) => controls.press("slide", down)} />
-            <TouchButton label={words.buttons.jump} icon={faCaretUp} onChange={(down) => controls.press("jump", down)} />
+            <TouchButton label={words.buttons.slide} icon={faCaretDown} onChange={(down) => pressAction("slide", down)} />
+            <TouchButton label={words.buttons.jump} icon={faCaretUp} onChange={(down) => pressAction("jump", down)} />
           </div>
         </div>
       ) : null}
+
+      {blocked ? (
+        <StageCard compact>
+          <Icon icon={faMobileScreenButton} className="h-7 w-7 rotate-90 text-clay-deep" />
+          <p className="mt-4 text-xl font-medium leading-snug tracking-tight">{t.gameShell.rotate}</p>
+          <StageButton onClick={() => setUprightOk(true)}>{t.gameShell.playAnyway}</StageButton>
+        </StageCard>
+      ) : null}
     </>
   );
+}
+
+/** A media query's current answer in a ref, kept up to date, for reading every frame without asking again. */
+function useMediaFlag(query: string) {
+  const flag = useRef(false);
+  useEffect(() => {
+    const list = window.matchMedia(query);
+    const update = () => {
+      flag.current = list.matches;
+    };
+    update();
+    list.addEventListener("change", update);
+    return () => list.removeEventListener("change", update);
+  }, [query]);
+  return flag;
 }
 
 function TimeLine({ time, record, recordLabel, label }: { time: number; record: boolean; recordLabel: string; label?: string }) {

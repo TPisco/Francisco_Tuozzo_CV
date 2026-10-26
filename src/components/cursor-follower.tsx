@@ -40,16 +40,26 @@ export function CursorFollower() {
 
   useEffect(() => {
     if (!enabled) return;
+    let shown = false;
     const move = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       x.set(e.clientX);
       y.set(e.clientY);
-      setVisible(true);
+      // Appearing (first move, or back into the window): start at the pointer instead of flying in.
+      if (!shown) {
+        springX.jump(e.clientX);
+        springY.jump(e.clientY);
+        shown = true;
+        setVisible(true);
+      }
     };
     const over = (e: PointerEvent) => setHovering(Boolean((e.target as Element | null)?.closest?.(INTERACTIVE)));
     const down = () => setPressed(true);
     const up = () => setPressed(false);
-    const leave = () => setVisible(false);
+    const leave = () => {
+      shown = false;
+      setVisible(false);
+    };
     window.addEventListener("pointermove", move, { passive: true });
     window.addEventListener("pointerover", over, { passive: true });
     window.addEventListener("pointerdown", down, { passive: true });
@@ -62,7 +72,7 @@ export function CursorFollower() {
       window.removeEventListener("pointerup", up);
       document.documentElement.removeEventListener("pointerleave", leave);
     };
-  }, [enabled, x, y]);
+  }, [enabled, x, y, springX, springY]);
 
   if (!enabled) return null;
 

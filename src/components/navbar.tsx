@@ -25,7 +25,7 @@ export function Navbar() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-[104px] bg-gradient-to-b from-cream from-70% to-transparent"
       />
-      <nav aria-label={t.nav.label} className="wrap relative flex h-[72px] items-center gap-4">
+      <nav aria-label={t.nav.label} className="wrap relative flex h-[72px] items-center gap-2 sm:gap-4">
         <div className="hidden flex-1 sm:block">
           <Link href="/" className="inline-block leading-tight no-underline">
             <span className="block whitespace-nowrap text-[15px] font-semibold tracking-tight text-ink">
@@ -37,7 +37,7 @@ export function Navbar() {
 
         <TabSwitch active={active} labels={t.nav} />
 
-        <div className="flex flex-1 items-center justify-end gap-2 sm:gap-5">
+        <div className="flex flex-1 items-center justify-end gap-1.5 sm:gap-5">
           <ExternalLinks className="hidden items-center gap-6 lg:flex" />
           <LanguageSwitcher />
           <LinksMenu />
@@ -59,7 +59,7 @@ function TabSwitch({ active, labels }: { active: Tab | null; labels: Record<Tab,
               key={tab}
               href={tabPaths[tab]}
               aria-current={current ? "page" : undefined}
-              className={`relative rounded-full px-3 py-1.5 text-sm font-medium no-underline transition-colors duration-200 sm:px-4 ${
+              className={`relative whitespace-nowrap rounded-full px-2.5 py-1.5 text-sm font-medium no-underline transition-colors duration-200 sm:px-4 ${
                 current ? "text-cream" : "text-ink-soft hover:text-ink"
               }`}
             >
@@ -150,12 +150,14 @@ function LinksMenu() {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const close = useCallback(() => setOpen(false), []);
-  useDismiss(ref, open, close);
+  useDismiss(ref, open, close, buttonRef);
 
   return (
     <div ref={ref} className="relative lg:hidden">
       <button
+        ref={buttonRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={t.nav.links}
@@ -166,7 +168,7 @@ function LinksMenu() {
       </button>
       {open ? (
         <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-frame border border-ink/10 bg-shell p-4 shadow-lift">
-          <ExternalLinks className="flex flex-col gap-4" onNavigate={close} />
+          <ExternalLinks className="flex flex-col gap-1 [&_a]:min-h-11" onNavigate={close} />
         </div>
       ) : null}
     </div>

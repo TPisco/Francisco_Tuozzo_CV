@@ -11,6 +11,8 @@ const config: Config = {
       screens: {
         // A mouse or trackpad. Gates hover-only UI so touch devices never see it.
         "hover-fine": { raw: "(hover: hover) and (pointer: fine)" },
+        // A short viewport: phones held sideways.
+        short: { raw: "(max-height: 500px)" },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],

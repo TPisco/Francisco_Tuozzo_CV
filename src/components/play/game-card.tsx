@@ -51,8 +51,8 @@ export function GameCard({ game, priority = false }: { game: GameMeta; priority?
             ))}
           </ul>
           <h2 className="mt-6 text-[clamp(1.9rem,3.2vw,2.6rem)] font-medium leading-[1.05] tracking-[-0.035em]">{copy.title}</h2>
-          <p className="mt-3 text-lg leading-snug text-ink">{copy.tagline}</p>
-          <p className="mt-4 leading-relaxed text-ink-soft">{copy.description}</p>
+          <p className="mt-3 text-lg leading-snug text-ink [text-wrap:pretty]">{copy.tagline}</p>
+          <p className="mt-4 leading-relaxed text-ink-soft [text-wrap:pretty] lg:mb-8">{copy.description}</p>
 
           <Link
             href={href}

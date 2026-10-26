@@ -29,6 +29,8 @@ export const STUMBLE_TIME = 0.6;
 
 /** The chaser starts this far behind. */
 export const CHASER_START_GAP = 8;
+/** The chaser holds still until you start running, or for this long: time to react, whatever your setup. */
+export const CHASER_WAIT = 1.5;
 /** How much faster a chaser runs once it has fallen further behind than its level's leash. */
 export const CHASER_CATCHUP = 3;
 

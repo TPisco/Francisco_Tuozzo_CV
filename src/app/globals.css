@@ -140,11 +140,13 @@
 /* The name intro (components/intro.tsx): 2.7 s from first stroke to the panel gone.
    Strokes trace each letter (45 ms apart), the letters fill, a clay dot lands,
    then the ink panel lifts with the strong ease-in-out the rest of the site uses. */
+/* Shown only when the head script says so (data-intro=play), so a page whose
+   script didn't run, or a re-render that drops the attribute, never gets stuck on it. */
 .intro {
   position: fixed;
   inset: 0;
   z-index: 80;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   background: #231f1a;
@@ -160,7 +162,7 @@
   fill: #efe8dd;
   fill-opacity: 0;
   stroke: #efe8dd;
-  stroke-width: 14;
+  stroke-width: 18;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
   animation:
@@ -177,7 +179,7 @@
 }
 @media (max-width: 640px) {
   .intro-name path {
-    stroke-width: 26;
+    stroke-width: 48;
   }
 }
 @keyframes intro-draw {
@@ -213,9 +215,9 @@
 html[data-intro="leave"] .intro {
   animation: intro-lift 0.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
-html[data-intro="skip"] .intro,
-html[data-intro="done"] .intro {
-  display: none;
+html[data-intro="play"] .intro,
+html[data-intro="leave"] .intro {
+  display: flex;
 }
 /* While it plays, the first view's entrance waits for the panel to lift. */
 html[data-intro="play"] .animate-rise {

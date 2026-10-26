@@ -55,8 +55,12 @@ export class Controls {
     this.tapped = { jump: false, slide: false };
   }
 
-  /** Listens on the window; returns the function that stops listening. */
-  attach(enabled: () => boolean): () => void {
+  /**
+   * Listens on the window; returns the function that stops listening.
+   * `allows(control)` says whether a press counts right now (the game lets run
+   * and brake be held during the level card, everything else only while playing).
+   */
+  attach(allows: (control: Control) => boolean): () => void {
     const onKey = (down: boolean) => (e: KeyboardEvent) => {
       const control = keyMap[e.code];
       if (!control) return;
@@ -65,8 +69,8 @@ export class Controls {
         this.keys[control] = false;
         return;
       }
-      // Presses only count while playing, so Space and arrows still work the overlays' buttons.
-      if (!enabled()) return;
+      // Other presses are left alone, so Space and arrows still work the overlays' buttons.
+      if (!allows(control)) return;
       e.preventDefault();
       if (!e.repeat && (control === "jump" || control === "slide")) this.tapped[control] = true;
       this.keys[control] = true;

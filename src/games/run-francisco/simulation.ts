@@ -8,6 +8,7 @@ import {
   BOOST_TIME,
   BRAKING,
   CHASER_CATCHUP,
+  CHASER_WAIT,
   CHASER_START_GAP,
   COASTING,
   COFFEE_RADIUS,
@@ -194,12 +195,15 @@ export function step(state: RunState, input: Input, dt: number): void {
     }
   });
 
-  // The chaser: speeds up over the level, sprints if left far behind, ignores obstacles.
+  // The chaser: waits until you start (or CHASER_WAIT), speeds up over the level,
+  // sprints if left far behind, ignores obstacles.
   const { chaser } = state;
   const config = track.level.chaser;
   chaser.speed = Math.min(config.max, config.start + config.ramp * state.time);
   const lead = player.x - chaser.x;
-  chaser.x += (chaser.speed + (lead > config.leash ? CHASER_CATCHUP : 0)) * dt;
+  if (player.x > 0.05 || state.time > CHASER_WAIT) {
+    chaser.x += (chaser.speed + (lead > config.leash ? CHASER_CATCHUP : 0)) * dt;
+  }
 
   if (track.level.ballEvery > 0) {
     state.ballClock -= dt;

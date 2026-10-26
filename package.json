@@ -1,11 +1,8 @@
 {
-  "homepage": "https://tpisco.github.io/Personnal_Cv_Website",
   "name": "francisco-portfolio",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",

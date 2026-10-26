@@ -32,6 +32,13 @@ export const profile = {
 };
 
 /**
+ * The site's address, as printed on the CV and LinkedIn: no www. In Vercel's
+ * domain settings it must be the primary domain, with www redirecting to it,
+ * so canonical links, the sitemap and the address bar all agree.
+ */
+export const siteUrl = "https://francisco-tuozzo.com";
+
+/**
  * One résumé per language, served from /public. Typed against Locale so adding
  * a language fails to compile until its CV is wired up here.
  */
@@ -76,8 +83,7 @@ export type ProjectId =
   | "orbital"
   | "vert"
   | "knightrpg"
-  | "cardgame"
-  | "qprojects";
+  | "cardgame";
 
 export type ProjectMeta = {
   id: ProjectId;

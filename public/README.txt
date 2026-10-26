@@ -17,7 +17,3 @@ then regenerate from the repo root (PowerShell; needs yt-dlp and ffmpeg):
   powershell -ExecutionPolicy Bypass -File .\scripts\make-preview.ps1 -All           every project
   powershell -ExecutionPolicy Bypass -File .\scripts\make-preview.ps1 -Slug <id> -ContactSheet
       (a grid of frames, to pick a new start time)
-
-You can also add:
-  public/profile.jpg   (profile photo)
-  public/og-image.png  (social share / Open Graph image, 1200x630)

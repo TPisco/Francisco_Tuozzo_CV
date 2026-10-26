@@ -4,7 +4,7 @@ import "@/lib/fontawesome";
 import "./globals.css";
 import { introScript } from "@/components/intro";
 import { LanguageProvider } from "@/i18n/provider";
-import { profile } from "@/data/portfolio";
+import { profile, siteUrl } from "@/data/portfolio";
 
 // One grotesk for everything; one serif, only for the italic accent word in a headline.
 const albertSans = Albert_Sans({
@@ -20,7 +20,6 @@ const gloock = Gloock({
   display: "swap",
 });
 
-const siteUrl = "https://francisco-tuozzo.com";
 const description =
   "Francisco Tuozzo — a bilingual computer science student and software developer in Quebec. I build offline-first desktop tools, ASP.NET Core MVC web apps, Angular front-ends, and games in Godot.";
 

@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { games, getGamePath } from "@/data/games";
+import { siteUrl } from "@/data/portfolio";
 import { projectSlugs } from "@/lib/projects";
-
-const siteUrl = "https://francisco-tuozzo.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const projectPages = projectSlugs.map((slug) => ({

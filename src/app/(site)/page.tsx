@@ -1,6 +1,6 @@
 import { Hero } from "@/components/sections/hero";
 import { Work } from "@/components/sections/work";
-import { profile } from "@/data/portfolio";
+import { profile, siteUrl } from "@/data/portfolio";
 import { en } from "@/i18n/en";
 
 const personJsonLd = {
@@ -9,7 +9,7 @@ const personJsonLd = {
   name: profile.name,
   jobTitle: "Software developer",
   description: en.about.paragraphs[0],
-  url: "https://francisco-tuozzo.com",
+  url: siteUrl,
   email: profile.email,
   sameAs: [profile.github, profile.linkedin],
   address: {

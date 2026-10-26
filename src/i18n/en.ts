@@ -253,27 +253,6 @@ export const en: Dictionary = {
           ],
         },
       },
-      qprojects: {
-        tagline: "Hands-on quantum computing experiments",
-        why: "It's where I keep stretching past the curriculum — picking a hard topic and forcing myself to build something with it.",
-        detail: {
-          overview:
-            "A personal Python sandbox for learning quantum computing by implementing and simulating concepts hands-on.",
-          description:
-            "qprojects-hub is my space for going beyond coursework into topics that interest me deeply. Quantum computing is abstract on paper, so I built small Python experiments to make the ideas concrete — implementing circuits, running simulations, and exploring results with NumPy instead of only reading about the theory.\n\nEach experiment is a self-contained module I can revisit and extend. The goal is not a production library but disciplined learning: pick a hard concept, implement it, observe the output, and refine my understanding through code.",
-          features: [
-            "Hands-on quantum concept implementations in Python",
-            "Numerical simulations powered by NumPy",
-            "Modular experiments for iterative learning",
-            "Self-directed exploration beyond the formal curriculum",
-          ],
-          role: [
-            "Researched and implemented quantum computing concepts in Python",
-            "Built numerical simulations and experiments with NumPy",
-            "Organized experiments into a maintainable personal hub",
-          ],
-        },
-      },
     },
   },
 

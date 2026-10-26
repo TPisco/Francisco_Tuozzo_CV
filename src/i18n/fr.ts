@@ -253,27 +253,6 @@ export const fr: Dictionary = {
           ],
         },
       },
-      qprojects: {
-        tagline: "Expériences concrètes en informatique quantique",
-        why: "C'est là que je continue d'aller plus loin que le programme — choisir un sujet difficile et m'obliger à construire quelque chose avec.",
-        detail: {
-          overview:
-            "Un bac à sable Python personnel pour apprendre l'informatique quantique en implémentant et simulant les concepts de façon concrète.",
-          description:
-            "qprojects-hub est mon espace pour aller au-delà des cours vers des sujets qui m'intéressent profondément. L'informatique quantique est abstraite sur le papier, alors j'ai construit de petites expériences Python pour rendre les idées concrètes — implémenter des circuits, lancer des simulations et explorer les résultats avec NumPy plutôt que de seulement lire la théorie.\n\nChaque expérience est un module autonome que je peux revisiter et étendre. L'objectif n'est pas une bibliothèque de production, mais un apprentissage discipliné : choisir un concept difficile, l'implémenter, observer le résultat et affiner ma compréhension par le code.",
-          features: [
-            "Implémentations concrètes de concepts quantiques en Python",
-            "Simulations numériques avec NumPy",
-            "Expériences modulaires pour un apprentissage itératif",
-            "Exploration autodirigée au-delà du programme formel",
-          ],
-          role: [
-            "Recherché et implémenté des concepts d'informatique quantique en Python",
-            "Construit des simulations numériques et expériences avec NumPy",
-            "Organisé les expériences dans un hub personnel maintenable",
-          ],
-        },
-      },
     },
   },
 

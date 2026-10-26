@@ -253,27 +253,6 @@ export const es: Dictionary = {
           ],
         },
       },
-      qprojects: {
-        tagline: "Experimentos prácticos de computación cuántica",
-        why: "Es donde sigo yendo más allá del plan de estudios — elegir un tema difícil y obligarme a construir algo con él.",
-        detail: {
-          overview:
-            "Un espacio personal en Python para aprender computación cuántica implementando y simulando conceptos de forma práctica.",
-          description:
-            "qprojects-hub es mi espacio para ir más allá de los cursos hacia temas que me interesan profundamente. La computación cuántica es abstracta en papel, así que construí pequeños experimentos en Python para hacer las ideas concretas — implementar circuitos, ejecutar simulaciones y explorar resultados con NumPy en lugar de solo leer la teoría.\n\nCada experimento es un módulo autocontenido que puedo revisitar y ampliar. El objetivo no es una biblioteca de producción, sino un aprendizaje disciplinado: elegir un concepto difícil, implementarlo, observar el resultado y afinar mi comprensión mediante código.",
-          features: [
-            "Implementaciones prácticas de conceptos cuánticos en Python",
-            "Simulaciones numéricas con NumPy",
-            "Experimentos modulares para aprendizaje iterativo",
-            "Exploración autodirigida más allá del plan de estudios formal",
-          ],
-          role: [
-            "Investigué e implementé conceptos de computación cuántica en Python",
-            "Construí simulaciones numéricas y experimentos con NumPy",
-            "Organicé los experimentos en un hub personal mantenible",
-          ],
-        },
-      },
     },
   },
 

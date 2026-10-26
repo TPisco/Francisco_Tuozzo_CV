@@ -30,7 +30,7 @@ import type { Track } from "./track";
 export type Input = { run: boolean; brake: boolean; jump: boolean; slide: boolean };
 
 /** Things that happened during the last tick, for sounds, effects and tests. */
-export type GameEvent = "jump" | "land" | "slide" | "stumble" | "coffee" | "fall" | "caught" | "finish";
+export type GameEvent = "jump" | "land" | "slide" | "stumble" | "bump" | "coffee" | "fall" | "caught" | "finish";
 
 export type Outcome = "running" | "caught" | "fell" | "finished";
 
@@ -92,7 +92,6 @@ export function step(state: RunState, input: Input, dt: number): void {
   const { player, track } = state;
   state.time += dt;
 
-  const overGap = track.gaps.some((g) => player.x > g.x + 0.15 && player.x < g.x + g.w - 0.15);
   const onIce = player.onGround && track.ice.some((p) => player.x >= p.x && player.x <= p.x + p.w);
   const grip = onIce ? ICE_GRIP : 1;
 
@@ -130,33 +129,57 @@ export function step(state: RunState, input: Input, dt: number): void {
     player.slide = input.slide ? Math.max(0, player.slide - dt) : 0;
   }
 
-  // Vertical motion and the ground.
+  // Forward, with block faces as walls: a small step is climbed, a ledge just missed
+  // is still made, anything taller stops you dead (and the chaser closes in).
+  let nextX = player.x + player.vx * dt;
+  if (!player.falling) {
+    for (const p of track.platforms) {
+      const face = p.x - PLAYER_WIDTH / 2;
+      if (player.x > face + 1e-6 || nextX <= face || player.y >= p.h - 1e-6) continue;
+      const below = p.h - player.y;
+      if ((player.onGround && below <= STEP_UP) || (!player.onGround && below <= LEDGE_GRACE)) {
+        player.y = p.h;
+        player.vy = 0;
+        player.onGround = true;
+      } else {
+        if (player.vx > 0.5) state.events.push("bump");
+        nextX = face;
+        player.vx = 0;
+      }
+    }
+  }
+  player.x = nextX;
+
+  // Up and down: land on the highest surface under you, drop off edges, fall into gaps.
+  if (player.onGround && !player.falling && floorAt(track, player.x, player.y) < player.y - 1e-6) {
+    player.onGround = false;
+    player.vy = 0;
+    player.slide = 0;
+  }
   if (!player.onGround || player.falling) {
     const gravity = input.jump && player.vy > 0 && !player.falling ? GRAVITY_HELD : GRAVITY;
+    const before = player.y;
     player.vy -= gravity * dt;
     player.y += player.vy * dt;
-    if (player.y <= 0 && !player.falling) {
-      if (overGap) {
-        player.falling = true;
-      } else {
-        player.y = 0;
+    if (!player.falling && player.vy <= 0) {
+      const landing = floorAt(track, player.x, before);
+      if (player.y <= landing) {
+        player.y = landing;
         player.vy = 0;
         player.onGround = true;
         state.events.push("land");
+      } else if (landing === -Infinity && player.y < 0) {
+        // Below ground level with nothing underneath: into the water, or off the roof.
+        player.falling = true;
+        player.slide = 0;
       }
     }
-  } else if (overGap) {
-    player.onGround = false;
-    player.falling = true;
-    player.slide = 0;
   }
   if (player.falling && player.y < -1.2) {
     state.outcome = "fell";
     state.events.push("fall");
     return;
   }
-
-  player.x += player.vx * dt;
   player.stumble = Math.max(0, player.stumble - dt);
   player.boost = Math.max(0, player.boost - dt);
 
@@ -169,7 +192,7 @@ export function step(state: RunState, input: Input, dt: number): void {
 
   track.obstacles.forEach((o, i) => {
     if (state.obstaclesHit[i]) return;
-    const y0 = o.spec.kind === "overhead" ? OVERHEAD_CLEARANCE : 0;
+    const y0 = (o.y ?? 0) + (o.spec.kind === "overhead" ? OVERHEAD_CLEARANCE : 0);
     if (overlaps(o.x, o.x + o.spec.w, y0, y0 + o.spec.h)) {
       state.obstaclesHit[i] = true;
       trip(state);
@@ -210,7 +233,9 @@ export function step(state: RunState, input: Input, dt: number): void {
     if (state.ballClock <= 0) {
       // Hold the shot if the ball would reach you right where you need to jump: you can't dodge both.
       const meet = player.x + player.vx * ((player.x - chaser.x) / Math.max(1, BALL_SPEED - player.vx));
-      const blocked = track.obstacles.some((o) => o.x + o.spec.w > meet - 4 && o.x < meet + 4);
+      const blocked =
+        track.obstacles.some((o) => o.x + o.spec.w > meet - 4 && o.x < meet + 4) ||
+        track.platforms.some((p) => p.x + p.w > meet - 6 && p.x < meet + 4);
       if (blocked) {
         state.ballClock = 0.3;
       } else {
@@ -227,6 +252,26 @@ export function step(state: RunState, input: Input, dt: number): void {
     state.outcome = "finished";
     state.events.push("finish");
   }
+}
+
+/** A step this high or lower is walked up without jumping. */
+export const STEP_UP = 0.3;
+/** Clipping a ledge's face this close below its top still puts you on it. */
+const LEDGE_GRACE = 0.15;
+/** Feet count as on a block while any part of the body is over it. */
+const EDGE = PLAYER_WIDTH / 2;
+
+/**
+ * The highest surface at `x` that isn't above height `y`: a block's top, the
+ * ground (0) unless there's a gap there, or -Infinity if there's nothing.
+ */
+export function floorAt(track: Track, x: number, y: number): number {
+  const overGap = track.gaps.some((g) => x > g.x + 0.15 && x < g.x + g.w - 0.15);
+  let best = !overGap && y >= -1e-6 ? 0 : -Infinity;
+  for (const p of track.platforms) {
+    if (x >= p.x - EDGE && x <= p.x + p.w + EDGE && p.h <= y + 1e-6 && p.h > best) best = p.h;
+  }
+  return best;
 }
 
 function trip(state: RunState) {

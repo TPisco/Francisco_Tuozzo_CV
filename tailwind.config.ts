@@ -13,6 +13,8 @@ const config: Config = {
         "hover-fine": { raw: "(hover: hover) and (pointer: fine)" },
         // A short viewport: phones held sideways.
         short: { raw: "(max-height: 500px)" },
+        // Phones wider than the narrowest (arbitrary min-/max-[...] variants are off once raw screens exist).
+        xs: { raw: "(min-width: 400px)" },
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],

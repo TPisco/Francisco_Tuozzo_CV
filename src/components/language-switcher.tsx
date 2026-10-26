@@ -26,11 +26,11 @@ export function LanguageSwitcher() {
         aria-label={`${t.switcher.label}: ${short}`}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="inline-flex h-10 items-center gap-2 rounded-full border border-ink/15 px-3 text-sm font-semibold text-ink transition-colors hover:border-ink/40 hover:bg-ink/[0.03] min-[400px]:px-3.5"
+        className="inline-flex h-10 items-center gap-2 rounded-full border border-ink/15 px-3 text-sm font-semibold text-ink transition-colors hover:border-ink/40 hover:bg-ink/[0.03] xs:px-3.5"
       >
         <FontAwesomeIcon icon={faGlobe} className="h-3.5 w-3.5 text-ink-soft" />
         {/* On the narrowest phones the globe alone keeps the navbar on one line. */}
-        <span className="max-[399px]:sr-only">{short}</span>
+        <span className="sr-only xs:not-sr-only">{short}</span>
       </button>
 
       {open ? (

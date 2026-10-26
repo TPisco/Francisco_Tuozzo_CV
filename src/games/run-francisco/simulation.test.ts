@@ -14,7 +14,7 @@ const backpack: ObstacleSpec = { sprite: "backpack", kind: "low", w: 0.4, h: 0.5
 const banner: ObstacleSpec = { sprite: "banner", kind: "overhead", w: 1.6, h: 0.3, weight: 1 };
 
 function track(parts: Partial<Track> = {}, level: LevelConfig = calm): Track {
-  return { level, obstacles: [], gaps: [], ice: [], coffees: [], ...parts };
+  return { level, obstacles: [], gaps: [], ice: [], coffees: [], platforms: [], ...parts };
 }
 
 /** Runs the simulation for `seconds`, choosing the input from the state each tick; returns every event that happened. */
@@ -111,6 +111,79 @@ describe("the ground", () => {
     expect(state.outcome).toBe("running");
     expect(state.player.x).toBeGreaterThan(gap.x + gap.w);
     expect(state.player.y).toBe(0);
+  });
+});
+
+describe("platforms", () => {
+  /** Holds jump from takeoff until clearly on the way down, like a player going for height. */
+  const jumpAt = (from: number, to: number) => (s: RunState) => ({ ...run, jump: s.player.x > from && s.player.x < to });
+
+  test("jumping onto a block lands you on top, still running", () => {
+    const state = atFullSpeed();
+    const block = { x: state.player.x + 4, w: 6, h: 1 };
+    state.track.platforms.push(block);
+    play(state, 1, jumpAt(block.x - 2.6, block.x));
+    expect(state.player.y).toBe(1);
+    expect(state.player.onGround).toBe(true);
+    expect(state.player.vx).toBeGreaterThan(8);
+  });
+
+  test("running into a block's face stops you dead", () => {
+    const state = atFullSpeed();
+    const block = { x: state.player.x + 3, w: 6, h: 1 };
+    state.track.platforms.push(block);
+    const events = play(state, 1, () => run);
+    expect(events).toContain("bump");
+    expect(state.player.x).toBeLessThan(block.x);
+    expect(state.player.y).toBe(0);
+  });
+
+  test("a small step is climbed without jumping", () => {
+    const state = atFullSpeed();
+    const step = { x: state.player.x + 2, w: 5, h: 0.25 };
+    state.track.platforms.push(step);
+    play(state, 0.6, () => run);
+    expect(state.player.y).toBe(0.25);
+    expect(state.player.x).toBeGreaterThan(step.x + 2);
+  });
+
+  test("running off the end of a block drops you back to the ground", () => {
+    const state = atFullSpeed();
+    state.player.y = 1;
+    state.track.platforms.push({ x: state.player.x - 1, w: 3, h: 1 });
+    play(state, 1, () => run);
+    expect(state.outcome).toBe("running");
+    expect(state.player.y).toBe(0);
+  });
+
+  test("a held jump from a block reaches the next floor up", () => {
+    const state = atFullSpeed();
+    state.player.y = 1;
+    const low = { x: state.player.x - 1, w: 5, h: 1 };
+    const high = { x: low.x + low.w, w: 14, h: 2 };
+    state.track.platforms.push(low, high);
+    play(state, 1.2, jumpAt(high.x - 2.4, high.x + 0.5));
+    expect(state.player.y).toBe(2);
+  });
+
+  test("a pillar over a gap holds you; stepping off it into the gap is a fall", () => {
+    const state = atFullSpeed();
+    const gap = { x: state.player.x + 3, w: 9 };
+    const pillar = { x: gap.x + 2, w: 2, h: 0.6 };
+    state.track.gaps.push(gap);
+    state.track.platforms.push(pillar);
+    play(state, 0.7, jumpAt(gap.x - 1, gap.x - 0.6));
+    expect(state.player.y).toBe(0.6);
+    play(state, 2, () => run);
+    expect(state.outcome).toBe("fell");
+  });
+
+  test("an obstacle standing on a block trips you up there", () => {
+    const state = atFullSpeed();
+    state.player.y = 1;
+    state.track.platforms.push({ x: state.player.x - 1, w: 10, h: 1 });
+    state.track.obstacles.push({ x: state.player.x + 3, y: 1, spec: backpack });
+    expect(play(state, 0.8, () => run)).toContain("stumble");
   });
 });
 

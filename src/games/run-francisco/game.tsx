@@ -324,7 +324,7 @@ function Stage({ words, title, tagline }: { words: RunFranciscoCopy; title: stri
         <div className={`pointer-events-none absolute inset-x-0 z-10 flex justify-center px-24 sm:px-28 ${safeTop}`}>
           <div className={`w-full max-w-md px-5 py-2.5 ${stagePill}`}>
             <div className="flex items-baseline justify-between gap-3 text-[13px] font-semibold text-ink">
-              <span className="hidden truncate min-[480px]:inline">
+              <span className="hidden truncate sm:inline">
                 {words.hud.level} {levelIndex + 1} · {levelWords.name}
               </span>
               <span className="font-mono tabular-nums">

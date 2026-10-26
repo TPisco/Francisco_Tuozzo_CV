@@ -54,6 +54,15 @@ export type LevelConfig = {
   night: boolean;
   /** Falling snow drawn over the scene. */
   weather: "snow" | null;
+  /**
+   * Climbing sections (solid blocks to jump onto, like Extreme Pamplona's later levels):
+   * the chance a slot holds one, the tallest floor, the chance of each extra floor up,
+   * whether they cross water or a drop (miss a jump and you fall), and the chance of an
+   * obstacle waiting on top of a long block.
+   */
+  climbs: { chance: number; maxHeight: number; stairs: number; overGaps: boolean; topObstacles: number };
+  /** How the blocks look: their colours, and a pattern drawn on their face. */
+  blocks: { colors: string[]; top: string; pattern: "brick" | "bleachers" | "container" | "stone" | "roof" };
 };
 
 /** Bottom edge of an overhead hazard: a standing runner hits it, a sliding one passes under. */
@@ -79,6 +88,8 @@ export const levels: LevelConfig[] = [
     bandStart: 0.694,
     night: false,
     weather: null,
+    climbs: { chance: 0.1, maxHeight: 0.7, stairs: 0, overGaps: false, topObstacles: 0 },
+    blocks: { colors: ["#b5654a"], top: "#7d9b6a", pattern: "brick" },
   },
   {
     id: "tennis",
@@ -98,6 +109,8 @@ export const levels: LevelConfig[] = [
     bandStart: 0.753,
     night: false,
     weather: null,
+    climbs: { chance: 0.16, maxHeight: 1, stairs: 0.35, overGaps: false, topObstacles: 0 },
+    blocks: { colors: ["#e6ddcf"], top: "#c2603f", pattern: "bleachers" },
   },
   {
     id: "port",
@@ -118,6 +131,8 @@ export const levels: LevelConfig[] = [
     bandStart: 0.775,
     night: false,
     weather: null,
+    climbs: { chance: 0.33, maxHeight: 2, stairs: 0.5, overGaps: true, topObstacles: 0 },
+    blocks: { colors: ["#c2603f", "#6f7f8c", "#e07b39", "#7d9b6a"], top: "#e6ddcf", pattern: "container" },
   },
   {
     id: "winter",
@@ -138,11 +153,13 @@ export const levels: LevelConfig[] = [
     bandStart: 0.754,
     night: false,
     weather: "snow",
+    climbs: { chance: 0.5, maxHeight: 2.2, stairs: 0.65, overGaps: false, topObstacles: 0.3 },
+    blocks: { colors: ["#b9b1a6"], top: "#f6f3ee", pattern: "stone" },
   },
   {
     id: "hackathon",
     length: 600,
-    chaser: { sprite: "deadlineClock", start: 8, ramp: 0.06, max: 9.3, leash: 9 },
+    chaser: { sprite: "deadlineClock", start: 8, ramp: 0.06, max: 9.3, leash: 8.2 },
     reaction: { start: 1, end: 0.75 },
     obstacles: [
       { sprite: "chair", kind: "low", w: 0.64, h: 0.87, weight: 2 },
@@ -158,5 +175,7 @@ export const levels: LevelConfig[] = [
     bandStart: 0.769,
     night: true,
     weather: null,
+    climbs: { chance: 0.5, maxHeight: 2.6, stairs: 0.6, overGaps: true, topObstacles: 0.35 },
+    blocks: { colors: ["#3a4152", "#454d61"], top: "#d98a6a", pattern: "roof" },
   },
 ];

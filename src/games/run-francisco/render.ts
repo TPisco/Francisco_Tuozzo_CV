@@ -1,6 +1,6 @@
 import { OVERHEAD_CLEARANCE, type LevelConfig } from "./levels";
 import { BALL_HEIGHT, BALL_SPEED, PLAYER_HEIGHT, SLIDE_HEIGHT } from "./physics";
-import type { RunState } from "./simulation";
+import { floorAt, type RunState } from "./simulation";
 import { SPRITE_PX_PER_METER, type HeroSprite, type SpriteBank } from "./sprites";
 
 /** How the world maps onto the canvas: Francisco stays at 30% of the width, the ground at 80% of the height. */
@@ -55,6 +55,7 @@ export function drawFrame(scene: Scene, state: RunState) {
 
   drawBackdrop(scene, level, camera);
   drawGround(scene, state, sx);
+  drawPlatforms(scene, state, sx, sy);
   drawFinish(scene, level, sx, sy);
 
   // On a night level, sprites get a soft light rim so they stand off the dark city.
@@ -71,7 +72,8 @@ export function drawFrame(scene: Scene, state: RunState) {
     const o = state.track.obstacles[i];
     const left = sx(o.x);
     if (left > view.width + 200 || left + o.spec.w * view.ppm < -200) continue;
-    const base = o.spec.kind === "overhead" ? OVERHEAD_CLEARANCE : 0;
+    const floor = o.y ?? 0;
+    const base = floor + (o.spec.kind === "overhead" ? OVERHEAD_CLEARANCE : 0);
     if (o.spec.kind === "overhead") {
       // Cables up to the top of the screen, so a hanging hazard reads as hanging.
       ctx.strokeStyle = "rgba(35,31,26,0.45)";
@@ -84,7 +86,7 @@ export function drawFrame(scene: Scene, state: RunState) {
       }
     }
     const knocked = state.obstaclesHit[i];
-    if (o.spec.kind === "low") drawShadow(scene, sx(o.x + o.spec.w / 2), o.spec.w * 1.1, 0);
+    if (o.spec.kind === "low") drawShadow(scene, sx(o.x + o.spec.w / 2), o.spec.w * 1.1, 0, sy(floor));
     rim(() =>
       drawThing(scene, o.spec.sprite, sx(o.x + o.spec.w / 2), sy(base), {
         w: o.spec.w,
@@ -267,6 +269,7 @@ function drawFinish(scene: Scene, level: LevelConfig, sx: (x: number) => number,
 
 function drawChaser(scene: Scene, state: RunState, pose: Pose, sx: (x: number) => number, sy: (y: number) => number) {
   const { track } = state;
+  const { view } = scene;
   const chaser = { x: pose.cx };
   const name = track.level.chaser.sprite;
   const frame = Math.floor(scene.clock * 14);
@@ -280,7 +283,7 @@ function drawChaser(scene: Scene, state: RunState, pose: Pose, sx: (x: number) =
     return;
   }
   const size = chaserSizes[name] ?? { w: 2, h: 2 };
-  drawShadow(scene, sx(chaser.x - size.w / 2), size.w * 1.05, 0);
+  drawShadow(scene, sx(chaser.x - size.w / 2), size.w * 1.05, 0, view.groundY);
   drawThing(scene, name, sx(chaser.x - size.w / 2), sy(0), { ...size, color: CLAY, frame });
 }
 
@@ -309,7 +312,10 @@ function drawHero(scene: Scene, state: RunState, pose: Pose, sx: (x: number) => 
   const sprite = scene.sprites.get(name);
   const x = sx(pose.px);
   const y = sy(pose.py);
-  if (!p.falling) drawShadow(scene, x, p.slide > 0 ? 1.3 : 0.7, pose.py);
+  if (!p.falling) {
+    const floor = floorAt(state.track, pose.px, pose.py);
+    if (floor > -Infinity) drawShadow(scene, x, p.slide > 0 ? 1.3 : 0.7, pose.py - floor, sy(floor));
+  }
   if (sprite) {
     let frame = 0;
     const count = sprite.meta.frames;
@@ -342,14 +348,111 @@ function drawHero(scene: Scene, state: RunState, pose: Pose, sx: (x: number) => 
   ctx.restore();
 }
 
-/** A soft contact shadow on the ground, smaller and fainter the higher the thing is. */
-function drawShadow(scene: Scene, x: number, width: number, height: number) {
+/** A soft contact shadow on the floor at screen height `floorY`, smaller and fainter the higher the thing is. */
+function drawShadow(scene: Scene, x: number, width: number, height: number, floorY: number) {
   const { ctx, view } = scene;
   const k = 1 / (1 + height * 0.8);
   ctx.fillStyle = `rgba(35,31,26,${0.22 * k})`;
   ctx.beginPath();
-  ctx.ellipse(x, view.groundY + view.ppm * 0.02, (width * view.ppm * k) / 2, view.ppm * 0.07 * k, 0, 0, Math.PI * 2);
+  ctx.ellipse(x, floorY + view.ppm * 0.02, (width * view.ppm * k) / 2, view.ppm * 0.07 * k, 0, 0, Math.PI * 2);
   ctx.fill();
+}
+
+/**
+ * The blocks you can climb, drawn in the level's style: brick planters, bleachers,
+ * shipping containers, snow-capped stone walls, rooftops with lit windows. Each is a
+ * flat face with a pattern, a shaded right edge, a top in the level's cap colour and
+ * the same ink outline as the sprites. Over water or a drop, it runs to the bottom.
+ */
+function drawPlatforms(scene: Scene, state: RunState, sx: (x: number) => number, sy: (y: number) => number) {
+  const { ctx, view } = scene;
+  const style = state.track.level.blocks;
+  const lw = Math.max(1.5, 2 * scene.dpr);
+  state.track.platforms.forEach((p, i) => {
+    const x0 = sx(p.x);
+    const x1 = sx(p.x + p.w);
+    if (x1 < -lw || x0 > view.width + lw) return;
+    const top = sy(p.h);
+    const overGap = state.track.gaps.some((g) => p.x < g.x + g.w && p.x + p.w > g.x);
+    const bottom = overGap ? view.height : view.groundY;
+    const w = x1 - x0;
+    const h = bottom - top;
+    const fill = style.colors[i % style.colors.length];
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x0, top, w, h);
+    ctx.clip();
+    ctx.fillStyle = fill;
+    ctx.fillRect(x0, top, w, h);
+    drawPattern(ctx, style.pattern, x0, top, w, h, view.ppm, i);
+    ctx.fillStyle = "rgba(35,31,26,0.16)";
+    ctx.fillRect(x1 - w * 0.1, top, w * 0.1, h);
+    ctx.restore();
+    const cap = Math.max(4, view.ppm * 0.12);
+    ctx.fillStyle = style.top;
+    ctx.fillRect(x0 - lw / 2, top - cap * 0.3, w + lw, cap);
+    ctx.strokeStyle = INK;
+    ctx.lineWidth = lw;
+    ctx.strokeRect(x0, top - cap * 0.3, w, h + cap * 0.3);
+  });
+}
+
+function drawPattern(
+  ctx: CanvasRenderingContext2D,
+  pattern: LevelConfig["blocks"]["pattern"],
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  ppm: number,
+  seed: number,
+) {
+  const line = (x0: number, y0: number, x1: number, y1: number) => {
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x1, y1);
+    ctx.stroke();
+  };
+  ctx.lineWidth = Math.max(1, ppm * 0.02);
+  if (pattern === "container") {
+    // Corrugated sides: ribs every 18 cm, a darker band top and bottom.
+    ctx.strokeStyle = "rgba(35,31,26,0.22)";
+    for (let rx = x + ppm * 0.09; rx < x + w; rx += ppm * 0.18) line(rx, y, rx, y + h);
+    ctx.fillStyle = "rgba(35,31,26,0.14)";
+    ctx.fillRect(x, y, w, ppm * 0.1);
+    return;
+  }
+  if (pattern === "roof") {
+    // A building's top floors: rows of windows, some lit.
+    const cell = ppm * 0.5;
+    for (let row = 0; y + ppm * 0.35 + row * cell < y + h; row++) {
+      for (let col = 0; x + ppm * 0.25 + col * cell < x + w - ppm * 0.2; col++) {
+        const lit = (seed * 7 + row * 13 + col * 5) % 5 < 2;
+        ctx.fillStyle = lit ? "rgba(242,194,123,0.9)" : "rgba(255,253,250,0.08)";
+        ctx.fillRect(x + ppm * 0.25 + col * cell, y + ppm * 0.35 + row * cell, cell * 0.45, cell * 0.55);
+      }
+    }
+    return;
+  }
+  if (pattern === "bleachers") {
+    // Concrete steps with a clay seat on each.
+    for (let sy0 = y + ppm * 0.3; sy0 < y + h; sy0 += ppm * 0.35) {
+      ctx.fillStyle = "rgba(194,96,63,0.75)";
+      ctx.fillRect(x, sy0 - ppm * 0.08, w, ppm * 0.08);
+      ctx.strokeStyle = "rgba(35,31,26,0.18)";
+      line(x, sy0, x + w, sy0);
+    }
+    return;
+  }
+  // Brick and stone: courses with staggered joints (stone is bigger and paler).
+  const stone = pattern === "stone";
+  const course = ppm * (stone ? 0.42 : 0.22);
+  const unit = ppm * (stone ? 0.8 : 0.5);
+  ctx.strokeStyle = stone ? "rgba(255,253,250,0.45)" : "rgba(35,31,26,0.25)";
+  for (let row = 0, cy = y + course; cy < y + h + course; row++, cy += course) {
+    line(x, cy, x + w, cy);
+    for (let jx = x + (row % 2 ? unit / 2 : 0); jx < x + w; jx += unit) line(jx, cy - course, jx, cy);
+  }
 }
 
 /** A reddish edge and a distance tag when the chaser is close or off screen behind. */

@@ -19,7 +19,7 @@ export const es: Dictionary = {
     headlineLead: "Creo software que la gente puede",
     headlineAccent: "usar de verdad.",
     intro: "Estudiante de informática en Quebec.",
-    introMuted: "Busco una pasantía para el invierno de 2027.",
+    introMuted: "Busco una pasantía para el otoño de 2027.",
     seeWork: "Ver mis proyectos",
     resume: "CV",
     resumeAria: "Descargar mi CV (PDF)",

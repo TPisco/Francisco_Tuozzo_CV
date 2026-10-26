@@ -19,7 +19,7 @@ export const en: Dictionary = {
     headlineLead: "I build software people can",
     headlineAccent: "actually use.",
     intro: "Computer science student in Quebec.",
-    introMuted: "Looking for a winter 2027 internship.",
+    introMuted: "Looking for a fall 2027 internship.",
     seeWork: "See my work",
     resume: "Résumé",
     resumeAria: "Download my résumé (PDF)",

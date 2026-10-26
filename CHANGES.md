@@ -21,7 +21,7 @@ Numbers come from measurements on production builds, not estimates.
 ### Soft 720 px clips → sharp 1280 px clips
 - **Before:** the clips were cut for the small hover card.
 - **Why:** on the large cards, up to about 980 px wide, they looked blurry.
-- **Gained:** sharp clips that stay light (about 1 MB at most), all made by one script (`scripts/make-preview.ps1`).
+- **Gained:** sharp clips that stay light (1.5 MB at most), all made by one script (`scripts/make-preview.ps1`).
 
 ### A list people didn't scroll → a list that says it's a list
 - **Before:** the first project card filled the screen.

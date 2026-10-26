@@ -150,7 +150,8 @@ export const projectMeta: ProjectMeta[] = [
     icon: faSatellite,
     tint: "#e6e4de",
     tech: ["Python", "FastAPI", "pandas", "React", "TypeScript", "three.js", "D3"],
-    preview: { clip: false },
+    videoUrl: "https://youtu.be/xgqhYqRX7Ow",
+    preview: { clip: true },
   },
   {
     id: "vert",

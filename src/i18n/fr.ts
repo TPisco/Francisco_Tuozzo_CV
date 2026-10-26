@@ -232,6 +232,32 @@ export const fr: Dictionary = {
           ],
         },
       },
+      larplife: {
+        tagline: "Simulateur d'emploi sur Roblox, du trottoir jusqu'au dernier étage",
+        why: "C'est une vraie économie de jeu, conçue pour que le serveur décide de tout ce qui compte. Chaque tâche de quart et chaque entrevue est générée à partir d'une graine et notée sur le serveur à partir des actions brutes du joueur : un client qui triche ne peut qu'obtenir un mauvais score. Tous les chiffres vivent dans un seul fichier de configuration, vérifié par des centaines d'assertions automatiques.",
+        detail: {
+          overview:
+            "Larp Life est un jeu Roblox multijoueur où le butin, c'est l'emploi. On commence sur un trottoir avec un gobelet en carton, on fait la manche, on s'achète un téléphone, puis on postule dans 33 entreprises réparties dans une ville de 11 quartiers grâce à son application d'emplois. Les entrevues et les quarts de travail sont de courts mini-jeux ; les promotions, les maisons, les voitures et un passe saisonnier font continuer l'ascension.",
+          description:
+            "L'embauche se fait en deux étapes. On postule par Larpingdin, l'application d'emplois du jeu, puis on passe une entrevue sous forme de mini-jeu choisi selon l'entreprise : sept types, de dire ce que le recruteur veut entendre à négocier son salaire sans trop en demander. Une fois embauché, un quart de travail distribue des tâches parmi 16 mini-jeux sur 13 mécaniques, et chacun change ses règles à chaque partie : la même tâche deux fois devient un autre casse-tête. Les bons quarts mènent aux promotions, sept échelons par emploi, et à cumuler plusieurs emplois.\n\nLe serveur contrôle chaque transaction, chaque tirage et chaque embauche. Il envoie chaque mini-jeu sous forme de graine avec une échéance, le client ne renvoie que les touches pressées, et le serveur les rejoue pour calculer le score, en refusant tout envoi en retard ou réutilisé. La ville, 97 modèles de décor et 67 objets sont construits dans Blender et assemblés au lancement, les sauvegardes vont dans un DataStore avec sauvegarde automatique et des valeurs par défaut sûres pour les anciennes sauvegardes, et rien de ce qui se vend en Robux n'a de résultat aléatoire. C'est environ 40 000 lignes de Luau, avec chaque valeur ajustable dans un seul fichier de configuration et 339 assertions exécutées hors de Roblox avec Lune.\n\nLe jeu tourne dans Roblox Studio. Avant sa sortie publique, il reste à créer ses produits Robux dans le Creator Dashboard et à verrouiller les sessions de sauvegarde.",
+          features: [
+            "Une ville de 11 quartiers sur une grille de rues, avec le jour et la nuit, des passants, de la circulation et des voitures à conduire",
+            "33 entreprises et 48 postes, chacun avec sept échelons à gravir",
+            "7 mini-jeux d'entrevue et 16 tâches de quart, aux règles renouvelées à chaque partie",
+            "Score calculé sur le serveur à partir des actions brutes : un client qui ment ne peut qu'obtenir un mauvais score",
+            "Une maison par joueur : 7 niveaux de maison, un tycoon d'ameublement, des animaux et une cabine d'essayage",
+            "Passe saisonnier, équipes, événements en ville, récompenses quotidiennes et classements",
+            "Jouable au clavier, à la manette ou d'une seule main sur téléphone",
+            "339 assertions exécutées avec Lune, dont chaque mini-jeu résolu automatiquement",
+          ],
+          role: [
+            "Rédigé le document de conception : l'économie, les calculs d'embauche, les 33 entreprises, la monétisation et l'architecture",
+            "Développé le serveur et le client en Luau avec Rojo, le serveur décidant de chaque transaction",
+            "Construit la ville, les maisons et les objets dans Blender grâce à un pipeline scripté",
+            "Écrit la suite de tests qui vérifie les chiffres du jeu par rapport au document de conception",
+          ],
+        },
+      },
       knightrpg: {
         tagline: "Jeu de rôle d'action 3D avec mondes procéduraux",
         why: "Les jeux, c'est là que je pousse le plus la conception de systèmes — faire cohabiter combat, progression et génération sans que ça devienne un plat de spaghetti.",

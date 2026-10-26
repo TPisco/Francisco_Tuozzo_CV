@@ -7,6 +7,7 @@
     { "slug": "orbital", "source": "https://youtu.be/xgqhYqRX7Ow", "start": 144.5, "duration": 5, "crop": "1400:788:250:130" },
     { "slug": "vert", "source": "https://youtu.be/CYHIV0WOGr8", "start": 1, "duration": 5 },
     { "slug": "cardgame", "source": "https://youtu.be/syJdqsed4AY", "start": 194.5, "duration": 5, "crop": "1300:731:265:225" },
+    { "slug": "larplife", "source": "https://youtu.be/NvBeDlrwJdQ", "start": 136, "duration": 5, "crop": "1134:638:73:0" },
     { "slug": "knightrpg", "source": "https://youtu.be/oGJPH3d_j6Y", "start": 60, "duration": 5 }
   ]
 }

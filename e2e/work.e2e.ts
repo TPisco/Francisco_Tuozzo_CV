@@ -6,7 +6,7 @@ const projectCards = (page: import("@playwright/test").Page) =>
 test("every project has a card, and a card opens its case study", async ({ page }) => {
   await page.goto("/");
 
-  await expect(projectCards(page)).toHaveCount(7);
+  await expect(projectCards(page)).toHaveCount(8);
 
   await projectCards(page).first().getByRole("link", { name: "Insight Dashboard" }).click();
 
@@ -18,8 +18,8 @@ test("the list says up front how many projects there are, and links to each", as
   await page.goto("/");
   const index = page.getByRole("navigation", { name: "All projects" });
   await expect(index).toBeInViewport();
-  await expect(page.getByText("7 projects")).toBeVisible();
-  await expect(index.getByRole("link")).toHaveCount(7);
+  await expect(page.getByText("8 projects")).toBeVisible();
+  await expect(index.getByRole("link")).toHaveCount(8);
 
   await index.getByRole("link", { name: "Orbital" }).click();
   await expect(page.locator("#project-orbital")).toBeInViewport();
@@ -40,7 +40,7 @@ test("a Next project button walks through the list and is gone on the last card"
 
 test("each card says where it sits in the list", async ({ page }) => {
   await page.goto("/");
-  await expect(projectCards(page).first().getByText("01 / 07")).toBeVisible();
+  await expect(projectCards(page).first().getByText("01 / 08")).toBeVisible();
 });
 
 test("the hackathon badge on Phase Shift leads to the event on the Info page", async ({ page }) => {

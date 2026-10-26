@@ -14,6 +14,7 @@ import {
   faNetworkWired,
   faEnvelope,
   faMusic,
+  faBriefcase,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 // Type-only, so this does not create a runtime cycle with the dictionaries.
@@ -85,7 +86,8 @@ export type ProjectId =
   | "orbital"
   | "vert"
   | "knightrpg"
-  | "cardgame";
+  | "cardgame"
+  | "larplife";
 
 export type ProjectMeta = {
   id: ProjectId;
@@ -171,6 +173,16 @@ export const projectMeta: ProjectMeta[] = [
     tech: ["Angular", "TypeScript", "C#", "MVC"],
     github: ["https://github.com/TPisco/5w5_ProjetCartes_SERVEUR", "https://github.com/TPisco/5w5_ProjetCartes_CLIENT"],
     videoUrl: "https://youtu.be/syJdqsed4AY",
+    preview: { clip: true },
+  },
+  {
+    id: "larplife",
+    name: "Larp Life",
+    icon: faBriefcase,
+    tint: "#ebe2d6",
+    tech: ["Roblox", "Luau", "Rojo", "Lune", "Blender"],
+    // The repo is private, so there is no GitHub link yet.
+    videoUrl: "https://youtu.be/NvBeDlrwJdQ",
     preview: { clip: true },
   },
   {

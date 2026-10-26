@@ -232,6 +232,32 @@ export const es: Dictionary = {
           ],
         },
       },
+      larplife: {
+        tagline: "Simulador de empleos en Roblox, de la acera hasta el último piso",
+        why: "Es una economía de juego completa, construida para que el servidor decida todo lo que importa. Cada tarea de turno y cada entrevista se genera a partir de una semilla y se califica en el servidor con las acciones en bruto del jugador: un cliente que hace trampa solo puede sacar mala nota. Cada número vive en un solo archivo de configuración, comprobado por cientos de aserciones automáticas.",
+        detail: {
+          overview:
+            "Larp Life es un juego multijugador de Roblox donde el botín es el empleo. Empiezas en una acera con un vaso de cartón, pides monedas, te compras un teléfono y, con su app de empleos, te postulas a 33 empresas repartidas en una ciudad de 11 barrios. Las entrevistas y los turnos son minijuegos cortos; los ascensos, las casas, los autos y un pase de temporada te mantienen subiendo.",
+          description:
+            "La contratación tiene dos etapas. Te postulas por Larpingdin, la app de empleos del juego, y luego pasas una entrevista en forma de minijuego elegido según la empresa: siete tipos, desde decir lo que el entrevistador quiere oír hasta pedir tu salario sin pasarte. Ya contratado, un turno te reparte tareas entre 16 minijuegos sobre 13 mecánicas, y cada uno cambia sus reglas en cada partida: la misma tarea dos veces es otro rompecabezas. Los buenos turnos llevan a ascensos, siete rangos por empleo, y a combinar varios empleos a la vez.\n\nEl servidor controla cada transacción, cada tirada y cada contratación. Envía cada minijuego como una semilla con un plazo, el cliente solo devuelve las teclas pulsadas y el servidor las vuelve a reproducir para calificarlas, rechazando cualquier envío tardío o repetido. La ciudad, 97 modelos del mundo y 67 objetos se construyen en Blender y se ensamblan al iniciar, las partidas se guardan en un DataStore con guardado automático y valores seguros para partidas antiguas, y nada de lo que se vende con Robux tiene un resultado aleatorio. Son unas 40 000 líneas de Luau, con cada valor ajustable en un solo archivo de configuración y 339 aserciones ejecutadas fuera de Roblox con Lune.\n\nFunciona en Roblox Studio. Antes de publicarse, le falta crear sus productos de Robux en el Creator Dashboard y bloquear las sesiones de guardado.",
+          features: [
+            "Una ciudad de 11 barrios en una cuadrícula de calles, con día y noche, peatones, tráfico y autos que puedes conducir",
+            "33 empresas y 48 puestos, cada uno con siete rangos que escalar",
+            "7 minijuegos de entrevista y 16 tareas de turno, con reglas nuevas en cada partida",
+            "Puntuación calculada en el servidor a partir de las acciones en bruto: un cliente que miente solo puede puntuar mal",
+            "Una casa por jugador: 7 niveles de casa, un tycoon de muebles, mascotas y un probador",
+            "Pase de temporada, equipos, eventos en la ciudad, recompensas diarias y clasificaciones",
+            "Se juega con teclado, con mando o con una sola mano en el teléfono",
+            "339 aserciones ejecutadas con Lune, incluido cada minijuego resuelto automáticamente",
+          ],
+          role: [
+            "Redacté el documento de diseño: la economía, los cálculos de contratación, las 33 empresas, la monetización y la arquitectura",
+            "Desarrollé el servidor y el cliente en Luau con Rojo, con el servidor decidiendo cada transacción",
+            "Construí la ciudad, las casas y los objetos en Blender con un pipeline programado",
+            "Escribí la batería de pruebas que compara los números del juego con el documento de diseño",
+          ],
+        },
+      },
       knightrpg: {
         tagline: "RPG de acción 3D con mundos procedurales",
         why: "Los videojuegos son donde más exijo al diseño de sistemas — lograr que combate, progresión y generación convivan sin volverse un enredo.",

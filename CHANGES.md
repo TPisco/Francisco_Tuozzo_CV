@@ -26,7 +26,7 @@ Numbers come from measurements on production builds, not estimates.
 ### A list people didn't scroll → a list that says it's a list
 - **Before:** the first project card filled the screen.
 - **Why:** 4 of the 5 people you showed the site to thought the first project was the only one.
-- **Gained:** "Selected work" with the number of projects and a jump link to each one, a counter like "01 / 07" on every card, and a "Next project" button that walks through the list.
+- **Gained:** "Selected work" with the number of projects and a jump link to each one, a counter like "01 / 08" on every card, and a "Next project" button that walks through the list.
 
 ### Missing recent work → Phase Shift, Orbital and the hackathon result
 - **Before:** the site stopped at older projects, and the Qollab × IonQ result wasn't mentioned.
@@ -37,6 +37,11 @@ Numbers come from measurements on production builds, not estimates.
 - **Before:** Luna's site was left out of the first audit, because it wasn't clear it was live or that she agreed to it being shown.
 - **Why:** it is live, and she agreed. It's the only project built for a real client, and recruiters can open it in one click.
 - **Gained:** a case study in three languages with a "See it live" button (renamed from "Try it live" so it fits a website too) and a link to the public repo. Its clip is a scroll through the live site, recorded by `scripts/record-scroll.mjs`, so it can be re-recorded whenever her site changes.
+
+### An untested Roblox game → Larp Life, played and recorded
+- **Before:** the Roblox job simulator was left out because it had never been run in Studio and there was nothing real to show.
+- **Why:** it now runs, and you recorded a full play session.
+- **Gained:** a case study in three languages built from the game's own README (11 districts, 33 companies, 16 shift minigames, server-side scoring, 339 assertions), with the video embedded and a clip of the car crossing the city at night.
 
 ### YouTube loading with every case study → a play button
 - **Before:** each case study loaded YouTube's player straight away: 5.2 MB per page, 4.2 MB of it YouTube.
@@ -105,7 +110,7 @@ Numbers come from measurements on production builds, not estimates.
 - **Why:** you asked that everything be readable and usable by everyone, including blind and disabled visitors.
 - **Gained:**
   - A "Skip to content" link.
-  - Screen-reader text for icons, new-tab links and the "01 / 07" counters.
+  - Screen-reader text for icons, new-tab links and the "01 / 08" counters.
   - Menus that close on Escape and return focus to their button.
   - Menu rows at least 44 px tall on touch screens.
   - Contrast that passes WCAG AA.

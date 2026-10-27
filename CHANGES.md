@@ -144,6 +144,11 @@ Numbers come from measurements on production builds, not estimates.
 - **Why:** you wanted every level after the first to be as hard as the last.
 - **Gained:** the campus teaches the controls. Every level after it is at least as hard as the old final level, and the hackathon is harder still. A test bot proves each is still finishable with careful play, and that missing 1 obstacle in 8 gets you caught.
 
+### A level 2 that felt as hard as level 5 → a step up
+- **Before:** the tennis tournament's ball machine was as fast as the old final chaser and stayed only 8.2 m behind, so one stumble was usually the end.
+- **Why:** you found level 2 too hard so soon after the tutorial.
+- **Gained:** the ball machine now starts at 7.2 m/s instead of 8, tops out at 8.8 instead of 9.3, and can fall up to 11 m behind instead of 8.2. The obstacles are unchanged. A careful run keeps about 6 m of room instead of 2.8, missing 1 obstacle in 8 still finishes, and missing 1 in 4 does not.
+
 ### Phones and fairness fixes
 - **Before:** the chaser started before you could react, portrait phones were cramped, and scenery could be mistaken for obstacles.
 - **Why:** a design review played it on phones.

@@ -1,11 +1,13 @@
 /**
  * The five levels of Run, Francisco!. Everything is in metres and seconds.
  * The campus is the tutorial run: a slow chaser, room between obstacles, low
- * blocks. Every level after it is hard: the chaser starts at 8 m/s or more and
- * never falls far behind, obstacles come less than a second apart (`reaction`,
- * the seconds you get between two of them at full speed), and climbs reach
- * the third floor. Each adds its own hazard (flying balls, gaps, ice), and the
- * hackathon has the fastest chaser, the widest gaps and the tallest climbs.
+ * blocks. Every level after it has obstacles less than a second apart
+ * (`reaction`, the seconds you get between two of them at full speed) and
+ * climbs to the third floor. The tennis tournament is the step up: its chaser
+ * is slower and stays further back, so one stumble can be recovered. From the
+ * port on, the chaser starts at 8 m/s or more and never falls far behind.
+ * Each level adds its own hazard (flying balls, gaps, ice), and the hackathon
+ * has the fastest chaser, the widest gaps and the tallest climbs.
  */
 
 export type LevelId = "campus" | "tennis" | "port" | "winter" | "hackathon";
@@ -96,7 +98,7 @@ export const levels: LevelConfig[] = [
   {
     id: "tennis",
     length: 600,
-    chaser: { sprite: "ballMachine", start: 8, ramp: 0.06, max: 9.3, leash: 8.2 },
+    chaser: { sprite: "ballMachine", start: 7.2, ramp: 0.05, max: 8.8, leash: 11 },
     reaction: { start: 0.95, end: 0.72 },
     obstacles: [
       { sprite: "net", kind: "low", w: 1.21, h: 0.83, weight: 2 },

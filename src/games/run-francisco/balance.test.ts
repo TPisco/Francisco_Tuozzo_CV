@@ -60,8 +60,13 @@ describe("difficulty", () => {
     expect(play(0, 4)).toBe("finished");
   });
 
-  test("every level after it is hard: missing one obstacle in eight gets you caught", () => {
-    const sloppy = levels.slice(1).map((_, i) => play(i + 1, 8));
+  test("the second level is the step up: it forgives one miss in eight, not one in four", () => {
+    expect(play(1, 8)).toBe("finished");
+    expect(play(1, 4)).not.toBe("finished");
+  });
+
+  test("from the third level on, missing one obstacle in eight gets you caught", () => {
+    const sloppy = levels.slice(2).map((_, i) => play(i + 2, 8));
     expect(sloppy).not.toContain("finished");
   });
 });

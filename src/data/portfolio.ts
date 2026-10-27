@@ -182,6 +182,8 @@ export const projectMeta: ProjectMeta[] = [
     tint: "#ebe2d6",
     tech: ["Roblox", "Luau", "Rojo", "Lune", "Blender"],
     // The repo is private, so there is no GitHub link yet.
+    // Without a language in the path, Roblox shows the page in the visitor's own language.
+    liveUrl: "https://www.roblox.com/games/139770391597721/Larp-Life",
     videoUrl: "https://youtu.be/NvBeDlrwJdQ",
     preview: { clip: true },
   },

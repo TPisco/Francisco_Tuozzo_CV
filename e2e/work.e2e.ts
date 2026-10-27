@@ -100,3 +100,11 @@ test("a website's case study links to the live site", async ({ page }) => {
   await expect(live).toHaveAttribute("href", "https://lunayla-officiel.vercel.app/");
   await expect(live).toHaveAttribute("target", "_blank");
 });
+
+test("Larp Life's case study links to the game on Roblox", async ({ page }) => {
+  await page.goto("/projects/larplife");
+
+  const live = page.getByRole("link", { name: /See it live/ });
+  await expect(live).toHaveAttribute("href", "https://www.roblox.com/games/139770391597721/Larp-Life");
+  await expect(page.getByText("It's published on Roblox, and anyone can play it now.")).toBeVisible();
+});

@@ -41,7 +41,7 @@ Numbers come from measurements on production builds, not estimates.
 ### An untested Roblox game → Larp Life, played and recorded
 - **Before:** the Roblox job simulator was left out because it had never been run in Studio and there was nothing real to show.
 - **Why:** it now runs, and you recorded a full play session.
-- **Gained:** a case study in three languages built from the game's own README (11 districts, 33 companies, 16 shift minigames, server-side scoring, 339 assertions), with the video embedded and a clip of the car crossing the city at night.
+- **Gained:** a case study in three languages built from the game's own README (11 districts, 33 companies, 16 shift minigames, server-side scoring, 339 assertions), with the video embedded, a clip of the car crossing the city at night, and a "See it live" button to its page on Roblox, where it is now published.
 
 ### YouTube loading with every case study → a play button
 - **Before:** each case study loaded YouTube's player straight away: 5.2 MB per page, 4.2 MB of it YouTube.

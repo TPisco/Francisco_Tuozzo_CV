@@ -5,6 +5,7 @@ import "./globals.css";
 import { introScript } from "@/components/intro";
 import { LanguageProvider } from "@/i18n/provider";
 import { profile, siteUrl } from "@/data/portfolio";
+import { Analytics } from '@vercel/analytics/next';
 
 // One grotesk for everything; one serif, only for the italic accent word in a headline.
 const albertSans = Albert_Sans({
@@ -21,7 +22,7 @@ const gloock = Gloock({
 });
 
 const description =
-  "Francisco Tuozzo — a bilingual computer science student and software developer in Quebec. I build offline-first desktop tools, ASP.NET Core MVC web apps, Angular front-ends, and games in Godot.";
+  "Francisco Tuozzo — a trilingual computer science student and software developer in Quebec. I build offline-first desktop tools, ASP.NET Core MVC web apps, Angular front-ends, and games in Godot.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,6 +39,8 @@ export const metadata: Metadata = {
     "Angular developer",
     "Quebec software student",
     "Francisco Tuozzo",
+    "Francisco",
+    "Tuozzo",
   ],
   authors: [{ name: profile.name }],
   creator: profile.name,
@@ -76,6 +79,7 @@ export default function RootLayout({
       <body className={`${albertSans.variable} ${gloock.variable} font-sans`}>
         {/* The site's chrome (navbar, footer) lives in app/(site)/layout.tsx, so games can take the whole screen. */}
         <LanguageProvider>{children}</LanguageProvider>
+         <Analytics />
       </body>
     </html>
   );

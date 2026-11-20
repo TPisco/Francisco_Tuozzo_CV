@@ -29,7 +29,7 @@ export const profile = {
   name: "Francisco Tuozzo",
   email: "franciscotuozzo@gmail.com",
   github: "https://github.com/TPisco",
-  linkedin: "https://www.linkedin.com/in/francisco-tuozzo-0b47943b2/",
+  linkedin: "https://www.linkedin.com/in/francisco-tuozzo/",
   languages: ["Français", "English", "Español"],
 };
 
@@ -130,6 +130,7 @@ export const projectMeta: ProjectMeta[] = [
     tech: ["Python", "Qiskit", "IonQ", "JavaScript", "Pyodide", "pytest"],
     github: ["https://github.com/TPisco/quantum-interference-game"],
     liveUrl: "https://qollab.xyz/u/Ryoto/quantum-interference-game",
+    videoUrl: "https://youtu.be/QwOKj7mQqxs?si=oL11fRw6cPozb9rs",
     // Clip cut from the hackathon demo video; it has no YouTube upload to embed.
     preview: { clip: true },
     award: "qollabIonq",
